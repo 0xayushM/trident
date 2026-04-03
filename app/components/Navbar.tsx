@@ -13,6 +13,7 @@ export default function Navbar() {
             width={56}
             height={56}
             className="w-14 h-14"
+            priority
           />
           <h1 className="text-2xl font-bold text-white doomsday-text">TRIDENT</h1>
         </div>

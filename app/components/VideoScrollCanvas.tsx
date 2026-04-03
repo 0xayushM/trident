@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import ScrollText from './ScrollText';
 import HeroOverlays from './HeroOverlays';
+import ScrollToExplore from './ScrollToExplore';
 
 const FRAME_COUNT_1 = 301;
 // const FRAME_COUNT_2 = 241;
@@ -134,8 +135,10 @@ export default function VideoScrollCanvas() {
             ref={canvasRef}
             className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/50 pointer-events-none" />
           <ScrollText scrollProgress={scrollProgress} />
           {/* <HeroOverlays /> */}
+          <ScrollToExplore scrollProgress={scrollProgress} />
           {!imagesLoaded && (
             <div className="absolute inset-0 flex items-center justify-center text-white bg-black">
               {/* <div className="text-lg">Loading frames...</div> */}

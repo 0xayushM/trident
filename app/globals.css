@@ -66,3 +66,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes scroll-indicator {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+.animate-scroll-indicator {
+  animation: scroll-indicator 1.5s ease-in-out infinite;
+}
