@@ -1,8 +1,47 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Layar Bahtera Doomsday';
+  src: url('/layarbahtera-doomsday/LayarBahtera%20Doomsday.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Layar Bahtera Doomsday';
+  src: url('/layarbahtera-doomsday/LayarBahtera%20Doomsday%20Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Layar Bahtera Doomsday';
+  src: url('/layarbahtera-doomsday/LayarBahtera%20Doomsday%20Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Layar Bahtera Doomsday Condensed';
+  src: url('/layarbahtera-doomsday/LayarBahtera%20Doomsday%20Condensed.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Layar Bahtera Doomsday Extended';
+  src: url('/layarbahtera-doomsday/LayarBahtera%20Doomsday%20Extended.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+
+.doomsday-text {
+  font-family: 'Layar Bahtera Doomsday', sans-serif;
 }
 
 @theme inline {
@@ -10,6 +49,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-doomsday: 'Layar Bahtera Doomsday', sans-serif;
+  --font-doomsday-condensed: 'Layar Bahtera Doomsday Condensed', sans-serif;
+  --font-doomsday-extended: 'Layar Bahtera Doomsday Extended', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
