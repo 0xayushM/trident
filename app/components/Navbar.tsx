@@ -12,13 +12,13 @@ export default function Navbar() {
             alt="Logo"
             width={56}
             height={56}
-            className="w-14 h-14"
+            className="w-10 h-10 md:w-14 md:h-14"
             priority
           />
-          <h1 className="text-2xl font-bold text-white nebula-text">TRIDENT</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-white nebula-text">TRIDENT</h1>
         </div>
 
-        <button className="bg-white text-slate-900 px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-100 transition-colors flex items-center gap-2 shadow-lg">
+        <button className="bg-white text-slate-900 px-3 py-1 md:px-6 md:py-2.5 rounded-full font-semibold text-xs md:text-sm hover:bg-gray-100 transition-colors flex items-center gap-2 shadow-lg">
           Inquiry Now
           <div className="w-5 h-5 bg-black rounded-full flex items-center justify-center">
             <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
