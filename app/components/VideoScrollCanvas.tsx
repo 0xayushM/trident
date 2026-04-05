@@ -5,9 +5,9 @@ import ScrollText from './ScrollText';
 import HeroOverlays from './HeroOverlays';
 import ScrollToExplore from './ScrollToExplore';
 
-const FRAME_COUNT_1 = 301;
-// const FRAME_COUNT_2 = 241;
-const TOTAL_FRAMES = FRAME_COUNT_1;
+const FRAME_COUNT_VIDEO = 121;
+const FRAME_COUNT_ANIMATION = 301;
+const TOTAL_FRAMES = FRAME_COUNT_VIDEO + FRAME_COUNT_ANIMATION;
 
 export default function VideoScrollCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -71,7 +71,6 @@ export default function VideoScrollCanvas() {
         offsetX = isMobile ? (canvas.width - drawWidth) : (canvas.width - drawWidth) / 2;
         offsetY = 0;
       }
-      console.log('Canvas dimensions:', { isMobile, canvasWidth: canvas.width, drawWidth, offsetX });
     };
 
     const resizeCanvas = () => {
@@ -83,7 +82,7 @@ export default function VideoScrollCanvas() {
     const preloadImages = () => {
       let loadedCount = 0;
       
-      for (let i = 1; i <= FRAME_COUNT_1; i++) {
+      for (let i = 1; i <= TOTAL_FRAMES; i++) {
         const img = new Image();
         img.src = `/frames/frame-${String(i).padStart(4, '0')}.webp`;
         
@@ -159,11 +158,11 @@ export default function VideoScrollCanvas() {
             loop
             muted
             playsInline
-            className={`absolute inset-0 w-full h-full object-cover object-right md:object-center transition-opacity duration-700 ${hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+            className={`absolute inset-0 w-full h-full object-cover object-right md:object-center transition-opacity duration-10 ${hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           />
           <canvas
             ref={canvasRef}
-            className={`w-full h-full object-cover object-right md:object-center transition-opacity duration-700 ${hasScrolled ? 'opacity-100' : 'opacity-0'}`}
+            className={`w-full h-full object-cover object-right md:object-center transition-opacity duration-10 ${hasScrolled ? 'opacity-100' : 'opacity-0'}`}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-transparent to-black/90 pointer-events-none" />
           <ScrollText scrollProgress={scrollProgress} />
