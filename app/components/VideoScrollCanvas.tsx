@@ -57,6 +57,7 @@ export default function VideoScrollCanvas() {
 
     const calculateDimensions = () => {
       const canvasAspect = canvas.width / canvas.height;
+      const isMobile = window.innerWidth < 768;
 
       if (canvasAspect > imageAspect) {
         drawWidth = canvas.width;
@@ -66,9 +67,11 @@ export default function VideoScrollCanvas() {
       } else {
         drawHeight = canvas.height;
         drawWidth = canvas.height * imageAspect;
-        offsetX = (canvas.width - drawWidth) / 2;
+        // On mobile: align right, on desktop: center
+        offsetX = isMobile ? (canvas.width - drawWidth) : (canvas.width - drawWidth) / 2;
         offsetY = 0;
       }
+      console.log('Canvas dimensions:', { isMobile, canvasWidth: canvas.width, drawWidth, offsetX });
     };
 
     const resizeCanvas = () => {
@@ -156,11 +159,11 @@ export default function VideoScrollCanvas() {
             loop
             muted
             playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+            className={`absolute inset-0 w-full h-full object-cover object-right md:object-center transition-opacity duration-700 ${hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           />
           <canvas
             ref={canvasRef}
-            className={`w-full h-full object-cover transition-opacity duration-700 ${hasScrolled ? 'opacity-100' : 'opacity-0'}`}
+            className={`w-full h-full object-cover object-right md:object-center transition-opacity duration-700 ${hasScrolled ? 'opacity-100' : 'opacity-0'}`}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-transparent to-black/90 pointer-events-none" />
           <ScrollText scrollProgress={scrollProgress} />
