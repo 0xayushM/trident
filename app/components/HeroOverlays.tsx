@@ -6,7 +6,7 @@ export default function HeroOverlays() {
   return (
     <>
       <div className="hidden md:block absolute bottom-8 left-8 md:left-12 z-40 max-w-xs">
-        <h1 className="text-4xl md:text-6xl font-bold text-white doomsday-text">TRIDENT</h1>
+        <h1 className="text-4xl md:text-6xl font-bold text-white nebula-text">TRIDENT</h1>
       </div>
 
       <div className="absolute bottom-8 px-8 md:right-12 z-40 max-w-md">

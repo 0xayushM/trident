@@ -38,7 +38,22 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
 
       const chars = wordElement.querySelectorAll('.char');
 
-      if (scrollProgress >= word.startProgress && scrollProgress <= word.endProgress) {
+      if (scrollProgress < word.startProgress) {
+        gsap.to(wordElement, {
+          opacity: 0,
+          duration: 0.2,
+        });
+        gsap.to(chars, {
+          opacity: 0,
+          y: 20,
+          duration: 0.2,
+        });
+      } else if (scrollProgress >= word.startProgress && scrollProgress <= word.endProgress) {
+        gsap.to(wordElement, {
+          opacity: 1,
+          duration: 0.3,
+        });
+        
         const progress = (scrollProgress - word.startProgress) / (word.endProgress - word.startProgress);
         const charsToShow = Math.floor(progress * chars.length);
         
@@ -74,12 +89,6 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
             });
           }
         });
-      } else if (scrollProgress < word.startProgress) {
-        gsap.to(chars, {
-          opacity: 0,
-          y: 20,
-          duration: 0.2,
-        });
       } else if (scrollProgress >= fadeOutStart) {
         gsap.to(wordElement, {
           opacity: 0,
@@ -103,13 +112,9 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
 
   return (
     <div ref={containerRef} className="absolute inset-0 flex items-start top-1/4 justify-center pointer-events-none px-4 md:px-8">
-      <div className="text-center max-w-7xl">
+      <div className="text-center max-w-8xl">
         <div 
-          className="flex flex-wrap justify-center gap-x-4 gap-y-2"
-          style={{ 
-            fontFamily: 'var(--font-doomsday)',
-            letterSpacing: '0em'
-          }}
+          className="flex flex-wrap justify-center gap-x-4 gap-y-0 nebula-text tracking-tight leading-[0.1]"
         >
           {words.map((word, wordIndex) => (
             <div
@@ -117,10 +122,10 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
               ref={(el) => { wordsRef.current[wordIndex] = el; }}
               className="text-4xl md:text-6xl lg:text-8xl font-bold"
             >
-              {word.text.split('').map((char, charIndex) => (
+              {word.text.split(' ').map((char, charIndex) => (
                 <span
                   key={charIndex}
-                  className="char opacity-0"
+                  className="char opacity-0 px-2"
                   style={{ 
                     transform: 'translateY(20px)',
                     display: 'inline-block'

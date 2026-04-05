@@ -12,9 +12,27 @@ const TOTAL_FRAMES = FRAME_COUNT_1;
 export default function VideoScrollCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const framesRef = useRef<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    if (scrollProgress > 0.02 && !hasScrolled) {
+      setHasScrolled(true);
+      if (videoRef.current && !videoRef.current.paused) {
+        videoRef.current.pause();
+      }
+    } else if (scrollProgress <= 0.02 && hasScrolled) {
+      setHasScrolled(false);
+      if (videoRef.current && videoRef.current.paused) {
+        videoRef.current.play().catch((error) => {
+          console.log('Video play failed:', error);
+        });
+      }
+    }
+  }, [scrollProgress, hasScrolled]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -128,14 +146,23 @@ export default function VideoScrollCanvas() {
   }, [imagesLoaded]);
 
   return (
-    <div ref={containerRef} className="relative h-[540vh] w-full bg-gradient-to-br from-slate-200 to-slate-300">
+    <div ref={containerRef} className="relative h-[540vh] w-full bg-gradient-to-br from-slate-900 to-slate-950">
       <div className="sticky top-0 h-screen w-full flex items-center justify-center">
         <div className="relative overflow-hidden shadow-2xl">
+          <video
+            ref={videoRef}
+            src="/hero_gif.mov"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          />
           <canvas
             ref={canvasRef}
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover transition-opacity duration-700 ${hasScrolled ? 'opacity-100' : 'opacity-0'}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/50 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-transparent to-black/90 pointer-events-none" />
           <ScrollText scrollProgress={scrollProgress} />
           {/* <HeroOverlays /> */}
           <ScrollToExplore scrollProgress={scrollProgress} />

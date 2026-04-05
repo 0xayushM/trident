@@ -35,6 +35,20 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Nebula';
+  src: url('/fonts/Nebula-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nebula Hollow';
+  src: url('/fonts/Nebula-Hollow.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -42,6 +56,10 @@
 
 .doomsday-text {
   font-family: 'Layar Bahtera Doomsday', sans-serif;
+}
+
+.nebula-text {
+  font-family: 'Nebula', sans-serif;
 }
 
 @theme inline {
@@ -52,6 +70,8 @@
   --font-doomsday: 'Layar Bahtera Doomsday', sans-serif;
   --font-doomsday-condensed: 'Layar Bahtera Doomsday Condensed', sans-serif;
   --font-doomsday-extended: 'Layar Bahtera Doomsday Extended', sans-serif;
+  --font-nebula: 'Nebula', sans-serif;
+  --font-nebula-hollow: 'Nebula Hollow', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

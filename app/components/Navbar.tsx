@@ -15,7 +15,7 @@ export default function Navbar() {
             className="w-14 h-14"
             priority
           />
-          <h1 className="text-2xl font-bold text-white doomsday-text">TRIDENT</h1>
+          <h1 className="text-2xl font-bold text-white nebula-text">TRIDENT</h1>
         </div>
 
         <button className="bg-white text-slate-900 px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-100 transition-colors flex items-center gap-2 shadow-lg">
