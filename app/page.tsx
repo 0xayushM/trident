@@ -1,21 +1,35 @@
 import VideoScrollCanvas from "./components/VideoScrollCanvas";
 import Navbar from "./components/Navbar";
+import BrandStatement from "./components/BrandStatement";
+import About from "./components/About";
+import StatsBar from "./components/StatsBar";
+import ServicesGrid from "./components/ServicesGrid";
+import TrustProcess from "./components/TrustProcess";
+import GlobalReach from "./components/GlobalReach";
+import WhyTrident from "./components/WhyTrident";
+import Certifications from "./components/Certifications";
+import Testimonials from "./components/Testimonials";
+import CTAStrip from "./components/CTAStrip";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Navbar />
       <VideoScrollCanvas />
-      <section className="min-h-screen flex items-center justify-center bg-white dark:bg-zinc-900">
-        <div className="max-w-4xl mx-auto px-8 py-32 text-center">
-          <h2 className="text-4xl font-bold mb-6 text-black dark:text-white">
-            Your Content Here
-          </h2>
-          <p className="text-lg text-zinc-600 dark:text-zinc-400">
-            Add your content below the scroll-driven video hero section.
-          </p>
-        </div>
-      </section>
+      <BrandStatement />
+      <About />
+      <StatsBar />
+      <ServicesGrid />
+      <TrustProcess />
+      <GlobalReach />
+      <WhyTrident />
+      <Certifications />
+      <Testimonials />
+      <CTAStrip />
+      <Contact />
+      <Footer />
     </div>
   );
 }
