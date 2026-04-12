@@ -41,7 +41,7 @@ export default function WhyTrident() {
             transition={{ duration: 0.65, delay: 0.2 }}
             className="bg-slate-800/30 border border-white/8 p-8 md:p-12"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white nebula-text italic mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white unica-text italic mb-6 leading-tight">
               Your most reliable trade partner
             </h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed font-light">
@@ -70,7 +70,7 @@ export default function WhyTrident() {
             transition={{ duration: 0.65, delay: 0.2 }}
             className="bg-slate-800/30 border border-white/8 border-l-white/20 p-8 md:p-12"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white nebula-text italic mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white unica-text italic mb-6 leading-tight">
               Sourcing at industry scale
             </h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed font-light">

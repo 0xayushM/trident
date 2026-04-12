@@ -14,12 +14,12 @@ interface Word {
 }
 
 const words: Word[] = [
-  { text: "RELIABLE", startProgress: 0.15, endProgress: 0.25 },
-  { text: "GLOBAL", startProgress: 0.25, endProgress: 0.35 },
-  { text: "SHIPPING", startProgress: 0.35, endProgress: 0.45 },
+  { text: "Reliable", startProgress: 0.15, endProgress: 0.25 },
+  { text: "Global", startProgress: 0.25, endProgress: 0.35 },
+  { text: "Shipping", startProgress: 0.35, endProgress: 0.45 },
   { text: "&", startProgress: 0.45, endProgress: 0.5 },
-  { text: "LOGISTICS", startProgress: 0.5, endProgress: 0.6 },
-  { text: "SOLUTIONS", startProgress: 0.6, endProgress: 0.7 },
+  { text: "Logistics", startProgress: 0.5, endProgress: 0.6 },
+  { text: "Solutions", startProgress: 0.6, endProgress: 0.7 },
 ];
 
 const fadeOutStart = 0.95;
@@ -111,10 +111,10 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
   }, [scrollProgress]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 flex items-start top-1/4 justify-center pointer-events-none px-4 md:px-8">
+    <div ref={containerRef} className="absolute inset-0 flex items-start top-3/4 justify-center pointer-events-none px-4 md:px-8">
       <div className="text-center max-w-8xl">
         <div 
-          className="flex flex-wrap justify-center gap-x-4 gap-y-0 nebula-text tracking-tight leading-[0.1]"
+          className="flex flex-wrap justify-center gap-x-4 gap-y-0 unica-text tracking-tight leading-[0.1]"
         >
           {words.map((word, wordIndex) => (
             <div
@@ -122,10 +122,10 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
               ref={(el) => { wordsRef.current[wordIndex] = el; }}
               className="text-4xl md:text-6xl lg:text-8xl font-bold"
             >
-              {word.text.split(' ').map((char, charIndex) => (
+              {word.text.split('').map((char, charIndex) => (
                 <span
                   key={charIndex}
-                  className="char opacity-0 px-2"
+                  className="char opacity-0 px-0"
                   style={{ 
                     transform: 'translateY(20px)',
                     display: 'inline-block'

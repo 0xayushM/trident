@@ -37,7 +37,7 @@ export default function About() {
         >
           <div>
             <p className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4">About Trident</p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white nebula-text mb-8">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text mb-8">
               BUILT FOR GLOBAL TRADE COMPLEXITY
             </h2>
             <p className="text-gray-300 text-lg mb-6 leading-relaxed font-light">
@@ -56,7 +56,7 @@ export default function About() {
                   transition={{ duration: 0.65, delay: index * 0.15 }}
                   className="border-l-4 border-blue-500 pl-6 py-2"
                 >
-                  <h3 className="text-xl font-bold text-white nebula-text mb-2">{pillar.title}</h3>
+                  <h3 className="text-xl font-bold text-white unica-text mb-2">{pillar.title}</h3>
                   <p className="text-gray-400 leading-relaxed">{pillar.description}</p>
                 </motion.div>
               ))}
@@ -77,7 +77,7 @@ export default function About() {
                 className="object-cover"
               />
               <div className="absolute bottom-8 left-8 bg-slate-900/95 backdrop-blur-sm p-6 rounded-lg border border-blue-500/30 max-w-xs">
-                <div className="text-5xl font-bold text-blue-400 nebula-text mb-2">500+</div>
+                <div className="text-5xl font-bold text-blue-400 unica-text mb-2">500+</div>
                 <p className="text-white text-lg font-semibold">Shipments Completed</p>
                 <p className="text-gray-400 text-sm mt-1">Across 28 countries in 2024</p>
               </div>

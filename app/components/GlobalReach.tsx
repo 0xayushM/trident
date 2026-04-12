@@ -58,7 +58,7 @@ export default function GlobalReach() {
           className="text-center mb-16"
         >
           <p className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4">Global Reach</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white nebula-text">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text">
             CONNECTING CONTINENTS
           </h2>
         </motion.div>
@@ -114,7 +114,7 @@ export default function GlobalReach() {
                   transition={{ duration: 0.65, delay: 0.3 + index * 0.1 }}
                   className="bg-slate-800/50 border border-white/8 rounded-lg p-6 text-center"
                 >
-                  <div className="text-3xl font-bold text-blue-400 nebula-text mb-1">{stat.number}</div>
+                  <div className="text-3xl font-bold text-blue-400 unica-text mb-1">{stat.number}</div>
                   <p className="text-gray-400 text-sm">{stat.label}</p>
                 </motion.div>
               ))}
@@ -143,7 +143,7 @@ export default function GlobalReach() {
                     {route.badge}
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-white nebula-text mb-2">{route.route}</h3>
+                <h3 className="text-xl font-bold text-white unica-text mb-2">{route.route}</h3>
                 <p className="text-gray-400 text-sm">{route.detail}</p>
               </motion.div>
             ))}

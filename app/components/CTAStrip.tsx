@@ -13,7 +13,7 @@ export default function CTAStrip() {
     <section className="relative w-full bg-gradient-to-br from-blue-700 via-slate-900 to-red-600 py-24 md:py-32 overflow-hidden">
       {/* Watermark text */}
       <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-        <p className="text-9xl font-bold text-white nebula-text whitespace-nowrap">
+        <p className="text-9xl font-bold text-white unica-text whitespace-nowrap">
           INTERNATIONAL TRIDENT
         </p>
       </div>
@@ -25,7 +25,7 @@ export default function CTAStrip() {
         transition={{ duration: 0.65 }}
         className="max-w-5xl mx-auto px-8 md:px-12 text-center relative z-10"
       >
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white nebula-text mb-6">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text mb-6">
           READY TO MOVE YOUR CARGO?
         </h2>
         <p className="text-xl text-white/90 mb-10 font-light max-w-3xl mx-auto">

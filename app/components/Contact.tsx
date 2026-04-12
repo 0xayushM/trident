@@ -43,7 +43,7 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <p className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4">Get In Touch</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white nebula-text">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text">
             START YOUR SHIPMENT TODAY
           </h2>
         </motion.div>
@@ -55,7 +55,7 @@ export default function Contact() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.65, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-bold text-white nebula-text mb-8">HEADQUARTERS</h3>
+            <h3 className="text-2xl font-bold text-white unica-text mb-8">HEADQUARTERS</h3>
             
             <div className="space-y-6">
               <div className="flex items-start gap-4">

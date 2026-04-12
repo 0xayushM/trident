@@ -33,7 +33,7 @@ export default function Footer() {
                 height={48}
                 className="w-12 h-12"
               />
-              <h3 className="text-xl font-bold text-white nebula-text">TRIDENT</h3>
+              <h3 className="text-xl font-bold text-white unica-text">TRIDENT</h3>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               Global freight forwarding and trade facilitation for businesses that demand precision, reliability, and transparency.

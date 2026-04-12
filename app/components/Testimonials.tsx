@@ -41,7 +41,7 @@ export default function Testimonials() {
           className="text-center mb-16"
         >
           <p className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4">Client Testimonials</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white nebula-text">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text">
             TRUSTED BY INDUSTRY LEADERS
           </h2>
         </motion.div>

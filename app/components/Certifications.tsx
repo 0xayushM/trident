@@ -65,7 +65,7 @@ export default function Certifications() {
           className="text-center mb-16"
         >
           <p className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4">Certifications</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white nebula-text">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text">
             GLOBALLY RECOGNIZED STANDARDS
           </h2>
         </motion.div>
@@ -83,13 +83,13 @@ export default function Certifications() {
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-transparent" />
               
               {/* Faded number background */}
-              <div className="absolute top-4 right-4 text-8xl font-bold text-white/5 nebula-text">
+              <div className="absolute top-4 right-4 text-8xl font-bold text-white/5 unica-text">
                 {cert.number}
               </div>
               
               <div className="relative z-10">
                 <div className="text-5xl mb-4">{cert.icon}</div>
-                <h3 className="text-xl font-bold text-white nebula-text mb-3">{cert.title}</h3>
+                <h3 className="text-xl font-bold text-white unica-text mb-3">{cert.title}</h3>
                 <p className="text-gray-400 leading-relaxed mb-4 text-sm">{cert.description}</p>
                 <span className="inline-block bg-red-500/20 text-red-400 text-xs font-semibold px-3 py-1 rounded-full">
                   {cert.badge}

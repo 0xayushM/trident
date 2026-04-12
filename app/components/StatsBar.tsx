@@ -33,7 +33,7 @@ export default function StatsBar() {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.65, delay: index * 0.1 }}
-                className="text-5xl md:text-6xl lg:text-7xl font-bold text-white nebula-text mb-2"
+                className="text-5xl md:text-6xl lg:text-7xl font-bold text-white unica-text mb-2"
               >
                 {inView && <CountUp end={stat.number} suffix={stat.suffix} />}
               </motion.div>

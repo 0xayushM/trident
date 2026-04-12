@@ -72,7 +72,7 @@ export default function ServicesGrid() {
           className="text-center mb-16"
         >
           <p className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4">Our Services</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white nebula-text">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text">
             COMPREHENSIVE LOGISTICS SOLUTIONS
           </h2>
         </motion.div>
@@ -86,13 +86,13 @@ export default function ServicesGrid() {
               transition={{ duration: 0.65, delay: index * 0.1 }}
               className="group relative bg-slate-800/50 border border-white/8 rounded-lg p-8 hover:border-blue-500/50 transition-all duration-300"
             >
-              <div className="absolute top-4 right-4 text-8xl font-bold text-white/5 nebula-text">
+              <div className="absolute top-4 right-4 text-8xl font-bold text-white/5 unica-text">
                 {service.number}
               </div>
               
               <div className="relative z-10">
                 <div className="text-5xl mb-4">{service.icon}</div>
-                <h3 className="text-2xl font-bold text-white nebula-text mb-3">{service.title}</h3>
+                <h3 className="text-2xl font-bold text-white unica-text mb-3">{service.title}</h3>
                 <p className="text-gray-400 leading-relaxed mb-4">{service.description}</p>
                 <span className="inline-block bg-blue-500/20 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full">
                   {service.tag}

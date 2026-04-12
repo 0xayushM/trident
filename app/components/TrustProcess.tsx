@@ -62,7 +62,7 @@ export default function TrustProcess() {
           className="text-center mb-16"
         >
           <p className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4">The Trust Process</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white nebula-text">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text">
             HOW WE PROTECT EVERY SHIPMENT
           </h2>
         </motion.div>
@@ -102,7 +102,7 @@ export default function TrustProcess() {
 
                   {/* Content */}
                   <div className="text-center">
-                    <h3 className="text-sm font-bold text-white nebula-text mb-2 leading-tight">
+                    <h3 className="text-sm font-bold text-white unica-text mb-2 leading-tight">
                       {step.title}
                     </h3>
                     <p className="text-xs text-gray-400 leading-relaxed">
@@ -138,7 +138,7 @@ export default function TrustProcess() {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-base font-bold text-white nebula-text">{step.title}</h3>
+                  <h3 className="text-base font-bold text-white unica-text">{step.title}</h3>
                 </div>
                 <svg
                   className={`w-5 h-5 text-gray-400 transition-transform ${activeStep === index ? 'rotate-180' : ''}`}
