@@ -1,5 +1,6 @@
 import VideoScrollCanvas from "./components/VideoScrollCanvas";
 import Navbar from "./components/Navbar";
+import WaveDivider from "./components/WaveDivider";
 import BrandStatement from "./components/BrandStatement";
 import About from "./components/About";
 import StatsBar from "./components/StatsBar";
@@ -12,13 +13,16 @@ import Testimonials from "./components/Testimonials";
 import CTAStrip from "./components/CTAStrip";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import KeyPoints from "./components/KeyPoints";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Navbar />
       <VideoScrollCanvas />
+      {/* <WaveDivider /> */}
       <BrandStatement />
+      <KeyPoints />
       <About />
       <StatsBar />
       <ServicesGrid />

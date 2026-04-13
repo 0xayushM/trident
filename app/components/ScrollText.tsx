@@ -112,7 +112,7 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
 
   return (
     <div ref={containerRef} className="absolute inset-0 flex items-start top-3/4 justify-center pointer-events-none px-4 md:px-8">
-      <div className="text-center max-w-8xl">
+      <div className="text-center max-w-6xl">
         <div 
           className="flex flex-wrap justify-center gap-x-4 gap-y-0 unica-text tracking-tight leading-[0.1]"
         >
@@ -120,7 +120,7 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
             <div
               key={wordIndex}
               ref={(el) => { wordsRef.current[wordIndex] = el; }}
-              className="text-4xl md:text-6xl lg:text-8xl font-bold"
+              className="text-4xl md:text-6xl lg:text-8xl font-normal tracking-tighter"
             >
               {word.text.split('').map((char, charIndex) => (
                 <span
