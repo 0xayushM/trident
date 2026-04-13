@@ -8,7 +8,7 @@ function buildDividerPath({
   tabW   = 300,  // flat horizontal tab at each side edge
   outerR = 0,   // ① ⑥  wall → tab corner radius
   diagW  = 50,   // horizontal span of diagonal
-  depth  = 30,   // vertical depth of scoops (animates to 0)
+  depth  = 40,   // vertical depth of scoops (animates to 0)
   entryR = 16,   // ② ⑤  tab → diagonal corner radius
   innerR = 20,   // ③ ④  diagonal → centre corner radius
 } = {}) {
@@ -215,20 +215,24 @@ export default function BrandStatement() {
         initial={{ opacity: 0, y: 32 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="max-w-7xl mx-auto px-8 md:px-12 py-24 md:py-32 text-center"
+        className="max-w-7xl mx-auto px-8 py-24 md:py-32 text-center"
       >
         <h2 className="text-4xl md:text-6xl lg:text-7xl unica-text mb-6 font-medium tracking-tighter leading-[1]">
-          <span className="text-slate-900">Imagine the </span>
-          <AnimatedWord delay={500} inView={inView}>yard</AnimatedWord>
+          <span className="text-slate-900">Imagine your </span>
+          <AnimatedWord delay={500} inView={inView}>supply</AnimatedWord>{" "}
+          <AnimatedWord delay={500} inView={inView}>chain</AnimatedWord>
           <span className="text-slate-900"> as an </span>
-          <AnimatedWord delay={800} inView={inView}>intelligent</AnimatedWord>
-          <br />
+          <br/>
+          <AnimatedWord delay={800} inView={inView}>intelligent</AnimatedWord>{" "}
           <AnimatedWord delay={1100} inView={inView}>bridge</AnimatedWord>
           <span className="text-slate-900"> seamlessly connecting</span>
           <br />
-          <span className="text-slate-900">highway to warehouse.</span>
+          <span className="text-slate-900">origin to destination.</span>
         </h2>
       </motion.div>
     </section>
   );
 }
+// Imagine your supply chain as an
+// intelligent bridge seamlessly
+// connecting origin to destination.

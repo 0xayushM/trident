@@ -233,7 +233,7 @@ function YardCard({ data }: { data: typeof SECTION_DATA }) {
         position: 'relative',
         flexShrink: 0,
       }}>
-        <BlueprintGrid />
+        {/* <BlueprintGrid /> */}
 
         <div style={{
           position: 'relative',
@@ -244,8 +244,8 @@ function YardCard({ data }: { data: typeof SECTION_DATA }) {
           flexDirection: 'column',
           padding: '24px 20px 20px',
         }}>
-          <DockHeader />
-          <LaneGrid lanes={data.lanes} />
+          {/* <DockHeader /> */}
+          {/* <LaneGrid lanes={data.lanes} /> */}
         </div>
       </div>
     </>
