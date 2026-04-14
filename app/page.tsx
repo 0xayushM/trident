@@ -19,6 +19,7 @@ import Footer from "./components/Footer";
 import KeyPoints from "./components/KeyPoints";
 import Benefits from "./components/Benefits";
 import Brands from "./components/Brands";
+import Team from "./components/Team";
 import Preloader from "./components/Preloader";
 import BrandsLine from "./components/BrandsLine";
 export default function Home() {
@@ -36,13 +37,14 @@ export default function Home() {
       <Brands />
       <About />
       <Benefits />
+      <Team />
       {/* <BrandsLine /> */}
       {/* <StatsBar /> */}
-      <ServicesGrid />
-      <TrustProcess />
-      <GlobalReach />
-      <WhyTrident />
-      <Certifications />
+      {/* <ServicesGrid /> */}
+      {/* <TrustProcess /> */}
+      {/* <GlobalReach /> */}
+      {/* <WhyTrident /> */}
+      {/* <Certifications /> */}
       <Testimonials />
       <CTAStrip />
       <Contact />
