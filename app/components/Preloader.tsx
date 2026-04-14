@@ -105,7 +105,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
                     loading="eager"
                     src={image.src}
                     alt={image.alt ?? ''}
-                    className="absolute h-full w-full rounded-[inherit] object-cover"
+                    className={`absolute h-full w-full rounded-[inherit] object-cover ${i === middleIndex ? 'object-right md:object-center' : ''}`}
                   />
                 </div>
               </div>
@@ -131,7 +131,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
                       loading="eager"
                       src={image.src}
                       alt={image.alt ?? ''}
-                      className={`absolute h-full w-full rounded-[inherit] object-cover ${isMiddle ? '' : 'will-change-transform'}`}
+                      className={`absolute h-full w-full rounded-[inherit] object-cover ${isMiddle ? 'object-right md:object-center' : 'will-change-transform'}`}
                     />
                   </div>
                 </div>
