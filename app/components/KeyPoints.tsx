@@ -10,10 +10,6 @@ const VIDEOS = [
   '/videos/point4.mp4',
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Clip-path path builder
-// ─────────────────────────────────────────────────────────────────────────────
-
 interface CardPathConfig {
   W: number; H: number;
   stepFlatW: number; stepH: number; stepDiagW: number; stepRadius: number;
@@ -77,33 +73,8 @@ function buildCardPath(c: CardPathConfig): string {
   ].join(' ');
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Data — swap this out for your CMS / props
-// ─────────────────────────────────────────────────────────────────────────────
-
-const SECTION_DATA = {
-  eyebrow: '04',
-  title: 'Yard Networks',
-  body: 'Terminal YOS™ was built to scale to all of the yards in your network. This means deep TMS/WMS integrations; a modular platform that can be tuned to each yard; customizable analytics; and single pane of glass visibility to each yard, and all yards, through the Terminal platform.',
-  // How many characters of body are "bright" vs "faded"
-  // Matches the Terminal site's scroll-reveal fade effect
-  brightChars: 120,
-  lanes: [
-    { id: '8',  active: false },
-    { id: '9',  active: false },
-    { id: '10', active: true  },
-    { id: '12', active: false },
-    { id: '13', active: false },
-  ],
-  gateLabel: 'GATE OPEN',
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Card
-// ─────────────────────────────────────────────────────────────────────────────
-
 const CARD_W = 600;
-const CARD_H = 800;
+const CARD_H = 900;
 
 const CARD_PATH_CONFIG: CardPathConfig = {
   W: CARD_W, H: CARD_H,
@@ -111,32 +82,38 @@ const CARD_PATH_CONFIG: CardPathConfig = {
   tr: 24,
   slotDepth:  30, slotFlatH: 200,  slotAngleH: 30,
   slotPosPct: 30, slotIR:    10,  slotER: 7,
-  br: 80, bl: 80,
+  br: 40, bl: 10,
 };
 
-function YardCard({ videoIndex }: { videoIndex: number }) {
+function YardCard({ videoIndex, slotProgress }: { videoIndex: number; slotProgress: number }) {
   const clipId = `yard-clip-${useId().replace(/:/g, '')}`;
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const [clipPath, setClipPath] = useState('');
+  const sizeRef = useRef({ width: 0, height: 0 });
+
+  // Animate slit position: 20% → 75% based on scroll progress through all cards
+  const slotPosPct = 25 + slotProgress * 35;
 
   useEffect(() => {
-    const updatePath = () => {
+    const rebuildPath = () => {
       if (!containerRef.current) return;
       const { width, height } = containerRef.current.getBoundingClientRect();
+      sizeRef.current = { width, height };
       const config: CardPathConfig = {
         ...CARD_PATH_CONFIG,
         W: width,
         H: height,
+        slotPosPct,
       };
       setClipPath(buildCardPath(config));
     };
 
-    updatePath();
-    const observer = new ResizeObserver(updatePath);
+    rebuildPath();
+    const observer = new ResizeObserver(rebuildPath);
     if (containerRef.current) observer.observe(containerRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [slotPosPct]);
 
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
@@ -168,8 +145,8 @@ function YardCard({ videoIndex }: { videoIndex: number }) {
       <div
         ref={containerRef}
         style={{
-          width: 'calc(50vw - 10px)',
-          height: '75vh',
+          width: 'calc(45vw - 10px)',
+          height: '85vh',
           background: '#0b0d11',
           clipPath: clipPath ? `url(#${clipId})` : undefined,
           overflow: 'hidden',
@@ -373,7 +350,7 @@ function MobileKeyPoints() {
         height: '60vh',
         position: 'relative',
         overflow: 'hidden',
-        borderRadius: '0 0 24px 24px',
+        borderRadius: '0 0 10px 10px',
       }}>
         {VIDEOS.map((videoSrc, index) => (
           <video
@@ -586,7 +563,10 @@ function DesktopKeyPoints() {
         boxSizing: 'border-box',
       }}>
         {/* ── LEFT: clipped card with video ── */}
-        <YardCard videoIndex={activeIndex} />
+        <YardCard
+          videoIndex={activeIndex}
+          slotProgress={(activeIndex + progress) / (keypointsData.cards.length - 1)}
+        />
 
         {/* ── RIGHT: text content ── */}
         <div style={{

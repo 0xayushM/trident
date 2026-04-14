@@ -14,6 +14,7 @@ import CTAStrip from "./components/CTAStrip";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import KeyPoints from "./components/KeyPoints";
+import Benefits from "./components/Benefits";
 
 export default function Home() {
   return (
@@ -24,7 +25,8 @@ export default function Home() {
       <BrandStatement />
       <KeyPoints />
       <About />
-      <StatsBar />
+      <Benefits />
+      {/* <StatsBar /> */}
       <ServicesGrid />
       <TrustProcess />
       <GlobalReach />

@@ -1,0 +1,39 @@
+{
+  "benefits": [
+    {
+      "id": "benefit-01",
+      "number": "01",
+      "title": "One trusted broker for your entire sourcing network",
+      "description": "Trident works with a curated network of USFDA-certified packers across India, Ecuador, Indonesia, Vietnam, and Argentina. We qualify every supplier, coordinate inspections, negotiate pricing on your behalf, and handle all pre-shipment documentation so you source with confidence, not risk.",
+      "video": "/videos/benefit2.mp4"
+    },
+    {
+      "id": "benefit-02",
+      "number": "02",
+      "title": "Full visibility. Zero guesswork.",
+      "description": "Buyers receive real-time updates at every stage: competitive pricing breakdowns, lab inspection reports, packaging visuals, and shipment status. We are not a middleman that adds opacity. We are the layer that removes it.",
+      "video": "/videos/benefit1.mp4"
+    },
+    {
+      "id": "benefit-03",
+      "number": "03",
+      "title": "Competitive pricing. No broker markup opacity.",
+      "description": "We operate on transparent, agreed brokerage terms. You see supplier pricing, our fee, and the landed cost clearly. Ready to source at scale, with relationships that compound over time.",
+      "video": "/videos/benefit3.mp4"
+    },
+    {
+      "id": "benefit-04",
+      "number": "04",
+      "title": "Documentation done right. Every time.",
+      "description": "Every certificate, commercial invoice, and compliance document is prepared, reviewed, and delivered before customs asks. We remove the paperwork risk so your shipment clears cleanly at every destination port.",
+      "video": "/videos/benefit4.mp4"
+    },
+    {
+      "id": "benefit-05",
+      "number": "05",
+      "title": "We work for the buyer. Always.",
+      "description": "We don't own the product. We don't move the freight. Our only job is making sure you get exactly what was promised with the inspection reports, packaging visuals, and supplier credentials to prove it.",
+      "video": "/videos/benefit5.mp4"
+    }
+  ]
+}
