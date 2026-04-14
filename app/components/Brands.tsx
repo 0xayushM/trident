@@ -34,11 +34,10 @@ interface BrandsProps {
 // ─── Default data ─────────────────────────────────────────────────────────────
 
 const DEFAULT_BRANDS: Brand[] = [
-  { name: 'Ryder' },
-  { name: 'Prologis' },
-  { name: 'NFI' },
-  { name: 'Lineage' },
-  { name: '8VC' },
+  { name: 'Days Eady' , logo: '/images/brands/dayseaday.png'},
+  { name: 'I Schroeder' , logo: '/images/brands/i_schroeder.png'},
+  { name: 'Oceanis' , logo: '/images/brands/oceanis.png'},
+  { name: 'Taprobane' , logo: '/images/brands/taprobane.png'},
 ];
 
 // ─── Responsive config ────────────────────────────────────────────────────────
@@ -50,14 +49,14 @@ function getResponsive(
   desktopGhostCols: number
 ): { cols: number; ghostCols: number; cellH: number } {
   if (typeof window === 'undefined')
-    return { cols: desktopCols, ghostCols: desktopGhostCols, cellH: 150 };
+    return { cols: desktopCols, ghostCols: desktopGhostCols, cellH: 160 };
 
   const w = window.innerWidth;
   // On mobile there's no room for ghost columns — use 0 ghost cols
-  if (w < 480)  return { cols: 2, ghostCols: 0, cellH: 100 };
-  if (w < 768)  return { cols: 3, ghostCols: 0, cellH: 110 };
-  if (w < 1024) return { cols: 5, ghostCols: 0, cellH: 130 };
-  return { cols: desktopCols, ghostCols: desktopGhostCols, cellH: 150 };
+  if (w < 480)  return { cols: 2, ghostCols: 0, cellH: 110 };
+  if (w < 768)  return { cols: 3, ghostCols: 0, cellH: 130 };
+  if (w < 1024) return { cols: 5, ghostCols: 0, cellH: 150 };
+  return { cols: desktopCols, ghostCols: desktopGhostCols, cellH: 160 };
 }
 
 // ─── Ghost cell ───────────────────────────────────────────────────────────────
@@ -106,9 +105,9 @@ function BrandCell({
         style={{
           opacity: hovered ? 1 : 0,
           transition: 'opacity 0.2s ease',
-          background: `radial-gradient(circle 180px at ${mouse.x}px ${mouse.y}px, rgba(239,68,68,0.10) 0%, transparent 70%)`,
+          background: `radial-gradient(circle 200px at ${mouse.x}px ${mouse.y}px, rgba(239,68,68,0.10) 0%, transparent 70%)`,
         }}
-      />
+      ></div>
 
       {/* Logo / text */}
       <div className="relative z-10 flex items-center justify-center w-full h-8 sm:h-10 md:h-12">
@@ -146,7 +145,7 @@ function BrandCell({
 
 export default function Brands({
   brands      = DEFAULT_BRANDS,
-  columns     = 7,
+  columns     = 6,
   ghostCols   = 1,
   ghostRows   = 1,
   title       = 'TRUSTED BY INDUSTRY LEADERS',
@@ -154,7 +153,7 @@ export default function Brands({
 }: BrandsProps) {
   const [sectionRef, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
-  const desktopCols      = Math.min(Math.max(columns, 1), 12);
+  const desktopCols      = Math.min(Math.max(columns, 1), 10);
   const desktopGhostCols = Math.max(ghostCols, 0);
 
   // ── Responsive config ──────────────────────────────────────────────────────

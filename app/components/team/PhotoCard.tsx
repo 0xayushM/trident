@@ -58,7 +58,7 @@ export default function PhotoCard({ src, name, flip = false }: PhotoCardProps) {
       <div
         ref={divRef}
         style={{
-          width: 'clamp(260px, 42vw, 560px)',
+          width: 'clamp(360px, 42vw, 560px)',
           height: 'clamp(340px, 60vh, 680px)',
           flexShrink: 0,
           position: 'relative',

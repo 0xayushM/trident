@@ -23,10 +23,10 @@ export default function Team() {
       <div ref={headerRef}>
         <TeamHeader />
       </div>
-
-      {isMobile
+    {TEAM.map((member, index) => <TeamCard key={member.number} member={member} index={index} />)}
+      {/* {isMobile
         ? TEAM.map((member) => <TeamCardMobile key={member.number} member={member} />)
-        : TEAM.map((member, index) => <TeamCard key={member.number} member={member} index={index} />)}
+        : TEAM.map((member, index) => <TeamCard key={member.number} member={member} index={index} />)} */}
     </section>
   );
 }

@@ -96,16 +96,10 @@ export default function TeamCard({ member, index }: TeamCardProps) {
 
   return (
     <div
-      className='py-4 px-8 md:px-12 gap-12'
+      className={`py-8 px-4 md:px-12 gap-12 flex flex-col md:flex-row ${isFlipped ? 'md:flex-row-reverse' : ''} justify-center items-center`}
       ref={(node) => {
         ref(node);
         if (node) cardRef.current = node;
-      }}
-      style={{
-        display: 'flex',
-        flexDirection: isFlipped ? 'row-reverse' : 'row',
-        alignItems: 'center',
-        borderBottom: '1px solid #f1f5f9',
       }}
     >
       {photoPanel}

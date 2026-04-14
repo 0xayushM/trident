@@ -3,15 +3,8 @@
 import { useState } from 'react';
 import VideoScrollCanvas from "./components/VideoScrollCanvas";
 import Navbar from "./components/Navbar";
-import WaveDivider from "./components/WaveDivider";
 import BrandStatement from "./components/BrandStatement";
 import About from "./components/About";
-import StatsBar from "./components/StatsBar";
-import ServicesGrid from "./components/ServicesGrid";
-import TrustProcess from "./components/TrustProcess";
-import GlobalReach from "./components/GlobalReach";
-import WhyTrident from "./components/WhyTrident";
-import Certifications from "./components/Certifications";
 import Testimonials from "./components/Testimonials";
 import CTAStrip from "./components/CTAStrip";
 import Contact from "./components/Contact";
@@ -21,7 +14,6 @@ import Benefits from "./components/Benefits";
 import Brands from "./components/Brands";
 import Team from "./components/Team";
 import Preloader from "./components/Preloader";
-import BrandsLine from "./components/BrandsLine";
 export default function Home() {
   const [preloading, setPreloading] = useState(true);
   const [heroReady, setHeroReady] = useState(false);
@@ -31,20 +23,12 @@ export default function Home() {
       {preloading && <Preloader onComplete={() => setPreloading(false)} />}
       <Navbar ready={!preloading} />
       <VideoScrollCanvas onReady={() => setHeroReady(true)} />
-      {/* <WaveDivider /> */}
       <BrandStatement />
       <KeyPoints />
       <Brands />
       <About />
       <Benefits />
       <Team />
-      {/* <BrandsLine /> */}
-      {/* <StatsBar /> */}
-      {/* <ServicesGrid /> */}
-      {/* <TrustProcess /> */}
-      {/* <GlobalReach /> */}
-      {/* <WhyTrident /> */}
-      {/* <Certifications /> */}
       <Testimonials />
       <CTAStrip />
       <Contact />

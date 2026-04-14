@@ -38,9 +38,9 @@ export default function Benefits() {
       className="relative bg-white"
       style={{ height: `${(TOTAL + 1) * 100}vh` }}
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col">
-        {/* ══════ VIDEO AREA (top ~65%) ══════ */}
-        <div className="relative flex-1 overflow-hidden">
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* ══════ FULL SCREEN VIDEO BACKGROUND ══════ */}
+        <div className="absolute inset-0">
           {benefitsData.benefits.map((benefit, i) => {
             let clipTop = '100%';
             if (i <= activeIndex) {
@@ -70,10 +70,13 @@ export default function Benefits() {
               </div>
             );
           })}
+        </div>
 
-          {/* Counter bar */}
-          <div className="absolute left-6 md:left-10 bottom-1/3 z-20 flex items-center gap-3">
-            <div className="relative w-[3px] h-48 rounded-full bg-white/20 overflow-hidden">
+        {/* ══════ CENTERED CARD OVERLAY ══════ */}
+        <div className="absolute inset-0 flex items-center justify-center z-10 px-6 md:px-12">
+          {/* Counter bar - positioned on left side */}
+          <div className="absolute left-6 md:left-10 top-1/2 -translate-y-1/2 flex items-center gap-3">
+            <div className="relative w-[3px] h-48 md:h-64 rounded-full bg-white/20 overflow-hidden">
               <div
                 className="absolute top-0 left-0 w-full rounded-full bg-red-500 transition-all duration-300"
                 style={{ height: `${((activeIndex + 1) / TOTAL) * 100}%` }}
@@ -83,42 +86,40 @@ export default function Benefits() {
               {benefitsData.benefits[activeIndex].number}
             </span>
           </div>
-        </div>
 
-        {/* ══════ TEXT PANEL (bottom ~35%, white bg, SplitReveal) ══════ */}
-        <div className="relative bg-white h-[30vh] md:h-[30vh]">
-          <div className="h-full px-6 md:px-10 lg:px-16 pt-8 md:pt-10">
+          {/* Content Card */}
+          <div className="relative max-w-5xl w-full h-full flex items-center justify-center">
             {benefitsData.benefits.map((benefit, i) => (
               <div
                 key={i}
-                className="absolute inset-0 px-6 md:px-10 lg:px-16 pt-8 md:pt-10"
+                className="absolute inset-0 flex items-center justify-center"
                 style={{
                   visibility: i === textActiveIndex ? 'visible' : 'hidden',
                   pointerEvents: i === textActiveIndex ? 'auto' : 'none',
                 }}
               >
-                <div className="flex flex-col md:flex-row md:justify-between gap-4 md:gap-16 max-w-7xl">
-                  {/* Left: label + title */}
-                  <div className="md:w-1/2 max-w-[300px]">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-8 bg-white/80 p-8 md:p-12 lg:p-16 rounded-2xl shadow-lg backdrop-blur-sm items-center justify-center">
+                  {/* Label + Title */}
+                  <div className="col-span-2">
                     <SplitReveal
                       text={`Benefit ${benefit.number}`}
                       active={i === textActiveIndex}
-                      className="text-md md:text-lg lg:text-xl font-medium text-gray-400 tracking-tighter"
+                      className="text-xs lg:text-sm font-medium text-gray-500 tracking-wider uppercase mb-1"
                     />
                     <SplitReveal
                       text={benefit.title}
                       active={i === textActiveIndex}
                       animateColors
-                      className="text-lg md:text-xl lg:text-2xl font-medium tracking-tighter leading-[1.1] max-w-md text-[#1a1a1a]"
+                      className="text-lg md:text-xl lg:text-2xl font-semibold tracking-tight leading-[1.1] text-[#1a1a1a]"
                     />
                   </div>
 
-                  {/* Right: description */}
-                  <div className="w-full max-w-xl text-justify">
+                  {/* Description */}
+                  <div className="col-span-3">
                     <SplitReveal
                       text={benefit.description}
                       active={i === textActiveIndex}
-                      className="text-sm md:text-base text-gray-500 leading-[1]"
+                      className="text-sm md:text-base lg:text-lg text-gray-600 leading-[1]"
                     />
                   </div>
                 </div>
