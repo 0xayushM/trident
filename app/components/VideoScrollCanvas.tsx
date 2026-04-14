@@ -111,8 +111,9 @@ export default function VideoScrollCanvas() {
           0,
           Math.min(1, (scrollStart - rect.top) / (rect.height - scrollEnd))
         );
-        
-        setScrollProgress(progress);
+
+        const rounded = Math.round(progress * 1000) / 1000;
+        setScrollProgress(prev => prev === rounded ? prev : rounded);
 
         const frameIndex = Math.min(
           TOTAL_FRAMES - 1,
@@ -164,7 +165,7 @@ export default function VideoScrollCanvas() {
             ref={canvasRef}
             className={`w-full h-full object-cover object-right md:object-center transition-opacity duration-10 ${hasScrolled ? 'opacity-100' : 'opacity-0'}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-transparent to-black/90 pointer-events-none" />
+          {/* <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-transparent to-black/90 pointer-events-none" /> */}
           <ScrollText scrollProgress={scrollProgress} />
           {/* <HeroOverlays /> */}
           <ScrollToExplore scrollProgress={scrollProgress} />

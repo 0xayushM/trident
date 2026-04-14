@@ -89,14 +89,12 @@ export default function About() {
           </p>
 
           <h2 
-            className="font-medium leading-none m-0 flex items-baseline justify-center"
+            className="font-medium leading-tighter md:leading-normal m-0 flex flex-col md:flex-row items-center md:items-baseline justify-center gap-1 md:gap-4"
             style={{
               fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
               fontSize: 'clamp(36px, 7vw, 150px)',
               fontWeight: 500,
               letterSpacing: '-0.03em',
-              lineHeight: 2,
-              gap: `${wordGap}px`,
               color: textColor,
               transform: `scale(${zoomScale})`,
               willChange: 'transform',
