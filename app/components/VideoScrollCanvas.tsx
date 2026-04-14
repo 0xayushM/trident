@@ -20,6 +20,17 @@ export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } 
   const [hasScrolled, setHasScrolled] = useState(false);
   const readyCalledRef = useRef(false);
   const lastProgressRef = useRef(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile on mount
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Notify parent when everything is ready
   useEffect(() => {
@@ -168,7 +179,7 @@ export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } 
         <div className="relative overflow-hidden shadow-2xl">
           <video
             ref={videoRef}
-            src="/hero_gif.mov"
+            src={isMobile ? "/hero_gif_mobile.mov" : "/hero_gif.mov"}
             autoPlay
             loop
             muted
