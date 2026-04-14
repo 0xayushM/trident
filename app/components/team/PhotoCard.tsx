@@ -35,7 +35,7 @@ export default function PhotoCard({ src, name, flip = false }: PhotoCardProps) {
           slotIR: 9,
           slotER: 6,
           br: 36,
-          bl: 0,
+          bl: 36,
         })
       );
     };
@@ -72,7 +72,7 @@ export default function PhotoCard({ src, name, flip = false }: PhotoCardProps) {
           src={src}
           alt={name}
           fill
-          className="object-cover object-top"
+          className="object-cover object-top grayscale"
           style={{ transform: flip ? 'scaleX(-1)' : undefined }}
           sizes="(max-width: 768px) 90vw, 42vw"
         />

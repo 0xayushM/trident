@@ -2,91 +2,7 @@
 
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-
-interface TeamHeaderProps {
-  inView: boolean;
-}
-
-function AnimatedLetter({ 
-  children, 
-  delay = 0,
-  inView = false
-}: { 
-  children: string; 
-  delay?: number;
-  inView?: boolean;
-}) {
-  const [phase, setPhase] = useState<'initial' | 'red' | 'black'>('initial');
-
-  useEffect(() => {
-    if (!inView) {
-      setPhase('initial');
-      return;
-    }
-
-    // Phase 1: light gray → red
-    const timer1 = setTimeout(() => {
-      setPhase('red');
-    }, delay);
-
-    // Phase 2: red → black
-    const timer2 = setTimeout(() => {
-      setPhase('black');
-    }, delay + 400);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
-  }, [delay, inView]);
-
-  const getColor = () => {
-    switch (phase) {
-      case 'initial': return '#d0d0d0';
-      case 'red': return '#dc2626';
-      case 'black': return '#1a1a1a';
-    }
-  };
-
-  return (
-    <span
-      className="inline-block"
-      style={{
-        color: getColor(),
-        transition: 'color 0.3s ease-in-out',
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-function AnimatedWord({ 
-  children, 
-  delay = 0,
-  inView = false
-}: { 
-  children: string; 
-  delay?: number;
-  inView?: boolean;
-}) {
-  const letters = children.split('');
-  
-  return (
-    <span className="inline-block">
-      {letters.map((letter, index) => (
-        <AnimatedLetter 
-          key={index} 
-          delay={delay + (index * 80)}
-          inView={inView}
-        >
-          {letter}
-        </AnimatedLetter>
-      ))}
-    </span>
-  );
-}
+import { AnimatedWord } from '../animations';
 
 export default function TeamHeader() {
   const [ref, inView] = useInView({
@@ -114,10 +30,10 @@ export default function TeamHeader() {
       >
         The People Behind It
       </p>
-      <h2 className='text-4xl md:text-6xl lg:text-7xl unica-text mb-0 font-medium tracking-tighter leading-[0.9]'>
+      <h2 className='text-4xl md:text-6xl lg:text-7xl unica-text mb-8 md:mb-12 font-medium tracking-tighter leading-[0.9]'>
         <AnimatedWord delay={200} inView={inView}>Meet</AnimatedWord>{" "}
-      <AnimatedWord delay={400} inView={inView}>The</AnimatedWord>{" "}
-      <AnimatedWord delay={600} inView={inView}>Team</AnimatedWord>{" "}
+        <AnimatedWord delay={400} inView={inView}>The</AnimatedWord>{" "}
+        <AnimatedWord delay={600} inView={inView}>Team</AnimatedWord>{" "}
       </h2>
     </motion.div>
   );

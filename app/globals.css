@@ -50,3 +50,14 @@ body {
 .animate-scroll-indicator {
   animation: scroll-indicator 1.5s ease-in-out infinite;
 }
+
+/* SplitText line masking */
+.split-line {
+  overflow: hidden;
+  display: block;
+}
+
+.split-line-wrapper {
+  overflow: hidden !important;
+  display: block !important;
+}
