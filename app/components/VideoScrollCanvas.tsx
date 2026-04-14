@@ -174,7 +174,7 @@ export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } 
   }, [imagesLoaded]);
 
   return (
-    <div ref={containerRef} className="relative h-[540vh] w-full bg-gradient-to-br from-slate-900 to-slate-950">
+    <div ref={containerRef} className="relative h-[540vh] w-full bg-gradient-to-br from-slate-900 to-slate-950" style={{ minHeight: '100vh' }}>
       <div className="sticky top-0 h-screen w-full flex items-center justify-center">
         <div className="relative w-full h-full overflow-hidden">
           <video
@@ -184,6 +184,7 @@ export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } 
             loop
             muted
             playsInline
+            preload="auto"
             onLoadedData={() => setVideoLoaded(true)}
             className={`absolute inset-0 w-full h-full object-cover object-right md:object-center transition-opacity duration-10 ${hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           />

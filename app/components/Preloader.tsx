@@ -31,7 +31,6 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
       defaults: { ease: 'expo.inOut' },
       onComplete: () => {
         if (onComplete) onComplete();
-        if (containerRef.current) containerRef.current.style.display = 'none';
       },
     });
 
@@ -68,6 +67,18 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
         { width: '100vw', height: '100dvh', duration: 2 },
         '< 0.5',
       );
+    }
+
+    // Fade out preloader smoothly to prevent layout shift
+    if (containerRef.current) {
+      tl.to(containerRef.current, {
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          if (containerRef.current) containerRef.current.style.display = 'none';
+        }
+      }, '+=0.3');
     }
 
     return () => {
