@@ -18,8 +18,9 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import KeyPoints from "./components/KeyPoints";
 import Benefits from "./components/Benefits";
+import Brands from "./components/Brands";
 import Preloader from "./components/Preloader";
-
+import BrandsLine from "./components/BrandsLine";
 export default function Home() {
   const [preloading, setPreloading] = useState(true);
   const [heroReady, setHeroReady] = useState(false);
@@ -32,8 +33,10 @@ export default function Home() {
       {/* <WaveDivider /> */}
       <BrandStatement />
       <KeyPoints />
+      <Brands />
       <About />
       <Benefits />
+      {/* <BrandsLine /> */}
       {/* <StatsBar /> */}
       <ServicesGrid />
       <TrustProcess />

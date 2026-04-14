@@ -186,7 +186,7 @@ export default function Benefits() {
         </div>
 
         {/* ══════ TEXT PANEL (bottom ~35%, white bg, SplitReveal) ══════ */}
-        <div className="relative bg-white h-[30vh] md:h-[20vh]">
+        <div className="relative bg-white h-[30vh] md:h-[30vh]">
           <div className="h-full px-6 md:px-10 lg:px-16 pt-8 md:pt-10">
             {benefitsData.benefits.map((benefit, i) => (
               <div
