@@ -179,7 +179,7 @@ export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } 
         <div className="relative w-full h-full overflow-hidden">
           <video
             ref={videoRef}
-            src={isMobile ? "/hero_gif_mobile.mov" : "/hero_gif.mov"}
+            src={isMobile ? "/hero_gif_mobile.mov" : "/hero_gif_mobile.mov"}
             autoPlay
             loop
             muted

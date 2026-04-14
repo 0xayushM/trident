@@ -11,7 +11,7 @@ export default function Navbar({ ready = true }: { ready?: boolean }) {
         transform: ready ? 'translateY(0)' : 'translateY(-2rem)',
       }}
     >
-      <nav className="mx-auto max-w-7xl bg-white/10 backdrop-blur-md rounded-2xl px-6 py-4 shadow-lg border border-white/20">
+      <nav className="mx-auto max-w-7xl bg-gradient-to-r from-red-800/50 via-white/10 to-blue-800/50 backdrop-blur-md rounded-2xl px-6 py-4 shadow-lg">
         <div className="flex items-center justify-between">
           {/* Left: Logo + Nav Links */}
           <div className="flex items-center gap-8">
@@ -25,25 +25,6 @@ export default function Navbar({ ready = true }: { ready?: boolean }) {
                 priority
               />
               <h1 className="text-lg md:text-xl font-bold text-white unica-text">TRIDENT</h1>
-            </div>
-
-            {/* Nav Links - hidden on mobile */}
-            <div className="hidden lg:flex items-center gap-6 text-sm text-white/90">
-              <a href="#system" className="hover:text-white transition-colors">
-                System
-              </a>
-              <a href="#markets" className="hover:text-white transition-colors">
-                Markets
-              </a>
-              <a href="#insights" className="hover:text-white transition-colors">
-                Insights
-              </a>
-              <a href="#resources" className="hover:text-white transition-colors">
-                Resources
-              </a>
-              <a href="#about" className="hover:text-white transition-colors">
-                About
-              </a>
             </div>
           </div>
 
