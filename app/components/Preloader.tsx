@@ -26,6 +26,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
   const scaleUpRef = useRef<(HTMLDivElement | null)[]>([]);
   const secondLoopImagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const animationStartedRef = useRef(false);
 
   // Detect mobile after mount to avoid hydration mismatch
   useEffect(() => {
@@ -54,6 +55,10 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
   );
 
   useEffect(() => {
+    // Prevent animation from running twice
+    if (animationStartedRef.current) return;
+    animationStartedRef.current = true;
+
     const IMAGES = getImages(isMobile);
     const middleIndex = Math.floor(IMAGES.length / 2);
     const totalRefs = IMAGES.length * 2;

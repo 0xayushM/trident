@@ -176,7 +176,7 @@ export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } 
   return (
     <div ref={containerRef} className="relative h-[540vh] w-full bg-gradient-to-br from-slate-900 to-slate-950">
       <div className="sticky top-0 h-screen w-full flex items-center justify-center">
-        <div className="relative overflow-hidden shadow-2xl">
+        <div className="relative w-full h-full overflow-hidden">
           <video
             ref={videoRef}
             src={isMobile ? "/hero_gif_mobile.mov" : "/hero_gif.mov"}
