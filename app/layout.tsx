@@ -54,6 +54,16 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        {/* Preload critical assets in priority order */}
+        <link rel="preload" href="/images/img1.jpg" as="image" />
+        <link rel="preload" href="/images/img2.jpg" as="image" />
+        <link rel="preload" href="/images/main.webp" as="image" />
+        <link rel="preload" href="/images/img4.jpg" as="image" />
+        <link rel="preload" href="/images/img5.jpg" as="image" />
+        <link rel="preload" href="/hero_gif_mobile.mov" as="video" />
+        <link rel="preload" href="/logo.png" as="image" />
+      </head>
       <body className="min-h-full flex flex-col">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
