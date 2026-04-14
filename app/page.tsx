@@ -22,16 +22,13 @@ import Preloader from "./components/Preloader";
 
 export default function Home() {
   const [preloading, setPreloading] = useState(true);
+  const [heroReady, setHeroReady] = useState(false);
 
   return (
     <div className="min-h-screen">
       {preloading && <Preloader onComplete={() => setPreloading(false)} />}
-      <div
-        className="transition-opacity duration-1000 ease-out"
-        style={{ opacity: preloading ? 0 : 1 }}
-      >
-        <Navbar ready={!preloading} />
-        <VideoScrollCanvas />
+      <Navbar ready={!preloading} />
+      <VideoScrollCanvas onReady={() => setHeroReady(true)} />
       {/* <WaveDivider /> */}
       <BrandStatement />
       <KeyPoints />
@@ -47,7 +44,6 @@ export default function Home() {
       <CTAStrip />
       <Contact />
       <Footer />
-      </div>
     </div>
   );
 }

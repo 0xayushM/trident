@@ -9,14 +9,24 @@ const FRAME_COUNT_VIDEO = 121;
 const FRAME_COUNT_ANIMATION = 301;
 const TOTAL_FRAMES = FRAME_COUNT_VIDEO + FRAME_COUNT_ANIMATION;
 
-export default function VideoScrollCanvas() {
+export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const framesRef = useRef<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const readyCalledRef = useRef(false);
+
+  // Notify parent when everything is ready
+  useEffect(() => {
+    if (imagesLoaded && videoLoaded && !readyCalledRef.current && onReady) {
+      readyCalledRef.current = true;
+      onReady();
+    }
+  }, [imagesLoaded, videoLoaded, onReady]);
 
   useEffect(() => {
     if (scrollProgress > 0.02 && !hasScrolled) {
@@ -159,6 +169,7 @@ export default function VideoScrollCanvas() {
             loop
             muted
             playsInline
+            onLoadedData={() => setVideoLoaded(true)}
             className={`absolute inset-0 w-full h-full object-cover object-right md:object-center transition-opacity duration-10 ${hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           />
           <canvas

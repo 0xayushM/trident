@@ -100,13 +100,13 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
       );
     }
 
-    // Phase 4: fade out the entire preloader
+    // Phase 4: fade out after animation completes
     if (containerRef.current) {
       tl.to(containerRef.current, {
         opacity: 0,
         duration: 0.8,
         ease: 'power2.inOut',
-      }, '+=0.3');
+      }, '+=0.5');
     }
 
     return () => {

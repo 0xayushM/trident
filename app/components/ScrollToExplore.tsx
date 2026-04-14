@@ -64,7 +64,7 @@ export default function ScrollToExplore({ scrollProgress }: ScrollToExploreProps
   return (
     <div
       ref={elementRef}
-      className="fixed pointer-events-none z-50"
+      className="hidden md:block fixed pointer-events-none z-50"
       style={{
         left: 30,
         top: 0,
