@@ -9,29 +9,20 @@ interface PreloaderImage {
   isVideo?: boolean;
 }
 
-const getImages = (isMobile: boolean): PreloaderImage[] => {
-  return [
-    { src: '/images/img1.jpg', alt: 'Image 1' },
-    { src: '/images/img2.jpg', alt: 'Image 2' },
-    { src: isMobile ? '/images/main.webp' : '/hero_gif.mov', alt: 'Main', isVideo: !isMobile },
-    { src: '/images/img4.jpg', alt: 'Image 4' },
-    { src: '/images/img5.jpg', alt: 'Image 5' },
-  ];
-};
+const IMAGES: PreloaderImage[] = [
+  { src: '/images/img1.jpg', alt: 'Image 1' },
+  { src: '/images/img2.jpg', alt: 'Image 2' },
+  { src: '/images/main.webp', alt: 'Main' },
+  { src: '/images/img4.jpg', alt: 'Image 4' },
+  { src: '/images/img5.jpg', alt: 'Image 5' },
+];
 
 export default function Preloader({ onComplete }: { onComplete?: () => void }) {
-  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const revealImagesRef = useRef<(HTMLDivElement | null)[]>([]);
   const scaleUpRef = useRef<(HTMLDivElement | null)[]>([]);
   const secondLoopImagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
-  const animationStartedRef = useRef(false);
-
-  // Detect mobile after mount to avoid hydration mismatch
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
 
   const setRevealRef = useCallback(
     (index: number) => (el: HTMLDivElement | null) => {
@@ -55,11 +46,6 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
   );
 
   useEffect(() => {
-    // Prevent animation from running twice
-    if (animationStartedRef.current) return;
-    animationStartedRef.current = true;
-
-    const IMAGES = getImages(isMobile);
     const middleIndex = Math.floor(IMAGES.length / 2);
     const totalRefs = IMAGES.length * 2;
 
@@ -69,8 +55,6 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
 
     const radiusTarget = scaleUpRef.current[IMAGES.length + middleIndex];
     const scaleDownTargets = secondImgs.filter((_, i) => i !== middleIndex);
-
-    const speedMultiplier = isMobile ? 1 : 1; // Faster on mobile
 
     const tl = gsap.timeline({
       defaults: { ease: 'expo.inOut' },
@@ -86,7 +70,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
       tl.fromTo(
         revealEls,
         { xPercent: 500 },
-        { xPercent: -500, duration: 2.5 * speedMultiplier, stagger: 0.05 * speedMultiplier },
+        { xPercent: -500, duration: 2.5, stagger: 0.05 },
       );
     }
 
@@ -96,8 +80,8 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
         scaleDownTargets,
         {
           scale: 0.5,
-          duration: 2 * speedMultiplier,
-          stagger: { each: 0.05 * speedMultiplier, from: 'edges', ease: 'none' },
+          duration: 2,
+          stagger: { each: 0.05, from: 'edges', ease: 'none' },
           onComplete: () => {
             if (radiusTarget) radiusTarget.style.borderRadius = '0';
           },
@@ -111,7 +95,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
       tl.fromTo(
         scaleEls,
         { width: '10em', height: '10em' },
-        { width: '100vw', height: '100dvh', duration: 2 * speedMultiplier },
+        { width: '100vw', height: '100dvh', duration: 2 },
         '< 0.5',
       );
     }
@@ -120,17 +104,16 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
     if (containerRef.current) {
       tl.to(containerRef.current, {
         opacity: 0,
-        duration: 0.8 * speedMultiplier,
+        duration: 0.8,
         ease: 'power2.inOut',
-      }, `+=${0.5 * speedMultiplier}`);
+      }, '+=0.5');
     }
 
     return () => {
       tl.kill();
     };
-  }, [onComplete, isMobile]);
+  }, [onComplete]);
 
-  const IMAGES = getImages(isMobile);
   const middleIndex = Math.floor(IMAGES.length / 2);
 
   return (
