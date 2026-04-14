@@ -51,7 +51,7 @@ export default function About() {
     : `rgba(255,255,255,0.5)`;
 
   return (
-    <section ref={containerRef} className="relative h-screen" style={{ height: '400vh' }}>
+    <section ref={containerRef} className="relative h-screen" style={{ height: '400vh', backgroundColor: colorP > 0.5 ? 'white' : 'black' }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Background video */}
         <video
@@ -60,19 +60,17 @@ export default function About() {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 opacity-50"
+          style={{
+            filter: colorP > 0.5 ? 'invert(1)' : 'invert(0)',
+            opacity: colorP > 0.5 ? 0.2 : 0.5,
+          }}
         />
 
         {/* Dark overlay */}
         <div 
           className="absolute inset-0"
           style={{ backgroundColor: `rgba(0,0,0,${0.6 * (1 - colorP)})` }}
-        />
-
-        {/* White background layer */}
-        <div 
-          className="absolute inset-0 bg-white"
-          style={{ opacity: colorP }}
         />
 
         {/* Content */}

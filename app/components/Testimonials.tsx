@@ -1,75 +1,274 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitReveal } from './animations';
 
-export default function Testimonials() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
+gsap.registerPlugin(ScrollTrigger);
 
-  const testimonials = [
-    {
-      quote: "Trident has been our go-to logistics partner for frozen seafood imports for over three years. Their cold chain management is flawless, and we've never had a single compliance issue with FDA documentation.",
-      name: 'Michael Chen',
-      company: 'Pacific Seafood Distributors',
-      country: '🇺🇸',
-    },
-    {
-      quote: "The real-time tracking and proactive communication set Trident apart. They handle our high-value agricultural shipments with the precision and care we demand. Exceptional service across the board.",
-      name: 'Sarah Williams',
-      company: 'EuroTrade Solutions GmbH',
-      country: '🇩🇪',
-    },
-    {
-      quote: "Working with Trident transformed our import operations. Their supplier network in India is reliable, their documentation is always perfect, and their rates are competitive. A true partner in every sense.",
-      name: 'Yuki Tanaka',
-      company: 'Tokyo Marine Foods Ltd',
-      country: '🇯🇵',
-    },
-  ];
+const TESTIMONIALS = [
+  {
+    quote:
+      'We have not seen this kind of precision in cold-chain logistics. Trident\'s documentation and compliance work is simply unmatched across every corridor we operate in.',
+    name: 'Michael Chen',
+    role: 'VP of Supply Chain',
+    company: 'Pacific Seafood Distributors',
+    image: '/images/img1.jpg',
+  },
+  {
+    quote:
+      'Trident turned what used to be a weeks-long customs ordeal into a seamless, two-day clearance. Their network in South Asia is extraordinary and their team is always three steps ahead.',
+    name: 'Sarah Williams',
+    role: 'Head of Global Procurement',
+    company: 'EuroTrade Solutions GmbH',
+    image: '/images/img2.jpg',
+  },
+  {
+    quote:
+      'Every shipment Trident has handled for us arrived on time, fully compliant, and with complete traceability. In three years we have had zero FDA issues. That is truly remarkable.',
+    name: 'Yuki Tanaka',
+    role: 'Director of Import Operations',
+    company: 'Tokyo Marine Foods Ltd',
+    image: '/images/img4.jpg',
+  },
+  {
+    quote:
+      'What sets Trident apart is their obsessive attention to quality at the source. They are not just a freight forwarder — they are a genuine strategic partner embedded in our supply chain.',
+    name: 'Rajan Mehta',
+    role: 'Chief Procurement Officer',
+    company: 'Gulf Fresh Trading LLC',
+    image: '/images/img5.jpg',
+  },
+];
+
+const N = TESTIMONIALS.length;
+
+function MobileTestimonials() {
+  return (
+    <div className="flex flex-col">
+      {TESTIMONIALS.map((t, i) => (
+        <div
+          key={i}
+          className="relative flex flex-col items-center justify-center text-center px-6 py-20 overflow-hidden"
+          style={{ minHeight: '100svh' }}
+        >
+          {/* Background image */}
+          <div className="absolute inset-0 z-0">
+            <Image src={t.image} fill className="object-cover" alt="" />
+            <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.62)' }} />
+          </div>
+
+          <div className="relative z-10 flex flex-col items-center gap-6 max-w-lg">
+            <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: 96, lineHeight: 0.8, fontFamily: 'Georgia,serif' }}>&ldquo;</span>
+            <p className="text-white text-xl font-medium leading-relaxed tracking-tight"
+               style={{ marginTop: -16 }}>
+              {t.quote}
+            </p>
+            <div style={{ width: 40, height: 1, background: 'rgba(255,255,255,0.25)' }} />
+            <div>
+              <p className="text-white font-semibold text-sm">{t.name}</p>
+              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12 }}>{t.role}</p>
+              <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 12 }}>{t.company}</p>
+            </div>
+          </div>
+
+          {/* Slide number */}
+          <span
+            className="absolute bottom-6 right-6 z-10"
+            style={{ fontFamily: 'monospace', fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em' }}
+          >
+            {String(i + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DesktopTestimonials() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const scrollable = rect.height - window.innerHeight;
+      if (scrollable <= 0) return;
+      setProgress(Math.max(0, Math.min(1, -rect.top / scrollable)));
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const segmentSize = 1 / N;
+  const activeIndex = Math.min(N - 1, Math.floor(progress / segmentSize));
+  const segmentProgress = (progress - activeIndex * segmentSize) / segmentSize;
+
+  // Text transitions at 50% through the image overlay scroll
+  const textActiveIndex = segmentProgress >= 0.5 && activeIndex < N - 1
+    ? activeIndex + 1
+    : activeIndex;
 
   return (
-    <section className="relative w-full bg-slate-900 py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-8 md:px-12">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 32 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.65 }}
-          className="text-center mb-16"
-        >
-          <p className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4">Client Testimonials</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text">
-            TRUSTED BY INDUSTRY LEADERS
-          </h2>
-        </motion.div>
+    <section
+      ref={sectionRef}
+      className="relative bg-black"
+      style={{ height: `${(N + 1) * 100}vh` }}
+    >
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/*  FULL SCREEN BACKGROUND IMAGES */}
+        <div className="absolute inset-0">
+          {TESTIMONIALS.map((t, i) => {
+            let clipTop = '100%';
+            if (i <= activeIndex) {
+              clipTop = '0%';
+            } else if (i === activeIndex + 1) {
+              const reveal = segmentProgress * 100;
+              clipTop = `${100 - reveal}%`;
+            }
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 32 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.65, delay: index * 0.15 }}
-              className="bg-slate-800/50 border border-white/8 rounded-lg p-8"
-            >
-              <div className="text-6xl text-blue-400 mb-4 leading-none">"</div>
-              <p className="text-gray-300 italic text-lg leading-relaxed mb-6 font-serif">
-                {testimonial.quote}
-              </p>
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">{testimonial.country}</span>
-                <div>
-                  <p className="text-white font-semibold">{testimonial.name}</p>
-                  <p className="text-gray-400 text-sm">{testimonial.company}</p>
+            return (
+              <div
+                key={i}
+                className="absolute inset-0"
+                style={{
+                  clipPath: i <= activeIndex ? 'none' : `inset(${clipTop} 0 0 0)`,
+                  zIndex: i,
+                }}
+              >
+                <Image
+                  src={t.image}
+                  fill
+                  className="object-cover"
+                  alt={t.company}
+                  priority={i === 0}
+                />
+                {/* Gradient dark overlay for text legibility */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%)',
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        {/*  CENTERED TEXT OVERLAY */}
+        <div className="absolute inset-0 flex items-center justify-center z-10 px-6 md:px-12">
+          {/* Counter bar - positioned on left side */}
+          <div className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 flex items-center gap-3">
+            <div className="relative w-[3px] h-48 md:h-64 rounded-full bg-white/20 overflow-hidden">
+              <div
+                className="absolute top-0 left-0 w-full rounded-full bg-red-500 transition-all duration-300"
+                style={{ height: `${((activeIndex + 1) / N) * 100}%` }}
+              />
+            </div>
+            <span className="text-white text-xs md:text-sm font-medium tracking-wider">
+              {String(activeIndex + 1).padStart(2, '0')}
+            </span>
+          </div>
+
+          {/* Content */}
+          <div className="relative max-w-5xl mx-8 w-full h-full flex items-center justify-center">
+            {TESTIMONIALS.map((t, i) => (
+              <div
+                key={i}
+                className="absolute inset-0 flex items-center justify-center"
+                style={{
+                  visibility: i === textActiveIndex ? 'visible' : 'hidden',
+                  pointerEvents: i === textActiveIndex ? 'auto' : 'none',
+                }}
+              >
+                <div className="flex flex-col items-center text-center gap-6 md:gap-8">
+                  {/* Opening quotation mark */}
+                  <div
+                    style={{
+                      color: 'rgba(255,255,255,0.18)',
+                      fontSize: 'clamp(80px, 10vw, 140px)',
+                      lineHeight: 0.85,
+                      fontFamily: 'Georgia, "Times New Roman", serif',
+                      marginBottom: 'clamp(8px, 1vw, 16px)',
+                      userSelect: 'none',
+                    }}
+                  >
+                    &ldquo;
+                  </div>
+
+                  {/* Quote with SplitReveal */}
+                  <SplitReveal
+                    text={t.quote}
+                    active={i === textActiveIndex}
+                    className="text-white font-medium leading-[1] tracking-tight"
+                    style={{
+                      fontSize: 'clamp(18px, 2.4vw, 40px)',
+                      maxWidth: '860px',
+                    } as React.CSSProperties}
+                  />
+
+                  {/* Author */}
+                  <div
+                    style={{
+                      marginTop: 'clamp(28px, 3.5vw, 52px)',
+                      opacity: i === textActiveIndex ? 1 : 0,
+                      transform: i === textActiveIndex ? 'translateY(0)' : 'translateY(12px)',
+                      transition: 'opacity 0.6s ease 0.7s, transform 0.6s ease 0.7s',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 4,
+                    }}
+                  >
+                    {/* Divider line */}
+                    <div
+                      style={{
+                        width: 40,
+                        height: 1,
+                        background: 'rgba(255,255,255,0.3)',
+                        marginBottom: 12,
+                      }}
+                    />
+                    <p style={{ color: '#ffffff', fontWeight: 600, fontSize: 15, margin: 0 }}>
+                      {t.name}
+                    </p>
+                    {/* <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, margin: 0 }}>
+                      {t.role}
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 12, margin: 0 }}>
+                      {t.company}
+                    </p> */}
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+// ─── Main export ──────────────────────────────────────────────────────────────
+
+export default function Testimonials() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  return (
+    <section className="relative" style={{ background: '#060606' }}>
+      <DesktopTestimonials />
     </section>
   );
 }

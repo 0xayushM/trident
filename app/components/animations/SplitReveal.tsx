@@ -11,6 +11,7 @@ interface SplitRevealProps {
   active?: boolean;
   className?: string;
   animateColors?: boolean;
+  style?: React.CSSProperties;
 }
 
 export default function SplitReveal({
@@ -18,6 +19,7 @@ export default function SplitReveal({
   active = true,
   className = '',
   animateColors = false,
+  style,
 }: SplitRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const splitRef = useRef<SplitText | null>(null);
@@ -97,7 +99,7 @@ export default function SplitReveal({
   }, [active, animateColors]);
 
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={className} style={style}>
       {text}
     </div>
   );
