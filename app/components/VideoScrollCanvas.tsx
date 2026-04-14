@@ -19,6 +19,7 @@ export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } 
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const readyCalledRef = useRef(false);
+  const lastProgressRef = useRef(0);
 
   // Notify parent when everything is ready
   useEffect(() => {
@@ -123,7 +124,10 @@ export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } 
         );
 
         const rounded = Math.round(progress * 1000) / 1000;
-        setScrollProgress(prev => prev === rounded ? prev : rounded);
+        if (rounded !== lastProgressRef.current) {
+          lastProgressRef.current = rounded;
+          setScrollProgress(rounded);
+        }
 
         const frameIndex = Math.min(
           TOTAL_FRAMES - 1,
