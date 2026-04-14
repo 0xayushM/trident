@@ -23,6 +23,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
   const scaleUpRef = useRef<(HTMLDivElement | null)[]>([]);
   const secondLoopImagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const hasRunRef = useRef(false);
 
   const setRevealRef = useCallback(
     (index: number) => (el: HTMLDivElement | null) => {
@@ -46,6 +47,10 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
   );
 
   useEffect(() => {
+    // Prevent double execution in React Strict Mode
+    if (hasRunRef.current) return;
+    hasRunRef.current = true;
+
     const middleIndex = Math.floor(IMAGES.length / 2);
     const totalRefs = IMAGES.length * 2;
 
