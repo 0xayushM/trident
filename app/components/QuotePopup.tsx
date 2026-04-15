@@ -81,7 +81,7 @@ export default function QuotePopup() {
     const t = setTimeout(() => {
       console.log('[QuotePopup] Showing now');
       setVisible(true);
-    }, 5000);
+    }, 10000);
     return () => clearTimeout(t);
   }, []);
 
