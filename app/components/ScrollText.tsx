@@ -14,12 +14,12 @@ interface Word {
 }
 
 const words: Word[] = [
-  { text: "Reliable", startProgress: 0.15, endProgress: 0.25 },
-  { text: "Global", startProgress: 0.25, endProgress: 0.35 },
-  { text: "Shipping", startProgress: 0.35, endProgress: 0.45 },
-  { text: "&", startProgress: 0.45, endProgress: 0.5 },
-  { text: "Logistics", startProgress: 0.5, endProgress: 0.6 },
-  { text: "Solutions", startProgress: 0.6, endProgress: 0.7 },
+  { text: "Your", startProgress: 0.15, endProgress: 0.22 },
+  { text: "global", startProgress: 0.22, endProgress: 0.32 },
+  { text: "gateway", startProgress: 0.32, endProgress: 0.42 },
+  { text: "to", startProgress: 0.42, endProgress: 0.48 },
+  { text: "premium", startProgress: 0.48, endProgress: 0.58 },
+  { text: "shrimp.", startProgress: 0.58, endProgress: 0.7 },
 ];
 
 const fadeOutStart = 0.95;
@@ -111,7 +111,7 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
   }, [scrollProgress]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 flex items-start top-3/4 justify-center pointer-events-none px-4 md:px-8">
+    <div ref={containerRef} className="absolute inset-x-0 bottom-[150px] md:bottom-[150px] flex justify-center pointer-events-none px-4 md:px-8">
       <div className="text-center max-w-6xl">
         <div 
           className="flex flex-wrap justify-center gap-x-4 gap-y-0 unica-text tracking-tight leading-[0.1]"

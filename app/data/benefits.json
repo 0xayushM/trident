@@ -3,36 +3,36 @@
     {
       "id": "benefit-01",
       "number": "01",
-      "title": "One trusted broker for your entire sourcing network",
-      "description": "Trident works with a curated network of USFDA-certified packers across India, Ecuador, Indonesia, Vietnam, and Argentina. We qualify every supplier, coordinate inspections, negotiate pricing on your behalf, and handle all pre-shipment documentation so you source with confidence, not risk.",
+      "title": "One broker. Five certified origins. Zero inherited compliance failures.",
+      "description": "We pre-qualify every supplier so you don't inherit their compliance failures. Trident works with a curated network of USFDA-certified packers across India, Ecuador, Indonesia, Vietnam, and Argentina.",
       "video": "/videos/benefit2.mp4"
     },
     {
       "id": "benefit-02",
       "number": "02",
-      "title": "Full visibility. Zero guesswork.",
-      "description": "Buyers receive real-time updates at every stage: competitive pricing breakdowns, lab inspection reports, packaging visuals, and shipment status. We are not a middleman that adds opacity. We are the layer that removes it.",
+      "title": "Pricing, lab reports, packaging photos, shipment status — not just updates when something goes wrong.",
+      "description": "You get full visibility at every stage. We are not a middleman that adds opacity. We are the layer that removes it.",
       "video": "/videos/benefit1.mp4"
     },
     {
       "id": "benefit-03",
       "number": "03",
-      "title": "Competitive pricing. No broker markup opacity.",
-      "description": "We operate on transparent, agreed brokerage terms. You see supplier pricing, our fee, and the landed cost clearly. Ready to source at scale, with relationships that compound over time.",
+      "title": "Our fee is a fixed brokerage. You see the supplier cost, our fee, and your landed cost. No mystery margin.",
+      "description": "We operate on transparent, agreed brokerage terms. You see supplier pricing, our fee, and the landed cost clearly — every single time.",
       "video": "/videos/benefit3.mp4"
     },
     {
       "id": "benefit-04",
       "number": "04",
-      "title": "Documentation done right. Every time.",
-      "description": "Every certificate, commercial invoice, and compliance document is prepared, reviewed, and delivered before customs asks. We remove the paperwork risk so your shipment clears cleanly at every destination port.",
+      "title": "Every commercial invoice, phytosanitary certificate, and COO — drafted, cross-checked, and delivered before the container is loaded.",
+      "description": "We remove the paperwork risk so your shipment clears cleanly at every destination port. No surprises at customs.",
       "video": "/videos/benefit4.mp4"
     },
     {
       "id": "benefit-05",
       "number": "05",
-      "title": "We work for the buyer. Always.",
-      "description": "We don't own the product. We don't move the freight. Our only job is making sure you get exactly what was promised with the inspection reports, packaging visuals, and supplier credentials to prove it.",
+      "title": "We don't own the product. We don't own the vessel. Our only incentive is making sure you never get a bad shipment.",
+      "description": "We work for the buyer. Always. Our only job is making sure you get exactly what was promised — with the inspection reports, packaging visuals, and supplier credentials to prove it.",
       "video": "/videos/benefit5.mp4"
     }
   ]

@@ -194,7 +194,7 @@ export default function VideoScrollCanvas({ onReady }: { onReady?: () => void } 
           />
           {/* <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-transparent to-black/90 pointer-events-none" /> */}
           <ScrollText scrollProgress={scrollProgress} />
-          {/* <HeroOverlays /> */}
+          <HeroOverlays />
           <ScrollToExplore scrollProgress={scrollProgress} />
           {!imagesLoaded && (
             <div className="absolute inset-0 flex items-center justify-center text-white bg-black">

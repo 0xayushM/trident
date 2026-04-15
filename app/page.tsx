@@ -15,6 +15,7 @@ import Tos from "./components/Tos";
 import Team from "./components/Team";
 import Preloader from "./components/Preloader";
 import WhatsAppButton from "./components/WhatsAppButton";
+import StatsBar from "./components/StatsBar";
 export default function Home() {
   const [preloading, setPreloading] = useState(true);
   const [heroReady, setHeroReady] = useState(false);
@@ -24,6 +25,7 @@ export default function Home() {
       {preloading && <Preloader onComplete={() => setPreloading(false)} />}
       <Navbar ready={!preloading} />
       <VideoScrollCanvas onReady={() => setHeroReady(true)} />
+      <StatsBar />
       <BrandStatement />
       <KeyPoints />
       <Brands />
