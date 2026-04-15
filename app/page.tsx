@@ -27,7 +27,7 @@ export default function Home() {
       <BrandStatement />
       <KeyPoints />
       <Brands />
-      {/* <Tos /> */}
+      <Tos />
       <About />
       <Benefits />
       <Team />

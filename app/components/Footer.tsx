@@ -240,8 +240,11 @@ export default function Footer() {
             </span>
           </div>
 
-          <p className="text-[13px] leading-relaxed text-white/40 max-w-[240px]">
-            Global freight forwarding and trade facilitation for businesses that demand precision, reliability, and transparency.
+          <p className="text-[13px] leading-relaxed text-white/40 max-w-[280px]">
+            Wholesale Import and Export specializing in Seafood Export, Shrimp Brokerage, and Frozen Seafood with USFDA Compliance.
+          </p>
+          <p className="text-[11px] text-white/30 mt-2">
+            Kolkata, West Bengal • Est. 2019
           </p>
         </div>
         {/* Column 4 — Reach Us */}
@@ -255,15 +258,15 @@ export default function Footer() {
           </p>
 
           <a
-            href="tel:+911145678900"
-            className="unica-text text-white text-xl font-semibold tracking-tight no-underline"
+            href="tel:+919431267872"
+            className="unica-text text-white text-xl font-semibold tracking-tight no-underline hover:text-red-400 transition-colors"
           >
-            +91 11 4567 8900
+            +91 94312 67872
           </a>
 
           <a
             href="mailto:info@tridentintl.com"
-            className="text-white/40 text-[13px] no-underline"
+            className="text-white/40 text-[13px] no-underline hover:text-white/60 transition-colors"
           >
             info@tridentintl.com
           </a>
@@ -271,7 +274,7 @@ export default function Footer() {
           {/* Socials */}
           <div className="flex gap-4 mt-2">
             {[
-              { Icon: IconLinkedIn,  href: '#', label: 'LinkedIn'  },
+              { Icon: IconLinkedIn,  href: 'https://www.linkedin.com/company/internationaltrident/', label: 'LinkedIn'  },
               { Icon: IconTwitterX,  href: '#', label: 'Twitter/X' },
               { Icon: IconInstagram, href: '#', label: 'Instagram' },
             ].map(({ Icon, href, label }) => (

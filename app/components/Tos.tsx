@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollRevealText } from './animations';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,18 +21,18 @@ const TRAIL_D =
   '451.534 1626.12C401.981 1626.12 233.243 1626.12 233.243 1626.12C233.243 1626.12 ' +
   '86.9324 1639.63 93.7674 1780.89C100.602 1922.16 233.029 1917.8 233.029 1917.8L704 1930';
 
-// ─── 6 steps evenly spread across the path ───────────────────────────────────
+// ─── 6 steps positioned at the loop gaps in the path ───────────────────────────────────
 const STEPS = [
   {
-    pct:         0.08,
+    pct:         0.05,
     number:      1,
     icon:        '🤝',
     title:       'Verified Partnership Agreement',
-    description: 'Formal trade agreement, compliance checks, and comprehensive buyer onboarding.',
+    description: 'Formal trade agreement, compliance checks, and comprehensive buyer onboarding process.',
     side:        'right' as const,   // label placed to this side of the dot
   },
   {
-    pct:         0.24,
+    pct:         0.21,
     number:      2,
     icon:        '🏭',
     title:       'Supplier Due Diligence',
@@ -39,7 +40,7 @@ const STEPS = [
     side:        'left' as const,
   },
   {
-    pct:         0.40,
+    pct:         0.38,
     number:      3,
     icon:        '✅',
     title:       'Pre-Shipment Quality Assurance',
@@ -47,7 +48,7 @@ const STEPS = [
     side:        'right' as const,
   },
   {
-    pct:         0.57,
+    pct:         0.54,
     number:      4,
     icon:        '📑',
     title:       'Airtight Documentation',
@@ -55,7 +56,7 @@ const STEPS = [
     side:        'left' as const,
   },
   {
-    pct:         0.73,
+    pct:         0.71,
     number:      5,
     icon:        '📍',
     title:       'End-to-End Cargo Visibility',
@@ -63,7 +64,7 @@ const STEPS = [
     side:        'right' as const,
   },
   {
-    pct:         0.88,
+    pct:         0.87,
     number:      6,
     icon:        '💳',
     title:       'Secure Payment & Settlement',
@@ -110,7 +111,7 @@ export default function Tos() {
 
       ScrollTrigger.create({
         trigger:    sectionRef.current,
-        start:      'top top',
+        start:      'top 5%',
         end:        'bottom bottom',
         scrub:      1.2,
         onUpdate(self) {
@@ -145,12 +146,13 @@ export default function Tos() {
   return (
     <section
       ref={sectionRef}
-      className="w-screen relative bg-[#f4f4f2] overflow-hidden"
+      className="w-full relative bg-[#f4f4f2] overflow-hidden"
+      style={{ minHeight: 'clamp(100vh, 200vh, 400vh)' }}
     >
 
       {/* Sticky header */}
       <div
-        className="sticky top-0 z-30 flex flex-col items-center pt-9 pb-8 pointer-events-none"
+        className="sticky top-0 z-30 flex flex-col items-center py-8 md:py-16 lg:py-24 pointer-events-none"
         style={{
           background: 'linear-gradient(to bottom, #f4f4f2 65%, transparent 100%)',
         }}
@@ -159,7 +161,7 @@ export default function Tos() {
           How It Works
         </span>
         <h2
-          className="unica-text font-bold tracking-tight text-slate-900 m-0"
+          className="unica-text font-bold tracking-tight text-slate-900 mb-0"
           style={{
             fontSize: 'clamp(24px, 3.5vw, 52px)',
           }}
@@ -168,7 +170,7 @@ export default function Tos() {
         </h2>
       </div>
 
-      {/* SVG container: full width, auto height */}
+      {/* SVG container: full width */}
       <div className="relative w-full overflow-hidden">
 
         {/*
@@ -195,7 +197,7 @@ export default function Tos() {
           NO overflow:visible here — clipped to the container bounds.
         */}
         <svg
-          viewBox="0 0 600 1500"
+          viewBox="0 0 705 1955"
           preserveAspectRatio="xMidYMid meet"
           aria-hidden
           style={{
@@ -232,9 +234,6 @@ export default function Tos() {
           {milestones.map((pt, i) => {
             const step    = STEPS[i];
             const reached = started && activeStep >= i;
-            // Label x: offset 70 units left or right depending on side
-            const lx      = step.side === 'right' ? pt.x + 58 : pt.x - 58;
-            const anchor  = step.side === 'right' ? 'start'   : 'end';
 
             return (
               <g key={i}>
@@ -263,32 +262,6 @@ export default function Tos() {
                 >
                   {String(step.number).padStart(2, '0')}
                 </text>
-                {/* Title */}
-                <text
-                  x={lx} y={pt.y - 8}
-                  textAnchor={anchor}
-                  fontSize={15} fontWeight={700}
-                  letterSpacing="0.02em"
-                  fill={reached ? '#0f172a' : 'rgba(0,0,0,0.18)'}
-                  fontFamily='"Haas Unica","Helvetica Neue",sans-serif'
-                  style={{ transition: 'fill 0.45s' }}
-                >
-                  {step.title}
-                </text>
-                {/* Description — wraps at ~28 chars */}
-                {step.description.match(/.{1,30}(\s|$)/g)?.slice(0, 2).map((line, li) => (
-                  <text
-                    key={li}
-                    x={lx} y={pt.y + 12 + li * 18}
-                    textAnchor={anchor}
-                    fontSize={12} fontWeight={400}
-                    fill={reached ? 'rgba(0,0,0,0.55)' : 'rgba(0,0,0,0.13)'}
-                    fontFamily='"Haas Unica","Helvetica Neue",sans-serif'
-                    style={{ transition: 'fill 0.45s' }}
-                  >
-                    {line.trim()}
-                  </text>
-                ))}
               </g>
             );
           })}
@@ -310,70 +283,57 @@ export default function Tos() {
             style={{ opacity: started ? 1 : 0, transition: 'opacity 0.3s' }}
           />
         </svg>
-      </div>
 
-      {/* ── Sticky bottom bar: current step info + progress dots ── */}
-      <div
-        style={{
-          position:      'sticky',
-          bottom:        0,
-          zIndex:        30,
-          display:       'flex',
-          flexDirection: 'column',
-          alignItems:    'center',
-          gap:           10,
-          padding:       '18px 24px 26px',
-          background:    'linear-gradient(to top, #f4f4f2 65%, transparent 100%)',
-          pointerEvents: 'none',
-        }}
-      >
-        {/* Current step label */}
-        <p
-          key={activeStep}
-          style={{
-            fontFamily:    '"Haas Unica","Helvetica Neue",sans-serif',
-            fontSize:      'clamp(11px, 1.1vw, 14px)',
-            fontWeight:    600,
-            letterSpacing: '0.13em',
-            textTransform: 'uppercase',
-            color:         '#0f172a',
-            margin:        0,
-            animation:     'tos-label-in 0.35s ease',
-          }}
-        >
-          {currentStep.title}
-        </p>
-
-        {/* Progress dots */}
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-          {STEPS.map((_, i) => (
+        {/* ── Step labels positioned inside loop gaps with ScrollRevealText ── */}
+        {milestones.map((pt, i) => {
+          const step = STEPS[i];
+          const reached = started && activeStep >= i;
+          
+          // Calculate position in viewport coordinates
+          // SVG viewBox is 705x1955, we need to convert to percentage
+          const topPercent = (pt.y / 1955) * 100;
+          const leftPercent = (pt.x / 705) * 100;
+          
+          return (
             <div
               key={i}
+              className="absolute"
               style={{
-                width:        i === activeStep ? 24 : 6,
-                height:       6,
-                borderRadius: 3,
-                background:   i <= activeStep ? '#0f172a' : 'rgba(0,0,0,0.15)',
-                transition:   'all 0.35s ease',
+                top: `${topPercent}%`,
+                left: `${leftPercent}%`,
+                transform: 'translate(-50%, -50%)',
+                width: '280px',
+                maxWidth: '90vw',
+                pointerEvents: 'none',
               }}
-            />
-          ))}
-        </div>
-
-        {/* Counter */}
-        <span
-          style={{
-            position:      'absolute',
-            right:         'clamp(20px, 4vw, 56px)',
-            bottom:        26,
-            fontFamily:    'monospace',
-            fontSize:      11,
-            letterSpacing: '0.1em',
-            color:         'rgba(0,0,0,0.28)',
-          }}
-        >
-          {String(Math.max(1, activeStep + 1)).padStart(2, '0')} / {String(STEPS.length).padStart(2, '0')}
-        </span>
+            >
+              <div className="text-center">
+                <h3 
+                  className="unica-text font-bold tracking-tight text-slate-900 mb-2"
+                  style={{
+                    fontSize: 'clamp(16px, 2vw, 20px)',
+                    opacity: reached ? 1 : 0.3,
+                    transition: 'opacity 0.45s',
+                  }}
+                >
+                  {step.title}
+                </h3>
+                <div
+                  style={{
+                    opacity: reached ? 1 : 0.2,
+                    transition: 'opacity 0.45s',
+                  }}
+                >
+                  <ScrollRevealText
+                    text={step.description}
+                    containerRef={sectionRef}
+                    className="text-sm md:text-base leading-[1.4]"
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <style>{`
