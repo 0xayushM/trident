@@ -106,6 +106,7 @@ function BrandCell({
           opacity: hovered ? 1 : 0,
           background: `radial-gradient(circle 200px at ${mouse.x}px ${mouse.y}px, rgba(239,68,68,0.10) 0%, transparent 70%)`,
         }}
+        suppressHydrationWarning
       ></div>
 
       {/* Logo / text */}
