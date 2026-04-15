@@ -1,23 +1,139 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
+const OPTIONS = [
+  { id: '01', label: 'Schedule a 30-minute meeting with a freight expert' },
+  { id: '02', label: 'Get a custom shipping quote' },
+  { id: '03', label: 'Arrange compliance consultation' },
+  { id: '04', label: 'Set up a supplier sourcing session' },
+  { id: '05', label: 'Something else' },
+];
+
+function buildDividerPath({
+  tabW   = 300,
+  outerR = 0,
+  diagW  = 50,
+  depth  = 40,
+  entryR = 16,
+  innerR = 20,
+} = {}) {
+  const W = 1440, H = 72;
+  const cy  = H - depth;
+  const len = Math.sqrt(diagW**2 + depth**2);
+  const adx = diagW / len,  ady = depth / len;
+
+  const orC = Math.min(outerR, tabW/2, depth/2);
+  const erC = Math.min(entryR, tabW/2 - orC/2, len/3);
+  const irC = Math.min(innerR, len/3);
+
+  const p = (x: number, y: number) => `${x.toFixed(2)},${y.toFixed(2)}`;
+
+  return [
+    `M 0,0 L ${W},0`,
+    `L ${W},${H-orC}`,
+    `Q ${p(W,H)} ${p(W-orC, H)}`,
+    `L ${p(W-tabW+erC, H)}`,
+    `Q ${p(W-tabW,H)} ${p(W-tabW-erC*adx, H-erC*ady)}`,
+    `L ${p(W-tabW-diagW+irC*adx, cy+irC*ady)}`,
+    `Q ${p(W-tabW-diagW,cy)} ${p(W-tabW-diagW-irC, cy)}`,
+    `L ${p(tabW+diagW+irC, cy)}`,
+    `Q ${p(tabW+diagW,cy)} ${p(tabW+diagW-irC*adx, cy+irC*ady)}`,
+    `L ${p(tabW+erC*adx, H-erC*ady)}`,
+    `Q ${p(tabW,H)} ${p(tabW-erC, H)}`,
+    `L ${p(orC, H)}`,
+    `Q ${p(0,H)} ${p(0, H-orC)}`,
+    `Z` 
+  ].join(' ');
+}
+
+function BottomDivider() {
+  const pathRef = useRef<SVGPathElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const [maxDepth, setMaxDepth] = useState(20);
+
+  useEffect(() => {
+    const updateMaxDepth = () => {
+      const vw = window.innerWidth;
+      if (vw < 768) {
+        setMaxDepth(20);
+      } else if (vw < 1024) {
+        setMaxDepth(20);
+      } else {
+        setMaxDepth(30);
+      }
+    };
+
+    updateMaxDepth();
+    window.addEventListener('resize', updateMaxDepth);
+    return () => window.removeEventListener('resize', updateMaxDepth);
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      const elementTop = rect.top;
+      const triggerPoint = windowHeight; 
+      
+      if (elementTop < triggerPoint) {
+        const scrollProgress = Math.max(0, Math.min(1, (triggerPoint - elementTop) / (windowHeight)));
+        setProgress(scrollProgress);
+      } else {
+        setProgress(0);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!pathRef.current) return;
+    
+    const depth = maxDepth * (1 - progress);
+    const path = buildDividerPath({ depth });
+    pathRef.current.setAttribute('d', path);
+  }, [progress, maxDepth]);
+
+  return (
+    <div 
+      ref={containerRef}
+      className="absolute bottom-0 left-0 right-0 w-full pointer-events-none bg-white"
+      style={{ height: '72px', transform: 'translateY(100%)' }}
+    >
+      <svg
+        viewBox="0 0 1440 72"
+        preserveAspectRatio="none"
+        className="w-full h-full block"
+        style={{ transform: 'scaleY(-1)' }}
+      >
+        <path
+          ref={pathRef}
+          fill="#000000"
+          d={buildDividerPath({ depth: 44 })}
+        />
+      </svg>
+    </div>
+  );
+}
 
 export default function Contact() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    company: '',
+    fullName: '',
+    role: '',
+    phone: '',
     email: '',
-    enquiryType: '',
-    volume: '',
-    message: '',
+    company: '',
+    helpWith: '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,7 +141,7 @@ export default function Contact() {
     console.log('Form submitted:', formData);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -33,138 +149,218 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative w-full bg-slate-900 py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-8 md:px-12">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 32 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.65 }}
-          className="text-center mb-16"
-        >
-          <p className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4">Get In Touch</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white unica-text">
-            START YOUR SHIPMENT TODAY
-          </h2>
-        </motion.div>
+    <section className="relative w-full bg-white py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-8 md:px-16 lg:px-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left: Office Details */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.2 }}
-          >
-            <h3 className="text-2xl font-bold text-white unica-text mb-8">HEADQUARTERS</h3>
-            
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white font-semibold mb-1">Address</p>
-                  <p className="text-gray-400">Trident International Pvt. Ltd.<br />New Delhi, India 110001</p>
-                </div>
-              </div>
+          {/* Left Column - Options List */}
+          <div>
+            <h2
+              style={{
+                fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                fontSize: 'clamp(24px, 3vw, 36px)',
+                fontWeight: 600,
+                letterSpacing: '-0.02em',
+                color: '#0f172a',
+                marginBottom: 40,
+                lineHeight: 1.3,
+              }}
+            >
+              Reach out to learn more about Trident, on your terms:
+            </h2>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
+            <div
+              style={{
+                borderLeft: '3px solid #22c55e',
+                paddingLeft: 24,
+              }}
+            >
+              {OPTIONS.map((option) => (
+                <div
+                  key={option.id}
+                  style={{
+                    marginBottom: 20,
+                    display: 'flex',
+                    gap: 12,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'monospace',
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: '#94a3b8',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {option.id}
+                  </span>
+                  <p
+                    style={{
+                      fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                      fontSize: 16,
+                      fontWeight: 400,
+                      color: '#475569',
+                      margin: 0,
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {option.label}
+                  </p>
                 </div>
-                <div>
-                  <p className="text-white font-semibold mb-1">Email</p>
-                  <p className="text-gray-400">info@tridentintl.com<br />sales@tridentintl.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white font-semibold mb-1">Phone</p>
-                  <p className="text-gray-400">+91 11 4567 8900<br />+91 98765 43210</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white font-semibold mb-1">Business Hours</p>
-                  <p className="text-gray-400">Monday - Friday: 9:00 AM - 6:00 PM IST<br />Saturday: 9:00 AM - 2:00 PM IST</p>
-                </div>
-              </div>
+              ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.2 }}
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="firstName" className="block text-white text-sm font-semibold mb-2">
-                    First Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className="w-full bg-slate-800/50 border border-white/8 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-white text-sm font-semibold mb-2">
-                    Last Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    required
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    className="w-full bg-slate-800/50 border border-white/8 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                  />
-                </div>
-              </div>
+          {/* Right Column - Form */}
+          <div>
+            <h3
+              style={{
+                fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                fontSize: 'clamp(22px, 2.5vw, 32px)',
+                fontWeight: 600,
+                letterSpacing: '-0.02em',
+                color: '#0f172a',
+                marginBottom: 32,
+              }}
+            >
+              Tell us a bit about you:
+            </h3>
 
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              {/* Full Name */}
               <div>
-                <label htmlFor="company" className="block text-white text-sm font-semibold mb-2">
-                  Company Name *
+                <label
+                  htmlFor="fullName"
+                  style={{
+                    display: 'block',
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: '#64748b',
+                    marginBottom: 8,
+                  }}
+                >
+                  Full Name *
                 </label>
                 <input
                   type="text"
-                  id="company"
-                  name="company"
+                  id="fullName"
+                  name="fullName"
                   required
-                  value={formData.company}
+                  value={formData.fullName}
                   onChange={handleChange}
-                  className="w-full bg-slate-800/50 border border-white/8 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                  placeholder="John Doe"
+                  style={{
+                    width: '100%',
+                    padding: '12px 0',
+                    fontSize: 15,
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    color: '#0f172a',
+                    border: 'none',
+                    borderBottom: '1px solid #e2e8f0',
+                    outline: 'none',
+                    transition: 'border-color 0.2s',
+                    background: 'transparent',
+                  }}
+                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
+                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
                 />
               </div>
 
+              {/* Role or Position */}
               <div>
-                <label htmlFor="email" className="block text-white text-sm font-semibold mb-2">
-                  Email Address *
+                <label
+                  htmlFor="role"
+                  style={{
+                    display: 'block',
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: '#64748b',
+                    marginBottom: 8,
+                  }}
+                >
+                  Role or position *
+                </label>
+                <input
+                  type="text"
+                  id="role"
+                  name="role"
+                  required
+                  value={formData.role}
+                  onChange={handleChange}
+                  placeholder="Project manager"
+                  style={{
+                    width: '100%',
+                    padding: '12px 0',
+                    fontSize: 15,
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    color: '#0f172a',
+                    border: 'none',
+                    borderBottom: '1px solid #e2e8f0',
+                    outline: 'none',
+                    transition: 'border-color 0.2s',
+                    background: 'transparent',
+                  }}
+                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
+                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
+                />
+              </div>
+
+              {/* Phone Number */}
+              <div>
+                <label
+                  htmlFor="phone"
+                  style={{
+                    display: 'block',
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: '#64748b',
+                    marginBottom: 8,
+                  }}
+                >
+                  Phone number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="(323) 555-0147"
+                  style={{
+                    width: '100%',
+                    padding: '12px 0',
+                    fontSize: 15,
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    color: '#0f172a',
+                    border: 'none',
+                    borderBottom: '1px solid #e2e8f0',
+                    outline: 'none',
+                    transition: 'border-color 0.2s',
+                    background: 'transparent',
+                  }}
+                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
+                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  style={{
+                    display: 'block',
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: '#64748b',
+                    marginBottom: 8,
+                  }}
+                >
+                  Email *
                 </label>
                 <input
                   type="email"
@@ -173,76 +369,146 @@ export default function Contact() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-slate-800/50 border border-white/8 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                  placeholder="name@email.com"
+                  style={{
+                    width: '100%',
+                    padding: '12px 0',
+                    fontSize: 15,
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    color: '#0f172a',
+                    border: 'none',
+                    borderBottom: '1px solid #e2e8f0',
+                    outline: 'none',
+                    transition: 'border-color 0.2s',
+                    background: 'transparent',
+                  }}
+                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
+                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="enquiryType" className="block text-white text-sm font-semibold mb-2">
-                    Enquiry Type *
-                  </label>
-                  <select
-                    id="enquiryType"
-                    name="enquiryType"
-                    required
-                    value={formData.enquiryType}
-                    onChange={handleChange}
-                    className="w-full bg-slate-800/50 border border-white/8 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                  >
-                    <option value="">Select...</option>
-                    <option value="sea-freight">Sea Freight</option>
-                    <option value="air-freight">Air Freight</option>
-                    <option value="customs">Customs Brokerage</option>
-                    <option value="sourcing">Supplier Sourcing</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="volume" className="block text-white text-sm font-semibold mb-2">
-                    Expected Volume
-                  </label>
-                  <select
-                    id="volume"
-                    name="volume"
-                    value={formData.volume}
-                    onChange={handleChange}
-                    className="w-full bg-slate-800/50 border border-white/8 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                  >
-                    <option value="">Select...</option>
-                    <option value="lcl">LCL (&lt;20 MT)</option>
-                    <option value="fcl">FCL (20-100 MT)</option>
-                    <option value="bulk">Bulk (&gt;100 MT)</option>
-                  </select>
-                </div>
-              </div>
-
+              {/* Company Name */}
               <div>
-                <label htmlFor="message" className="block text-white text-sm font-semibold mb-2">
-                  Message *
+                <label
+                  htmlFor="company"
+                  style={{
+                    display: 'block',
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: '#64748b',
+                    marginBottom: 8,
+                  }}
+                >
+                  Company name *
                 </label>
-                <textarea
-                  id="message"
-                  name="message"
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
                   required
-                  rows={5}
-                  value={formData.message}
+                  value={formData.company}
                   onChange={handleChange}
-                  className="w-full bg-slate-800/50 border border-white/8 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                  placeholder="Tell us about your shipment requirements..."
+                  placeholder="Acme"
+                  style={{
+                    width: '100%',
+                    padding: '12px 0',
+                    fontSize: 15,
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    color: '#0f172a',
+                    border: 'none',
+                    borderBottom: '1px solid #e2e8f0',
+                    outline: 'none',
+                    transition: 'border-color 0.2s',
+                    background: 'transparent',
+                  }}
+                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
+                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
                 />
               </div>
 
+              {/* How Can We Help */}
+              <div>
+                <label
+                  htmlFor="helpWith"
+                  style={{
+                    display: 'block',
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: '#64748b',
+                    marginBottom: 8,
+                  }}
+                >
+                  How Can We Help? *
+                </label>
+                <select
+                  id="helpWith"
+                  name="helpWith"
+                  required
+                  value={formData.helpWith}
+                  onChange={handleChange}
+                  style={{
+                    width: '100%',
+                    padding: '12px 0',
+                    fontSize: 15,
+                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                    color: formData.helpWith ? '#0f172a' : '#94a3b8',
+                    border: 'none',
+                    borderBottom: '1px solid #e2e8f0',
+                    outline: 'none',
+                    transition: 'border-color 0.2s',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                  }}
+                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
+                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
+                >
+                  <option value="" disabled>Select options</option>
+                  <option value="meeting">Schedule a 30-minute meeting</option>
+                  <option value="quote">Get a custom shipping quote</option>
+                  <option value="compliance">Arrange compliance consultation</option>
+                  <option value="sourcing">Set up supplier sourcing session</option>
+                  <option value="other">Something else</option>
+                </select>
+              </div>
+
+              {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-red-600 text-white font-semibold py-4 rounded-lg hover:from-blue-700 hover:to-red-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                style={{
+                  width: '100%',
+                  padding: '16px 32px',
+                  marginTop: 16,
+                  fontSize: 13,
+                  fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
+                  fontWeight: 600,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: '#94a3b8',
+                  background: '#f1f5f9',
+                  border: 'none',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#e2e8f0';
+                  e.currentTarget.style.color = '#475569';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#f1f5f9';
+                  e.currentTarget.style.color = '#94a3b8';
+                }}
               >
-                Submit Enquiry
+                Submit
               </button>
             </form>
-          </motion.div>
+          </div>
+
         </div>
       </div>
+      <BottomDivider />
     </section>
   );
 }

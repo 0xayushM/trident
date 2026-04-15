@@ -7,6 +7,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Nebula';
+  src: url('/fonts/Nebula-Regular.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,6 +21,10 @@
 
 .unica-text {
   font-family: 'Haas Unica', sans-serif;
+}
+
+.nebula-text {
+  font-family: 'Nebula', sans-serif;
 }
 
 @theme inline {

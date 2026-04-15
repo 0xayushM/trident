@@ -2,6 +2,124 @@
 
 import Image from 'next/image';
 import SlideButton from './ui/SlideButton';
+import { useRef, useState, useEffect} from 'react';
+
+function buildDividerPath({
+  tabW   = 300,  // flat horizontal tab at each side edge
+  outerR = 0,   // ① ⑥  wall → tab corner radius
+  diagW  = 50,   // horizontal span of diagonal
+  depth  = 40,   // vertical depth of scoops (animates to 0)
+  entryR = 16,   // ② ⑤  tab → diagonal corner radius
+  innerR = 20,   // ③ ④  diagonal → centre corner radius
+} = {}) {
+  const W = 1440, H = 72;
+  const cy  = H - depth;
+  const len = Math.sqrt(diagW**2 + depth**2);
+  const adx = diagW / len,  ady = depth / len;
+
+  const orC = Math.min(outerR, tabW/2, depth/2);
+  const erC = Math.min(entryR, tabW/2 - orC/2, len/3);
+  const irC = Math.min(innerR, len/3);
+
+  const p = (x: number, y: number) => `${x.toFixed(2)},${y.toFixed(2)}`;
+
+  return [
+    `M 0,0 L ${W},0`,
+    `L ${W},${H-orC}`,
+    `Q ${p(W,H)} ${p(W-orC, H)}`,                             // ① outer right
+    `L ${p(W-tabW+erC, H)}`,
+    `Q ${p(W-tabW,H)} ${p(W-tabW-erC*adx, H-erC*ady)}`,      // ② entry right
+    `L ${p(W-tabW-diagW+irC*adx, cy+irC*ady)}`,
+    `Q ${p(W-tabW-diagW,cy)} ${p(W-tabW-diagW-irC, cy)}`,     // ③ inner right
+    `L ${p(tabW+diagW+irC, cy)}`,
+    `Q ${p(tabW+diagW,cy)} ${p(tabW+diagW-irC*adx, cy+irC*ady)}`, // ④ inner left
+    `L ${p(tabW+erC*adx, H-erC*ady)}`,
+    `Q ${p(tabW,H)} ${p(tabW-erC, H)}`,                       // ⑤ entry left
+    `L ${p(orC, H)}`,
+    `Q ${p(0,H)} ${p(0, H-orC)}`,                             // ⑥ outer left
+    `Z` 
+  ].join(' ');
+}
+
+function TopDivider() {
+  const pathRef = useRef<SVGPathElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const [maxDepth, setMaxDepth] = useState(20);
+
+  useEffect(() => {
+    const updateMaxDepth = () => {
+      // Responsive depth: smaller on mobile, larger on desktop
+      const vw = window.innerWidth;
+      if (vw < 768) {
+        setMaxDepth(20); // Mobile
+      } else if (vw < 1024) {
+        setMaxDepth(20); // Tablet
+      } else {
+        setMaxDepth(30); // Desktop
+      }
+    };
+
+    updateMaxDepth();
+    window.addEventListener('resize', updateMaxDepth);
+    return () => window.removeEventListener('resize', updateMaxDepth);
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      const elementTop = rect.top;
+      const triggerPoint = windowHeight; 
+      
+      if (elementTop < triggerPoint) {
+        // Transition over 2x viewport height for slower animation
+        const scrollProgress = Math.max(0, Math.min(1, (triggerPoint - elementTop) / (windowHeight)));
+        setProgress(scrollProgress);
+      } else {
+        setProgress(0);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!pathRef.current) return;
+    
+    const depth = maxDepth * (1 - progress);
+    const path = buildDividerPath({ depth });
+    pathRef.current.setAttribute('d', path);
+  }, [progress, maxDepth]);
+
+  return (
+    <div 
+      ref={containerRef}
+      className="absolute top-0 left-0 right-0 w-full pointer-events-none bg-white"
+      style={{ height: '72px', transform: 'translateY(-100%)' }}
+    >
+      <svg
+        viewBox="0 0 1440 72"
+        preserveAspectRatio="none"
+        className="w-full h-full block"
+      >
+        <path
+          ref={pathRef}
+          fill="#000000"
+          d={buildDividerPath({ depth: 44 })}
+        />
+      </svg>
+    </div>
+  );
+}
 
 function IconLinkedIn({ size = 18 }: { size?: number }) {
   return (
@@ -35,6 +153,7 @@ export default function Footer() {
       className="relative w-full overflow-hidden"
       style={{ background: '#060606', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
     >
+      <TopDivider />
       {/* Video background with red overlay */}
       <div className="absolute inset-0 z-0">
         <video

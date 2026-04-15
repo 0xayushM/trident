@@ -24,7 +24,7 @@ export default function Navbar({ ready = true }: { ready?: boolean }) {
                 className="w-8 h-8 md:w-10 md:h-10"
                 priority
               />
-              <h1 className="text-lg md:text-xl font-bold text-white unica-text">TRIDENT</h1>
+              <h1 className="text-lg md:text-xl font-bold text-white unica-text">Trident</h1>
             </div>
           </div>
 
