@@ -145,59 +145,31 @@ export default function Tos() {
   return (
     <section
       ref={sectionRef}
-      style={{
-        width:    '100vw',
-        position: 'relative',
-        background: '#f4f4f2',
-        // Contain everything — no bleed into adjacent sections
-        overflow: 'hidden',
-      }}
+      className="w-screen relative bg-[#f4f4f2] overflow-hidden"
     >
 
-      {/* ── Sticky header ── */}
+      {/* Sticky header */}
       <div
+        className="sticky top-0 z-30 flex flex-col items-center pt-9 pb-8 pointer-events-none"
         style={{
-          position:      'sticky',
-          top:           0,
-          zIndex:        30,
-          display:       'flex',
-          flexDirection: 'column',
-          alignItems:    'center',
-          paddingTop:    36,
-          paddingBottom: 32,
-          background:    'linear-gradient(to bottom, #f4f4f2 65%, transparent 100%)',
-          pointerEvents: 'none',
+          background: 'linear-gradient(to bottom, #f4f4f2 65%, transparent 100%)',
         }}
       >
-        <span
-          style={{
-            fontFamily:    'monospace',
-            fontSize:      11,
-            letterSpacing: '0.16em',
-            color:         '#ef4444',
-            fontWeight:    600,
-            textTransform: 'uppercase',
-            marginBottom:  8,
-          }}
-        >
+        <span className="font-mono text-[11px] tracking-[0.16em] text-red-500 font-semibold uppercase mb-2">
           How It Works
         </span>
         <h2
+          className="unica-text font-bold tracking-tight text-slate-900 m-0"
           style={{
-            fontFamily:    '"Haas Unica", "Helvetica Neue", sans-serif',
-            fontSize:      'clamp(24px, 3.5vw, 52px)',
-            fontWeight:    700,
-            letterSpacing: '-0.04em',
-            color:         '#0f172a',
-            margin:        0,
+            fontSize: 'clamp(24px, 3.5vw, 52px)',
           }}
         >
           Trail of Shipment
         </h2>
       </div>
 
-      {/* ── SVG container: full width, auto height ── */}
-      <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
+      {/* SVG container: full width, auto height */}
+      <div className="relative w-full overflow-hidden">
 
         {/*
           Background img: the original infographic faded heavily.
@@ -209,14 +181,9 @@ export default function Tos() {
           src="/images/tos.svg"
           alt=""
           aria-hidden
+          className="block w-full h-auto pointer-events-none select-none"
           style={{
-            display:       'block',
-            width:         '100%',
-            height:        'auto',
-            // strip the original black trail to ~5% so it's invisible
-            filter:        'opacity(0.05) saturate(0)',
-            pointerEvents: 'none',
-            userSelect:    'none',
+            filter: 'opacity(0.05) saturate(0)',
           }}
         />
 

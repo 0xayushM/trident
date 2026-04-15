@@ -18,40 +18,16 @@ export default function TeamCard({ member, index }: TeamCardProps) {
   const isFlipped = member.flip;
 
   const textPanel = (
-    <div
-      className='px-4 mx-auto w-full items-center'
-      style={{
-        flex: 1,
-        maxWidth: 880,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        gap: 20,
-      }}
-    >
+    <div className='px-4 mx-auto w-full items-center flex-1 max-w-[880px] flex flex-col justify-center gap-5'>
       <div className='flex flex-col h-full gap-0'>
-        <span
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 11,
-          letterSpacing: '0.1em',
-          color: '#ef4444',
-          fontWeight: 600,
-        }}
-        className="mb-2"
-      >
-        {member.number}
-      </span>
+        <span className="font-mono text-[11px] tracking-wider text-red-500 font-semibold mb-2">
+          {member.number}
+        </span>
 
-      <h3 className='uppercase mb-4'
+      <h3 
+        className='uppercase mb-4 unica-text font-bold tracking-tight leading-tight text-slate-900 m-0'
         style={{
-          fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
           fontSize: 'clamp(28px, 3.5vw, 52px)',
-          fontWeight: 700,
-          letterSpacing: '-0.03em',
-          lineHeight: 1.1,
-          color: '#0f172a',
-          margin: 0,
         }}
       >
         <AnimatedWord delay={200} inView={inView}>{member.firstname}</AnimatedWord>{" "}
@@ -60,16 +36,10 @@ export default function TeamCard({ member, index }: TeamCardProps) {
       </h3>
 
       <p
+        className="mt-2 unica-text font-semibold tracking-widest uppercase text-red-500 m-0"
         style={{
-          fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
           fontSize: 'clamp(12px, 1vw, 14px)',
-          fontWeight: 600,
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          color: '#ef4444',
-          margin: 0,
         }}
-        className="mt-2"
       >
         {member.role}
       </p>

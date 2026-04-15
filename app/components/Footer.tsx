@@ -173,38 +173,22 @@ export default function Footer() {
           }}
         />
       </div>
-      {/* ── CTA — top section ─────────────────────────────────────────{/*  CTA  top section  */}
+      {/* CTA — top section */}
       <div
         className="flex flex-col items-center justify-center text-center flex-1 relative z-10"
         style={{
-          padding:    'clamp(80px, 12vh, 140px) clamp(24px, 8vw, 120px)',
+          padding: 'clamp(80px, 12vh, 140px) clamp(24px, 8vw, 120px)',
           paddingBottom: 'clamp(60px, 8vh, 100px)',
         }}
       >
-        <span
-          style={{
-            fontFamily:    'monospace',
-            fontSize:      11,
-            letterSpacing: '0.18em',
-            color:         'rgba(255,255,255,0.35)',
-            textTransform: 'uppercase',
-            marginBottom:  24,
-            display:       'block',
-          }}
-        >
+        <span className="font-mono text-[11px] tracking-[0.18em] text-white/35 uppercase mb-6 block">
           Ready to ship?
         </span>
 
         <h2
+          className="unica-text font-bold tracking-tight leading-tight text-white max-w-[900px] mx-auto mb-13"
           style={{
-            fontFamily:    '"Haas Unica", "Helvetica Neue", sans-serif',
-            fontSize:      'clamp(36px, 6.5vw, 96px)',
-            fontWeight:    700,
-            letterSpacing: '-0.04em',
-            lineHeight:    1.05,
-            color:         '#ffffff',
-            maxWidth:      900,
-            margin:        '0 auto 52px',
+            fontSize: 'clamp(36px, 6.5vw, 96px)',
           }}
         >
           Your freight.
@@ -225,13 +209,11 @@ export default function Footer() {
         </SlideButton>
       </div>
 
-      {/* ── Divider ───────────────────────────────────────────────────{/*  Divider  */}
+      {/* Divider */}
       <div
-        className="relative z-10"
+        className="relative z-10 h-px bg-white/8"
         style={{
-          height:     1,
-          background: 'rgba(255,255,255,0.08)',
-          margin:     '0 clamp(24px, 5vw, 80px)',
+          margin: '0 clamp(24px, 5vw, 80px)',
         }}
       />
 
@@ -253,77 +235,41 @@ export default function Footer() {
               height={36}
               style={{ width: 36, height: 36, objectFit: 'contain' }}
             />
-            <span
-              style={{
-                fontFamily:    '"Haas Unica", "Helvetica Neue", sans-serif',
-                fontWeight:    700,
-                fontSize:      16,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color:         '#ffffff',
-              }}
-            >
+            <span className="unica-text font-bold text-base tracking-widest uppercase text-white">
               Trident
             </span>
           </div>
 
-          <p
-            style={{
-              fontSize:   13,
-              lineHeight: 1.65,
-              color:      'rgba(255,255,255,0.4)',
-              maxWidth:   240,
-            }}
-          >
+          <p className="text-[13px] leading-relaxed text-white/40 max-w-[240px]">
             Global freight forwarding and trade facilitation for businesses that demand precision, reliability, and transparency.
           </p>
         </div>
         {/* Column 4 — Reach Us */}
         <div className="flex flex-col gap-4">
-          <p
-            style={{
-              fontSize:      10,
-              fontWeight:    600,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color:         'rgba(255,255,255,0.3)',
-              marginBottom:  6,
-            }}
-          >
+          <p className="text-[10px] font-semibold tracking-[0.18em] uppercase text-white/30 mb-1.5">
             Reach Us
           </p>
 
-          <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 13, lineHeight: 1.6 }}>
+          <p className="text-white/55 text-[13px] leading-relaxed">
             Ready to move your freight?
           </p>
 
           <a
             href="tel:+911145678900"
-            style={{
-              color:         '#ffffff',
-              fontSize:      20,
-              fontWeight:    600,
-              letterSpacing: '-0.02em',
-              textDecoration:'none',
-              fontFamily:    '"Haas Unica", "Helvetica Neue", sans-serif',
-            }}
+            className="unica-text text-white text-xl font-semibold tracking-tight no-underline"
           >
             +91 11 4567 8900
           </a>
 
           <a
             href="mailto:info@tridentintl.com"
-            style={{
-              color:         'rgba(255,255,255,0.4)',
-              fontSize:      13,
-              textDecoration:'none',
-            }}
+            className="text-white/40 text-[13px] no-underline"
           >
             info@tridentintl.com
           </a>
 
           {/* Socials */}
-          <div className="flex gap-4" style={{ marginTop: 8 }}>
+          <div className="flex gap-4 mt-2">
             {[
               { Icon: IconLinkedIn,  href: '#', label: 'LinkedIn'  },
               { Icon: IconTwitterX,  href: '#', label: 'Twitter/X' },
@@ -337,16 +283,14 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Bottom bar ────────────────────────────────────────────────{/*  Bottom bar  */}
+      {/* Bottom bar */}
       <div
-        className="flex flex-col md:flex-row justify-between items-center gap-3 relative z-10"
+        className="flex flex-col md:flex-row justify-between items-center gap-3 relative z-10 border-t border-white/6"
         style={{
-          padding:    'clamp(16px, 2.5vh, 28px) clamp(24px, 5vw, 80px)',
-          borderTop:  '1px solid rgba(255,255,255,0.06)',
+          padding: 'clamp(16px, 2.5vh, 28px) clamp(24px, 5vw, 80px)',
         }}
       >
-        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', margin: 0 }}>
-          &copy; {new Date().getFullYear()} Trident International Pvt. Ltd. All rights reserved.
+        <p className="text-xs text-white/20 m-0">
           © {new Date().getFullYear()} Trident International Pvt. Ltd. All rights reserved.
         </p>
         <div className="flex gap-6">
@@ -354,14 +298,7 @@ export default function Footer() {
             <a
               key={t}
               href="#"
-              style={{
-                fontSize:      12,
-                color:         'rgba(255,255,255,0.2)',
-                textDecoration:'none',
-                transition:    'color 0.2s',
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.2)')}
+              className="text-xs text-white/20 no-underline transition-colors hover:text-white/60"
             >
               {t}
             </a>
@@ -378,15 +315,7 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
   return (
     <a
       href={href}
-      style={{
-        fontSize:      14,
-        color:         'rgba(255,255,255,0.55)',
-        textDecoration:'none',
-        transition:    'color 0.2s',
-        fontFamily:    '"Haas Unica", "Helvetica Neue", sans-serif',
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
-      onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}
+      className="text-sm unica-text text-white/55 no-underline transition-colors hover:text-white"
     >
       {children}
     </a>
@@ -402,26 +331,7 @@ function SocialIcon({
     <a
       href={href}
       aria-label={label}
-      style={{
-        width:         36,
-        height:        36,
-        borderRadius:  '50%',
-        border:        '1px solid rgba(255,255,255,0.15)',
-        display:       'flex',
-        alignItems:    'center',
-        justifyContent:'center',
-        color:         'rgba(255,255,255,0.5)',
-        textDecoration:'none',
-        transition:    'border-color 0.2s, color 0.2s',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)';
-        e.currentTarget.style.color       = '#ffffff';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-        e.currentTarget.style.color       = 'rgba(255,255,255,0.5)';
-      }}
+      className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white/50 no-underline transition-all hover:border-white/50 hover:text-white"
     >
       {children}
     </a>

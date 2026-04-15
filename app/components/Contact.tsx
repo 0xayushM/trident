@@ -156,55 +156,21 @@ export default function Contact() {
           {/* Left Column - Options List */}
           <div>
             <h2
+              className="unica-text font-semibold text-slate-900 mb-10 leading-tight tracking-tight"
               style={{
-                fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
                 fontSize: 'clamp(24px, 3vw, 36px)',
-                fontWeight: 600,
-                letterSpacing: '-0.02em',
-                color: '#0f172a',
-                marginBottom: 40,
-                lineHeight: 1.3,
               }}
             >
               Reach out to learn more about Trident, on your terms:
             </h2>
 
-            <div
-              style={{
-                borderLeft: '3px solid #22c55e',
-                paddingLeft: 24,
-              }}
-            >
+            <div className="border-l-[3px] border-green-500 pl-6">
               {OPTIONS.map((option) => (
-                <div
-                  key={option.id}
-                  style={{
-                    marginBottom: 20,
-                    display: 'flex',
-                    gap: 12,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'monospace',
-                      fontSize: 14,
-                      fontWeight: 600,
-                      color: '#94a3b8',
-                      flexShrink: 0,
-                    }}
-                  >
+                <div key={option.id} className="mb-5 flex gap-3">
+                  <span className="font-mono text-sm font-semibold text-slate-400 flex-shrink-0">
                     {option.id}
                   </span>
-                  <p
-                    style={{
-                      fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                      fontSize: 16,
-                      fontWeight: 400,
-                      color: '#475569',
-                      margin: 0,
-                      lineHeight: 1.6,
-                    }}
-                  >
+                  <p className="unica-text text-base text-slate-600 m-0 leading-relaxed">
                     {option.label}
                   </p>
                 </div>
@@ -215,32 +181,18 @@ export default function Contact() {
           {/* Right Column - Form */}
           <div>
             <h3
+              className="unica-text font-semibold text-slate-900 mb-8 tracking-tight"
               style={{
-                fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
                 fontSize: 'clamp(22px, 2.5vw, 32px)',
-                fontWeight: 600,
-                letterSpacing: '-0.02em',
-                color: '#0f172a',
-                marginBottom: 32,
               }}
             >
               Tell us a bit about you:
             </h3>
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               {/* Full Name */}
               <div>
-                <label
-                  htmlFor="fullName"
-                  style={{
-                    display: 'block',
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: '#64748b',
-                    marginBottom: 8,
-                  }}
-                >
+                <label htmlFor="fullName" className="block unica-text text-[13px] font-medium text-slate-500 mb-2">
                   Full Name *
                 </label>
                 <input
@@ -251,36 +203,13 @@ export default function Contact() {
                   value={formData.fullName}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    fontSize: 15,
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    color: '#0f172a',
-                    border: 'none',
-                    borderBottom: '1px solid #e2e8f0',
-                    outline: 'none',
-                    transition: 'border-color 0.2s',
-                    background: 'transparent',
-                  }}
-                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
-                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
+                  className="w-full py-3 text-[15px] unica-text text-slate-900 border-0 border-b border-slate-200 outline-none transition-colors bg-transparent focus:border-green-500"
                 />
               </div>
 
               {/* Role or Position */}
               <div>
-                <label
-                  htmlFor="role"
-                  style={{
-                    display: 'block',
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: '#64748b',
-                    marginBottom: 8,
-                  }}
-                >
+                <label htmlFor="role" className="block unica-text text-[13px] font-medium text-slate-500 mb-2">
                   Role or position *
                 </label>
                 <input
@@ -291,36 +220,13 @@ export default function Contact() {
                   value={formData.role}
                   onChange={handleChange}
                   placeholder="Project manager"
-                  style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    fontSize: 15,
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    color: '#0f172a',
-                    border: 'none',
-                    borderBottom: '1px solid #e2e8f0',
-                    outline: 'none',
-                    transition: 'border-color 0.2s',
-                    background: 'transparent',
-                  }}
-                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
-                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
+                  className="w-full py-3 text-[15px] unica-text text-slate-900 border-0 border-b border-slate-200 outline-none transition-colors bg-transparent focus:border-green-500"
                 />
               </div>
 
               {/* Phone Number */}
               <div>
-                <label
-                  htmlFor="phone"
-                  style={{
-                    display: 'block',
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: '#64748b',
-                    marginBottom: 8,
-                  }}
-                >
+                <label htmlFor="phone" className="block unica-text text-[13px] font-medium text-slate-500 mb-2">
                   Phone number
                 </label>
                 <input
@@ -330,36 +236,13 @@ export default function Contact() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="(323) 555-0147"
-                  style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    fontSize: 15,
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    color: '#0f172a',
-                    border: 'none',
-                    borderBottom: '1px solid #e2e8f0',
-                    outline: 'none',
-                    transition: 'border-color 0.2s',
-                    background: 'transparent',
-                  }}
-                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
-                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
+                  className="w-full py-3 text-[15px] unica-text text-slate-900 border-0 border-b border-slate-200 outline-none transition-colors bg-transparent focus:border-green-500"
                 />
               </div>
 
               {/* Email */}
               <div>
-                <label
-                  htmlFor="email"
-                  style={{
-                    display: 'block',
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: '#64748b',
-                    marginBottom: 8,
-                  }}
-                >
+                <label htmlFor="email" className="block unica-text text-[13px] font-medium text-slate-500 mb-2">
                   Email *
                 </label>
                 <input
@@ -370,36 +253,13 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="name@email.com"
-                  style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    fontSize: 15,
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    color: '#0f172a',
-                    border: 'none',
-                    borderBottom: '1px solid #e2e8f0',
-                    outline: 'none',
-                    transition: 'border-color 0.2s',
-                    background: 'transparent',
-                  }}
-                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
-                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
+                  className="w-full py-3 text-[15px] unica-text text-slate-900 border-0 border-b border-slate-200 outline-none transition-colors bg-transparent focus:border-green-500"
                 />
               </div>
 
               {/* Company Name */}
               <div>
-                <label
-                  htmlFor="company"
-                  style={{
-                    display: 'block',
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: '#64748b',
-                    marginBottom: 8,
-                  }}
-                >
+                <label htmlFor="company" className="block unica-text text-[13px] font-medium text-slate-500 mb-2">
                   Company name *
                 </label>
                 <input
@@ -410,36 +270,13 @@ export default function Contact() {
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="Acme"
-                  style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    fontSize: 15,
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    color: '#0f172a',
-                    border: 'none',
-                    borderBottom: '1px solid #e2e8f0',
-                    outline: 'none',
-                    transition: 'border-color 0.2s',
-                    background: 'transparent',
-                  }}
-                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
-                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
+                  className="w-full py-3 text-[15px] unica-text text-slate-900 border-0 border-b border-slate-200 outline-none transition-colors bg-transparent focus:border-green-500"
                 />
               </div>
 
               {/* How Can We Help */}
               <div>
-                <label
-                  htmlFor="helpWith"
-                  style={{
-                    display: 'block',
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: '#64748b',
-                    marginBottom: 8,
-                  }}
-                >
+                <label htmlFor="helpWith" className="block unica-text text-[13px] font-medium text-slate-500 mb-2">
                   How Can We Help? *
                 </label>
                 <select
@@ -448,21 +285,10 @@ export default function Contact() {
                   required
                   value={formData.helpWith}
                   onChange={handleChange}
+                  className="w-full py-3 text-[15px] unica-text border-0 border-b border-slate-200 outline-none transition-colors bg-transparent cursor-pointer focus:border-green-500"
                   style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    fontSize: 15,
-                    fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
                     color: formData.helpWith ? '#0f172a' : '#94a3b8',
-                    border: 'none',
-                    borderBottom: '1px solid #e2e8f0',
-                    outline: 'none',
-                    transition: 'border-color 0.2s',
-                    background: 'transparent',
-                    cursor: 'pointer',
                   }}
-                  onFocus={(e) => (e.target.style.borderBottomColor = '#22c55e')}
-                  onBlur={(e) => (e.target.style.borderBottomColor = '#e2e8f0')}
                 >
                   <option value="" disabled>Select options</option>
                   <option value="meeting">Schedule a 30-minute meeting</option>
@@ -476,30 +302,7 @@ export default function Contact() {
               {/* Submit Button */}
               <button
                 type="submit"
-                style={{
-                  width: '100%',
-                  padding: '16px 32px',
-                  marginTop: 16,
-                  fontSize: 13,
-                  fontFamily: '"Haas Unica", "Helvetica Neue", sans-serif',
-                  fontWeight: 600,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  color: '#94a3b8',
-                  background: '#f1f5f9',
-                  border: 'none',
-                  borderRadius: 6,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#e2e8f0';
-                  e.currentTarget.style.color = '#475569';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#f1f5f9';
-                  e.currentTarget.style.color = '#94a3b8';
-                }}
+                className="w-full px-8 py-4 mt-4 text-[13px] unica-text font-semibold tracking-wider uppercase text-slate-400 bg-slate-100 border-0 rounded-md cursor-pointer transition-all hover:bg-slate-200 hover:text-slate-600"
               >
                 Submit
               </button>

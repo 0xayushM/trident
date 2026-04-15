@@ -376,22 +376,8 @@ function MobileKeyPoints() {
         {/* Navigation arrows */}
         <button
           onClick={() => goTo(activeIndex - 1)}
+          className="absolute bottom-5 left-4 w-11 h-11 rounded-[10px] border border-white/30 bg-white/90 text-gray-900 text-xl cursor-pointer flex items-center justify-center transition-opacity"
           style={{
-            position: 'absolute',
-            bottom: 20,
-            right: 70,
-            width: 44,
-            height: 44,
-            borderRadius: 10,
-            border: '1px solid rgba(255,255,255,0.3)',
-            background: 'rgba(255,255,255,0.15)',
-            backdropFilter: 'blur(8px)',
-            color: '#fff',
-            fontSize: 20,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             opacity: activeIndex === 0 ? 0.3 : 1,
           }}
         >
@@ -399,21 +385,8 @@ function MobileKeyPoints() {
         </button>
         <button
           onClick={() => goTo(activeIndex + 1)}
+          className="absolute bottom-5 right-4 w-11 h-11 rounded-[10px] border border-white/30 bg-white/90 text-gray-900 text-xl cursor-pointer flex items-center justify-center transition-opacity"
           style={{
-            position: 'absolute',
-            bottom: 20,
-            right: 16,
-            width: 44,
-            height: 44,
-            borderRadius: 10,
-            border: '1px solid rgba(255,255,255,0.3)',
-            background: 'rgba(255,255,255,0.9)',
-            color: '#1a1a1a',
-            fontSize: 20,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             opacity: activeIndex === keypointsData.cards.length - 1 ? 0.3 : 1,
           }}
         >
@@ -422,25 +395,15 @@ function MobileKeyPoints() {
       </div>
 
       {/* Number indicators */}
-      <div style={{
-        display: 'flex',
-        gap: 20,
-        padding: '20px 24px 12px',
-      }}>
+      <div className="flex gap-5 px-6 pt-5 pb-3">
         {keypointsData.cards.map((card, index) => (
           <button
             key={card.id}
             onClick={() => goTo(index)}
+            className="font-mono text-[13px] bg-transparent border-0 p-0 cursor-pointer transition-colors duration-300"
             style={{
-              fontFamily: 'monospace',
-              fontSize: 13,
               color: index === activeIndex ? '#1a1a1a' : '#c0c0c0',
               fontWeight: index === activeIndex ? 600 : 400,
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
-              transition: 'color 0.3s ease',
             }}
           >
             {String(index + 1).padStart(2, '0')}
@@ -451,22 +414,12 @@ function MobileKeyPoints() {
       {/* Horizontal scrolling titles with animated text */}
       <div
         ref={textScrollRef}
-        style={{
-          display: 'flex',
-          overflowX: 'hidden',
-          scrollSnapType: 'x mandatory',
-          padding: '0 24px',
-        }}
+        className="flex overflow-x-hidden snap-x snap-mandatory px-6"
       >
         {keypointsData.cards.map((card, index) => (
           <div
             key={card.id}
-            style={{
-              minWidth: '100%',
-              scrollSnapAlign: 'start',
-              paddingRight: 24,
-              boxSizing: 'border-box',
-            }}
+            className="min-w-full snap-start pr-6 box-border"
           >
             <MobileAnimatedTitle
               title={card.title}
@@ -477,23 +430,13 @@ function MobileKeyPoints() {
       </div>
 
       {/* Progress bar */}
-      <div style={{
-        margin: '20px 24px 32px',
-        height: 2,
-        background: '#e5e5e5',
-        borderRadius: 1,
-        position: 'relative',
-      }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          height: '100%',
-          width: `${((activeIndex + 1) / keypointsData.cards.length) * 100}%`,
-          background: '#1a1a1a',
-          borderRadius: 1,
-          transition: 'width 0.4s ease',
-        }} />
+      <div className="mx-6 my-5 mb-8 h-0.5 bg-gray-200 rounded-sm relative">
+        <div 
+          className="absolute top-0 left-0 h-full bg-gray-900 rounded-sm transition-all duration-400 ease-out"
+          style={{
+            width: `${((activeIndex + 1) / keypointsData.cards.length) * 100}%`,
+          }}
+        />
       </div>
     </section>
   );
@@ -544,24 +487,18 @@ function DesktopKeyPoints() {
     <section
       ref={containerRef}
       aria-label="Key Points"
+      className="w-full bg-white relative"
       style={{
-        width: '100%',
         height: sectionHeight,
-        background: '#ffffff',
-        position: 'relative',
       }}
     >
-      <div style={{
-        position: 'sticky',
-        top: 0,
-        height: '100vh',
-        padding: 'clamp(60px, 8vw, 120px) clamp(24px, 6vw, 96px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 'clamp(40px, 6vw, 96px)',
-        boxSizing: 'border-box',
-      }}>
+      <div 
+        className="sticky top-0 h-screen flex items-center justify-center box-border"
+        style={{
+          padding: 'clamp(60px, 8vw, 120px) clamp(24px, 6vw, 96px)',
+          gap: 'clamp(40px, 6vw, 96px)',
+        }}
+      >
         {/* ── LEFT: clipped card with video ── */}
         <YardCard
           videoIndex={activeIndex}
@@ -569,32 +506,14 @@ function DesktopKeyPoints() {
         />
 
         {/* ── RIGHT: text content ── */}
-        <div style={{
-          flex: 1,
-          maxWidth: 560,
-          position: 'relative',
-          alignSelf: 'stretch',
-        }}>
+        <div className="flex-1 max-w-[560px] relative self-stretch">
           {/* Fixed counter */}
-          <span style={{
-            fontFamily: 'monospace',
-            fontSize: 11,
-            color: '#999',
-            letterSpacing: '0.06em',
-            position: 'absolute',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            marginLeft: -30,
-          }}>
+          <span className="font-mono text-[11px] text-gray-400 tracking-wider absolute top-1/2 -translate-y-1/2 -ml-[30px]">
             {String(activeIndex + 1).padStart(2, '0')}
           </span>
 
           {/* Scrolling text column */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            overflow: 'hidden',
-          }}>
+          <div className="absolute inset-0 overflow-hidden">
             <div
               style={{
                 transform: `translateY(calc(30vh - ${(activeIndex + progress) * 40}vh))`,
@@ -614,21 +533,13 @@ function DesktopKeyPoints() {
                 return (
                   <div
                     key={card.id}
-                    style={{
-                      height: '40vh',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                    }}
+                    className="h-[40vh] flex flex-col justify-center"
                   >
                     <h2
+                      className="font-medium tracking-tight leading-tight m-0"
                       style={{
                         fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
                         fontSize: 'clamp(28px, 3.2vw, 48px)',
-                        fontWeight: 500,
-                        letterSpacing: '-0.03em',
-                        lineHeight: 1.15,
-                        margin: 0,
                       }}
                     >
                       {chars.map((char, charIndex) => {

@@ -47,7 +47,7 @@ export default function PhotoCard({ src, name, flip = false }: PhotoCardProps) {
 
   return (
     <>
-      <svg width={0} height={0} aria-hidden style={{ position: 'absolute', overflow: 'hidden' }}>
+      <svg width={0} height={0} aria-hidden className="absolute overflow-hidden">
         <defs>
           <clipPath id={clipId} clipPathUnits="userSpaceOnUse">
             <path d={path} />
@@ -57,14 +57,11 @@ export default function PhotoCard({ src, name, flip = false }: PhotoCardProps) {
 
       <div
         ref={divRef}
+        className="flex-shrink-0 relative bg-[#0b0d11] overflow-hidden"
         style={{
           width: 'clamp(360px, 42vw, 560px)',
           height: 'clamp(340px, 60vh, 680px)',
-          flexShrink: 0,
-          position: 'relative',
-          background: '#0b0d11',
           clipPath: path ? `url(#${clipId})` : undefined,
-          overflow: 'hidden',
           transform: flip ? 'scaleX(-1)' : undefined,
         }}
       >
@@ -77,9 +74,8 @@ export default function PhotoCard({ src, name, flip = false }: PhotoCardProps) {
           sizes="(max-width: 768px) 90vw, 42vw"
         />
         <div
+          className="absolute inset-0"
           style={{
-            position: 'absolute',
-            inset: 0,
             background: 'linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 50%)',
           }}
         />

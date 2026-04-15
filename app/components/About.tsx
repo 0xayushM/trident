@@ -51,7 +51,14 @@ export default function About() {
     : `rgba(255,255,255,0.5)`;
 
   return (
-    <section ref={containerRef} className="relative h-screen" style={{ height: '400vh', backgroundColor: colorP > 0.5 ? 'white' : 'black' }}>
+    <section 
+      ref={containerRef} 
+      className="relative"
+      style={{ 
+        height: '400vh', 
+        backgroundColor: colorP > 0.5 ? 'white' : 'black' 
+      }}
+    >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Background video */}
         <video
@@ -69,7 +76,7 @@ export default function About() {
 
         {/* Dark overlay */}
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 transition-colors duration-1000"
           style={{ backgroundColor: `rgba(0,0,0,${0.6 * (1 - colorP)})` }}
         />
 

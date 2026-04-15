@@ -57,28 +57,24 @@ function MobileTestimonials() {
           {/* Background image */}
           <div className="absolute inset-0 z-0">
             <Image src={t.image} fill className="object-cover" alt="" />
-            <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.62)' }} />
+            <div className="absolute inset-0 bg-black/[0.62]" />
           </div>
 
           <div className="relative z-10 flex flex-col items-center gap-6 max-w-lg">
-            <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: 96, lineHeight: 0.8, fontFamily: 'Georgia,serif' }}>&ldquo;</span>
-            <p className="text-white text-xl font-medium leading-relaxed tracking-tight"
-               style={{ marginTop: -16 }}>
+            <span className="text-white/25 text-[96px] leading-[0.8]" style={{ fontFamily: 'Georgia,serif' }}>&ldquo;</span>
+            <p className="text-white text-xl font-medium leading-relaxed tracking-tight -mt-4">
               {t.quote}
             </p>
-            <div style={{ width: 40, height: 1, background: 'rgba(255,255,255,0.25)' }} />
+            <div className="w-10 h-px bg-white/25" />
             <div>
               <p className="text-white font-semibold text-sm">{t.name}</p>
-              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12 }}>{t.role}</p>
-              <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 12 }}>{t.company}</p>
+              <p className="text-white/50 text-xs">{t.role}</p>
+              <p className="text-white/35 text-xs">{t.company}</p>
             </div>
           </div>
 
           {/* Slide number */}
-          <span
-            className="absolute bottom-6 right-6 z-10"
-            style={{ fontFamily: 'monospace', fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em' }}
-          >
+          <span className="absolute bottom-6 right-6 z-10 font-mono text-[11px] text-white/30 tracking-wider">
             {String(i + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}
           </span>
         </div>
@@ -151,8 +147,7 @@ function DesktopTestimonials() {
                 <div
                   className="absolute inset-0"
                   style={{
-                    background:
-                      'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%)',
+                    background: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%)',
                   }}
                 />
               </div>
@@ -189,13 +184,11 @@ function DesktopTestimonials() {
                 <div className="flex flex-col items-center text-center gap-6 md:gap-8">
                   {/* Opening quotation mark */}
                   <div
+                    className="text-white/[0.18] leading-[0.85] select-none"
                     style={{
-                      color: 'rgba(255,255,255,0.18)',
                       fontSize: 'clamp(80px, 10vw, 140px)',
-                      lineHeight: 0.85,
                       fontFamily: 'Georgia, "Times New Roman", serif',
                       marginBottom: 'clamp(8px, 1vw, 16px)',
-                      userSelect: 'none',
                     }}
                   >
                     &ldquo;
@@ -214,27 +207,16 @@ function DesktopTestimonials() {
 
                   {/* Author */}
                   <div
+                    className="flex flex-col items-center gap-1 transition-all duration-600 ease-out delay-700"
                     style={{
                       marginTop: 'clamp(28px, 3.5vw, 52px)',
                       opacity: i === textActiveIndex ? 1 : 0,
                       transform: i === textActiveIndex ? 'translateY(0)' : 'translateY(12px)',
-                      transition: 'opacity 0.6s ease 0.7s, transform 0.6s ease 0.7s',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      gap: 4,
                     }}
                   >
                     {/* Divider line */}
-                    <div
-                      style={{
-                        width: 40,
-                        height: 1,
-                        background: 'rgba(255,255,255,0.3)',
-                        marginBottom: 12,
-                      }}
-                    />
-                    <p style={{ color: '#ffffff', fontWeight: 600, fontSize: 15, margin: 0 }}>
+                    <div className="w-10 h-px bg-white/30 mb-3" />
+                    <p className="text-white font-semibold text-[15px] m-0">
                       {t.name}
                     </p>
                     {/* <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, margin: 0 }}>

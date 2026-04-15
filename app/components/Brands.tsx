@@ -101,10 +101,9 @@ function BrandCell({
     >
       {/* Fill spotlight */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none transition-opacity duration-200 ease-out"
         style={{
           opacity: hovered ? 1 : 0,
-          transition: 'opacity 0.2s ease',
           background: `radial-gradient(circle 200px at ${mouse.x}px ${mouse.y}px, rgba(239,68,68,0.10) 0%, transparent 70%)`,
         }}
       ></div>
@@ -263,9 +262,8 @@ export default function Brands({
         {/* Grid */}
         <div
           ref={gridRef}
-          className="relative"
+          className="relative grid"
           style={{
-            display: 'grid',
             gridTemplateColumns: `repeat(${cols}, 1fr)`,
             WebkitMaskImage:
               'linear-gradient(to right,  transparent 0%, black 14%, black 86%, transparent 100%), ' +
