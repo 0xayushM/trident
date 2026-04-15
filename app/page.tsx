@@ -16,6 +16,8 @@ import Team from "./components/Team";
 import Preloader from "./components/Preloader";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ProblemSection from "./components/ProblemSection";
+import QuotePopup from "./components/QuotePopup";
+import TrafficTracker from "./components/TrafficTracker";
 
 export default function Home() {
   const [preloading, setPreloading] = useState(true);
@@ -61,6 +63,10 @@ export default function Home() {
 
       <Footer />
       <WhatsAppButton />
+
+      {/* ── Global overlays ── */}
+      <QuotePopup />
+      <TrafficTracker />
     </div>
   );
 }

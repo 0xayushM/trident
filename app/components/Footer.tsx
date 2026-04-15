@@ -6,123 +6,6 @@ import { useRef, useState, useEffect} from 'react';
 import { useInView } from 'react-intersection-observer';
 import { SplitReveal } from './animations';
 
-function buildDividerPath({
-  tabW   = 300,  // flat horizontal tab at each side edge
-  outerR = 0,   // ① ⑥  wall → tab corner radius
-  diagW  = 50,   // horizontal span of diagonal
-  depth  = 40,   // vertical depth of scoops (animates to 0)
-  entryR = 16,   // ② ⑤  tab → diagonal corner radius
-  innerR = 20,   // ③ ④  diagonal → centre corner radius
-} = {}) {
-  const W = 1440, H = 72;
-  const cy  = H - depth;
-  const len = Math.sqrt(diagW**2 + depth**2);
-  const adx = diagW / len,  ady = depth / len;
-
-  const orC = Math.min(outerR, tabW/2, depth/2);
-  const erC = Math.min(entryR, tabW/2 - orC/2, len/3);
-  const irC = Math.min(innerR, len/3);
-
-  const p = (x: number, y: number) => `${x.toFixed(2)},${y.toFixed(2)}`;
-
-  return [
-    `M 0,0 L ${W},0`,
-    `L ${W},${H-orC}`,
-    `Q ${p(W,H)} ${p(W-orC, H)}`,                             // ① outer right
-    `L ${p(W-tabW+erC, H)}`,
-    `Q ${p(W-tabW,H)} ${p(W-tabW-erC*adx, H-erC*ady)}`,      // ② entry right
-    `L ${p(W-tabW-diagW+irC*adx, cy+irC*ady)}`,
-    `Q ${p(W-tabW-diagW,cy)} ${p(W-tabW-diagW-irC, cy)}`,     // ③ inner right
-    `L ${p(tabW+diagW+irC, cy)}`,
-    `Q ${p(tabW+diagW,cy)} ${p(tabW+diagW-irC*adx, cy+irC*ady)}`, // ④ inner left
-    `L ${p(tabW+erC*adx, H-erC*ady)}`,
-    `Q ${p(tabW,H)} ${p(tabW-erC, H)}`,                       // ⑤ entry left
-    `L ${p(orC, H)}`,
-    `Q ${p(0,H)} ${p(0, H-orC)}`,                             // ⑥ outer left
-    `Z` 
-  ].join(' ');
-}
-
-function TopDivider() {
-  const pathRef = useRef<SVGPathElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-  const [maxDepth, setMaxDepth] = useState(20);
-
-  useEffect(() => {
-    const updateMaxDepth = () => {
-      // Responsive depth: smaller on mobile, larger on desktop
-      const vw = window.innerWidth;
-      if (vw < 768) {
-        setMaxDepth(20); // Mobile
-      } else if (vw < 1024) {
-        setMaxDepth(20); // Tablet
-      } else {
-        setMaxDepth(30); // Desktop
-      }
-    };
-
-    updateMaxDepth();
-    window.addEventListener('resize', updateMaxDepth);
-    return () => window.removeEventListener('resize', updateMaxDepth);
-  }, []);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-
-      const rect = containerRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      const elementTop = rect.top;
-      const triggerPoint = windowHeight; 
-      
-      if (elementTop < triggerPoint) {
-        // Transition over 2x viewport height for slower animation
-        const scrollProgress = Math.max(0, Math.min(1, (triggerPoint - elementTop) / (windowHeight)));
-        setProgress(scrollProgress);
-      } else {
-        setProgress(0);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (!pathRef.current) return;
-    
-    const depth = maxDepth * (1 - progress);
-    const path = buildDividerPath({ depth });
-    pathRef.current.setAttribute('d', path);
-  }, [progress, maxDepth]);
-
-  return (
-    <div 
-      ref={containerRef}
-      className="absolute top-0 left-0 right-0 w-full pointer-events-none bg-white"
-      style={{ height: '72px', transform: 'translateY(-100%)' }}
-    >
-      <svg
-        viewBox="0 0 1440 72"
-        preserveAspectRatio="none"
-        className="w-full h-full block"
-      >
-        <path
-          ref={pathRef}
-          fill="#000000"
-          d={buildDividerPath({ depth: 44 })}
-        />
-      </svg>
-    </div>
-  );
-}
-
 function IconLinkedIn({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -242,7 +125,7 @@ export default function Footer() {
       className="relative w-full overflow-hidden"
       style={{ background: '#060606', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
     >
-      <TopDivider />
+      {/* Contact section is now dark — no top divider needed */}
       {/* Video background with red overlay */}
       <div className="absolute inset-0 z-0">
         <video
@@ -274,28 +157,22 @@ export default function Footer() {
         <span className="font-mono text-[11px] tracking-[0.18em] text-white/35 uppercase mb-6 block">
           Ready to ship?
         </span>
-
-        <h2
-          className="unica-text font-bold tracking-tight leading-tight max-w-[900px] mx-auto mb-13"
-          style={{
-            fontSize: 'clamp(36px, 6.5vw, 96px)',
-          }}
-        >
-          <AnimatedWord delay={200} inView={ctaInView}>Your</AnimatedWord>{' '}
-          <AnimatedWord delay={500} inView={ctaInView}>freight.</AnimatedWord>
+        <h2 className="text-4xl md:text-6xl lg:text-7xl unica-text mb-8 font-medium tracking-tighter leading-[1.02]">
+          <span className="text-slate-100">Better </span>
+          <AnimatedWord delay={300} inView={ctaInView}>sourcing</AnimatedWord>{' '}
+          <AnimatedWord delay={600} inView={ctaInView}>starts</AnimatedWord>
           <br />
-          <AnimatedWord delay={900} inView={ctaInView}>Our</AnimatedWord>{' '}
-          <AnimatedWord delay={1200} inView={ctaInView}>precision.</AnimatedWord>
+          <span className="text-slate-100">with the </span>
+          <AnimatedWord delay={900} inView={ctaInView}>right</AnimatedWord>{' '}
+          <AnimatedWord delay={1100} inView={ctaInView}>broker</AnimatedWord>
+          <span className="text-slate-100">.</span>
         </h2>
 
         <SlideButton
-          href="#contact"
           onClick={(e) => {
             e?.preventDefault();
-            const contactSection = document.getElementById('contact');
-            if (contactSection) {
-              contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            // Trigger the QuotePopup
+            window.dispatchEvent(new Event('openQuotePopup'));
           }}
           variant="outline-white"
           from="left"
@@ -304,7 +181,7 @@ export default function Footer() {
             fontSize:   12,
           } as React.CSSProperties}
         >
-          Start Your Shipment
+          Start A Conversation
         </SlideButton>
       </div>
 
@@ -346,7 +223,10 @@ export default function Footer() {
           />
           
           <p className="text-[11px] text-white/30 mt-2">
-            Kolkata, West Bengal • Est. 2019
+            Room No. 401, 4th Floor, 5 Mullick Street
+          </p>
+          <p className="text-[11px] text-white/30">
+            Kolkata, India - 700007
           </p>
         </div>
         {/* Column 4 — Reach Us */}
@@ -365,14 +245,17 @@ export default function Footer() {
             href="tel:+919431267872"
             className="unica-text text-white text-xl font-semibold tracking-tight no-underline hover:text-red-400 transition-colors"
           >
-            +91 94312 67872
+            +91 9431267872
           </a>
+          <p className="text-[11px] text-white/30 -mt-2">
+            (Anand)
+          </p>
 
           <a
-            href="mailto:info@tridentintl.com"
+            href="mailto:enquiry@tridentintjp.in"
             className="text-white/40 text-[13px] no-underline hover:text-white/60 transition-colors"
           >
-            info@tridentintl.com
+            enquiry@tridentintjp.in
           </a>
 
           {/* Socials */}

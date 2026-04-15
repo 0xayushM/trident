@@ -48,6 +48,38 @@ const problems = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Background Components
+// ─────────────────────────────────────────────────────────────────────────────
+
+function CoordGrid() {
+  return (
+    <div
+      className="absolute inset-0 pointer-events-none"
+      style={{
+        backgroundImage:
+          'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
+        backgroundSize: '72px 72px',
+      }}
+    />
+  );
+}
+
+function RedGlow({ top, right }: { top?: boolean; right?: boolean }) {
+  return (
+    <div
+      className="absolute w-[700px] h-[700px] rounded-full pointer-events-none"
+      style={{
+        background: 'radial-gradient(circle, rgba(239,68,68,0.12) 0%, transparent 68%)',
+        top: top ? '-20%' : 'auto',
+        bottom: top ? 'auto' : '-20%',
+        right: right ? '-15%' : 'auto',
+        left: right ? 'auto' : '-15%',
+      }}
+    />
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Animated Letter & Word Components
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -139,33 +171,24 @@ export default function ProblemSection() {
 
   return (
     <section className="relative w-full bg-[#080808] py-24 md:py-36 overflow-hidden">
-      {/* Fine grain texture */}
-      <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
-        style={{
-          backgroundImage:
-            'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'4\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',
-          backgroundSize: '200px 200px',
-        }}
-      />
-
-      {/* Faint red glow top-left */}
-      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(239,68,68,0.06) 0%, transparent 70%)' }} />
+      {/* Background effects */}
+      <CoordGrid />
+      <RedGlow top right />
+      <RedGlow />
 
       <div className="relative max-w-5xl mx-auto px-6 md:px-12">
         {/* Section label + headline */}
-        <div ref={ref} className="mb-16 md:mb-24">
+        <div ref={ref} className="mb-16 flex flex-col items-center justify-center">
           <motion.p 
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[11px] font-semibold text-red-500 uppercase tracking-[0.18em] mb-5"
+            className="text-[11px] font-normal text-red-500 uppercase tracking-[0.18em] mb-5 text-center"
           >
             The Problem
           </motion.p>
-          <h2 className="unica-text text-3xl md:text-5xl lg:text-[56px] font-semibold
-                          leading-tight tracking-tight max-w-3xl">
+          <h2 className="unica-text text-3xl md:text-5xl lg:text-6xl font-normal text-center
+                          leading-tighter tracking-tighter max-w-5xl">
             <AnimatedWord delay={200} inView={inView}>Importing</AnimatedWord>{' '}
             <AnimatedWord delay={600} inView={inView}>shrimp</AnimatedWord>{' '}
             <AnimatedWord delay={900} inView={inView}>without</AnimatedWord>{' '}
