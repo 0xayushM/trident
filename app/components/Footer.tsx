@@ -149,7 +149,7 @@ export default function Footer() {
           <br />
           <span className="text-slate-100">with the </span>
           <AnimatedWord delay={900} inView={ctaInView}>right</AnimatedWord>{' '}
-          <AnimatedWord delay={1100} inView={ctaInView}>broker</AnimatedWord>
+          <AnimatedWord delay={1100} inView={ctaInView}>partner</AnimatedWord>
           <span className="text-slate-100">.</span>
         </h2>
 
