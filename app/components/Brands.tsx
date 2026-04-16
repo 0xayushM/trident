@@ -367,8 +367,7 @@ export default function Brands({
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-10 md:mt-14 pt-8 border-t border-slate-100"
-        >
+          className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-10 md:mt-14 pt-8 border-t border-slate-100">
           <div className="text-center sm:text-left">
             <p className="unica-text text-slate-800 font-semibold text-lg md:text-xl leading-snug">
               Become part of the family.
