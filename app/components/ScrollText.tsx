@@ -111,7 +111,7 @@ export default function ScrollText({ scrollProgress }: ScrollTextProps) {
   }, [scrollProgress]);
 
   return (
-    <div ref={containerRef} className="absolute inset-x-0 bottom-[150px] md:bottom-[150px] flex justify-center pointer-events-none px-4 md:px-8">
+    <div ref={containerRef} className="absolute inset-x-0 bottom-[180px] md:bottom-[150px] flex justify-center pointer-events-none px-4 md:px-8">
       <div className="text-center max-w-6xl">
         <div 
           className="flex flex-wrap justify-center gap-x-4 gap-y-0 unica-text tracking-tight leading-[0.1]"
