@@ -5,88 +5,39 @@ import { useInView } from 'react-intersection-observer';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
-const STATS = [
+const HERO_STATS = [
   {
-    num:    500,
+    num:     80,
+    suffix:  '%+',
+    label:   'Repeat Buyer Rate',
+    context: 'Buyers keep coming back — because the product is right every time.',
+    delay:   0,
+  },
+  { 
+    num: 500, 
     suffix: '+',
-    label:  'Shipments\nBrokered',
-    fill:   100,   // progress bar fill %
-    icon: (
-      <svg viewBox="0 0 20 20" width={14} height={14} fill="none"
-           stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="6" width="16" height="11" rx="1.5" />
-        <path d="M6 6V4a4 4 0 0 1 8 0v2" />
-        <path d="M2 10h16" />
-      </svg>
-    ),
+    label: 'Shipments Brokered',
+    context: 'We handle the paperwork and background checks so you can focus on growth.',
+    delay: 80,
   },
   {
-    num:    7,
-    suffix: '+',
-    label:  'Years in\nOperation',
-    fill:   70,
-    icon: (
-      <svg viewBox="0 0 20 20" width={14} height={14} fill="none"
-           stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="10" cy="10" r="8" />
-        <path d="M10 5v5l3 3" />
-      </svg>
-    ),
+    num:     100,
+    suffix:  '%',
+    label:   'Documentation Clearance',
+    context: 'Zero FDA holds. Zero customs rejections. Ever.',
+    delay:   120,
   },
-  {
-    num:    100,
-    suffix: '%',
-    label:  'Documentation\nClearance Rate',
-    fill:   100,
-    icon: (
-      <svg viewBox="0 0 20 20" width={14} height={14} fill="none"
-           stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 10l4 4 8-8" />
-      </svg>
-    ),
+];
+
+const SUPPORT_STATS = [
+    {
+    num:     24,
+    suffix:  ' hr',
+    label:   'Quote Turnaround',
+    delay:   240,
   },
-  {
-    num:    80,
-    suffix: '%+',
-    label:  'Repeat\nBuyer Rate',
-    fill:   80,
-    icon: (
-      <svg viewBox="0 0 20 20" width={14} height={14} fill="none"
-           stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 8A7 7 0 1 1 9.4 3.1" />
-        <path d="M17 3v5h-5" />
-      </svg>
-    ),
-  },
-  {
-    num:    50,
-    suffix: '+',
-    label:  'Certified\nSuppliers',
-    fill:   50,
-    icon: (
-      <svg viewBox="0 0 20 20" width={14} height={14} fill="none"
-           stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="7" cy="7" r="3" />
-        <circle cx="14" cy="7" r="3" />
-        <path d="M1 17c0-3 2.7-5 6-5" />
-        <path d="M19 17c0-3-2.7-5-6-5" />
-        <path d="M10 17c0-2.5 2-4 4-4" />
-      </svg>
-    ),
-  },
-  {
-    num:    24,
-    suffix: ' hr',
-    label:  'Quote\nTurnaround',
-    fill:   24,   // out of 24 → full circle
-    icon: (
-      <svg viewBox="0 0 20 20" width={14} height={14} fill="none"
-           stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2H7L2 7v6l5 5h6l5-5V7l-5-5z" />
-        <path d="M10 7v3l2 2" />
-      </svg>
-    ),
-  },
+  { num: 7,   suffix: '+', label: 'Years in Operation',  delay: 160 },
+  { num: 50,  suffix: '+', label: 'Certified Suppliers', delay: 240 },
 ];
 
 // ─── Count-up hook ─────────────────────────────────────────────────────────────
@@ -101,8 +52,7 @@ function useCountUp(target: number, duration: number, active: boolean): number {
 
     const step = (ts: number) => {
       if (!startTime) startTime = ts;
-      const pct = Math.min((ts - startTime) / duration, 1);
-      // cubic ease-out
+      const pct   = Math.min((ts - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - pct, 3);
       setCount(Math.floor(eased * target));
       if (pct < 1) rafRef.current = requestAnimationFrame(step);
@@ -115,13 +65,12 @@ function useCountUp(target: number, duration: number, active: boolean): number {
   return count;
 }
 
-// ─── Single stat ───────────────────────────────────────────────────────────────
+// ─── Hero stat card ────────────────────────────────────────────────────────────
 
-function StatItem({
-  num, suffix, label, fill, icon, delay,
-}: (typeof STATS)[0] & { delay: number }) {
-  const [hovered, setHovered] = useState(false);
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+function HeroStat({
+  num, suffix, label, context, delay,
+}: (typeof HERO_STATS)[0]) {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
   const [fired, setFired] = useState(false);
 
   useEffect(() => {
@@ -131,84 +80,117 @@ function StatItem({
     }
   }, [inView, fired, delay]);
 
-  const count = useCountUp(num, 1100, fired);
+  const count = useCountUp(num, 1400, fired);
 
   return (
     <div
       ref={ref}
-      className="group relative flex flex-col items-center gap-0 cursor-default select-none
-                 px-2 py-5 md:py-7 transition-all duration-300"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className="flex flex-col items-center text-center px-6 py-8 md:py-10 relative group"
+      style={{
+        opacity:    fired ? 1 : 0,
+        transform:  fired ? 'translateY(0)' : 'translateY(16px)',
+        transition: 'opacity 0.6s ease, transform 0.6s ease',
+      }}
     >
+      {/* Red glow behind number */}
+      <div
+        className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(239,68,68,0.08) 0%, transparent 70%)' }}
+      />
 
       {/* Number */}
-      <div className="flex items-baseline gap-0 leading-none mb-2">
+      <div className="flex items-baseline leading-none mb-3 relative z-10">
         <span
-          className="unica-text font-bold tracking-tight tabular-nums transition-colors duration-300"
-          style={{
-            fontSize:   'clamp(38px, 4.5vw, 60px)',
-            lineHeight: 1,
-            color:      hovered ? '#ef4444' : '#0f172a',
-          }}
+          className="unica-text font-bold tabular-nums text-white"
+          style={{ fontSize: 'clamp(56px, 7vw, 96px)', lineHeight: 1, letterSpacing: '-0.03em' }}
         >
           {count}
         </span>
         <span
-          className="unica-text font-bold tracking-tight transition-colors duration-300"
+          className="unica-text font-bold text-red-500"
           style={{
-            fontSize:   'clamp(22px, 2.6vw, 34px)',
-            lineHeight: 1,
-            color:      '#ef4444',
-            marginLeft: suffix.startsWith(' ') ? '0.25em' : '0.05em',
+            fontSize:    'clamp(32px, 4vw, 54px)',
+            lineHeight:  1,
+            marginLeft:  suffix.startsWith(' ') ? '0.2em' : '0.04em',
+            letterSpacing: '-0.02em',
           }}
         >
           {suffix}
         </span>
       </div>
 
-      {/* Label with icon */}
-      <div className="flex flex-col items-center gap-1.5 mt-1">
-        <span
-          className="font-mono text-center leading-tight transition-colors duration-300"
-          style={{
-            fontSize:      'clamp(9px, 0.85vw, 11px)',
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color:          hovered ? '#64748b' : '#94a3b8',
-            whiteSpace:    'pre-line',
-          }}
-        >
-          {label}
-        </span>
-        <span
-          className="transition-colors duration-300"
-          style={{ color: hovered ? '#ef4444' : '#cbd5e1' }}
-        >
-          {icon}
-        </span>
-      </div>
+      {/* Label */}
+      <p
+        className="font-mono text-white uppercase tracking-[0.18em] mb-3 relative z-10"
+        style={{ fontSize: 'clamp(9px, 0.9vw, 11px)' }}
+      >
+        {label}
+      </p>
 
-      {/* Bottom hover accent */}
+      {/* Red rule */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-red-500 transition-all duration-300"
-        style={{ width: hovered ? '40px' : '0px' }}
+        className="h-px bg-red-500/50 mb-3 relative z-10 transition-all duration-500"
+        style={{ width: fired ? '32px' : '0px' }}
       />
+
+      {/* Context line */}
+      <p
+        className="text-white/35 leading-relaxed relative z-10 max-w-[220px]"
+        style={{ fontSize: 'clamp(11px, 0.85vw, 13px)' }}
+      >
+        {context}
+      </p>
     </div>
   );
 }
 
-// ─── Divider between items ─────────────────────────────────────────────────────
+// ─── Support stat ──────────────────────────────────────────────────────────────
 
-function Slash() {
+function SupportStat({
+  num, suffix, label, delay,
+}: (typeof SUPPORT_STATS)[0]) {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
+  const [fired, setFired] = useState(false);
+
+  useEffect(() => {
+    if (inView && !fired) {
+      const t = setTimeout(() => setFired(true), delay);
+      return () => clearTimeout(t);
+    }
+  }, [inView, fired, delay]);
+
+  const count = useCountUp(num, 1200, fired);
+
   return (
-    <div className="hidden md:flex items-center justify-center flex-shrink-0 self-stretch py-4">
-      <span
-        className="unica-text text-slate-200 font-light select-none"
-        style={{ fontSize: 'clamp(24px, 3vw, 40px)', lineHeight: 1 }}
+    <div
+      ref={ref}
+      className="flex flex-col items-center text-center px-4 py-6 md:py-8"
+      style={{
+        opacity:    fired ? 1 : 0,
+        transform:  fired ? 'translateY(0)' : 'translateY(10px)',
+        transition: 'opacity 0.5s ease, transform 0.5s ease',
+      }}
+    >
+      <div className="flex items-baseline leading-none mb-2">
+        <span
+          className="unica-text font-bold text-white/80 tabular-nums"
+          style={{ fontSize: 'clamp(36px, 4.5vw, 56px)', lineHeight: 1, letterSpacing: '-0.02em' }}
+        >
+          {count}
+        </span>
+        <span
+          className="unica-text font-bold text-red-500"
+          style={{ fontSize: 'clamp(22px, 2.8vw, 34px)', lineHeight: 1, marginLeft: '0.05em' }}
+        >
+          {suffix}
+        </span>
+      </div>
+      <p
+        className="font-mono text-white/35 uppercase tracking-[0.16em]"
+        style={{ fontSize: 'clamp(9px, 0.8vw, 11px)' }}
       >
-        /
-      </span>
+        {label}
+      </p>
     </div>
   );
 }
@@ -217,27 +199,48 @@ function Slash() {
 
 export default function StatsBar() {
   return (
-    <div className="w-full bg-white border-y border-slate-100">
-      <div className="max-w-7xl mx-auto px-4 md:px-10">
-        {/* Desktop: single row with slash dividers */}
-        <div className="hidden md:flex items-stretch">
-          {STATS.map((stat, i) => (
-            <div key={stat.label} className="flex items-stretch flex-1 min-w-0">
-              <div className="flex-1 min-w-0">
-                <StatItem {...stat} delay={i * 80} />
-              </div>
-              {i < STATS.length - 1 && <Slash />}
-            </div>
-          ))}
-        </div>
+    <div className="relative w-full overflow-hidden" style={{ background: '#080808' }}>
 
-        {/* Mobile: 3×2 grid */}
-        <div className="grid grid-cols-3 md:hidden divide-x divide-y divide-slate-100">
-          {STATS.map((stat, i) => (
-            <StatItem key={stat.label} {...stat} delay={i * 80} />
+      {/* Coordinate grid */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+        }}
+      />
+
+      {/* Eyebrow */}
+      <div className="relative z-10 flex justify-center pt-12 pb-2">
+        <span className="font-mono text-[10px] text-red-500 tracking-[0.28em] uppercase">
+          Proven Track Record
+        </span>
+      </div>
+
+      {/* ── Hero stats row ── */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/8">
+          {HERO_STATS.map(s => (
+            <HeroStat key={s.label} {...s} />
           ))}
         </div>
       </div>
+
+      {/* Divider */}
+      <div className="relative z-10 mx-auto max-w-5xl px-4">
+        <div className="h-px bg-white/8" />
+      </div>
+
+      {/* ── Support stats row ── */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 pb-10">
+        <div className="grid grid-cols-3 divide-x divide-white/8">
+          {SUPPORT_STATS.map(s => (
+            <SupportStat key={s.label} {...s} />
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 }

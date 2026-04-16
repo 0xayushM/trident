@@ -104,7 +104,7 @@ function TopDivider() {
   return (
     <div 
       ref={containerRef}
-      className="absolute top-0 left-0 right-0 w-full pointer-events-none bg-white"
+      className="absolute top-0 left-0 right-0 w-full pointer-events-none"
       style={{ height: '40px', transform: 'translateY(-100%)', zIndex: 1 }}
     >
       <svg
