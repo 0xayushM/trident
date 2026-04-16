@@ -2,6 +2,10 @@
 
 import SlideButton from './ui/SlideButton';
 
+const openQuotePopup = () => {
+  window.dispatchEvent(new Event('openQuotePopup'));
+};
+
 const scrollToContact = () => {
   const el = document.getElementById('contact');
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -14,10 +18,9 @@ export default function HeroOverlays() {
       <div className="absolute bottom-10 left-6 md:bottom-14 md:left-12 z-10">
         <div className="flex flex-col sm:flex-row gap-3">
 
-          {/* Primary CTA — red slide */}
+          {/* Primary CTA — fires quote popup */}
           <SlideButton
-            onClick={scrollToContact}
-            href="#contact"
+            onClick={openQuotePopup}
             variant="solid-red"
             from="left"
             style={{

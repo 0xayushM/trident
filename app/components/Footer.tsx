@@ -155,7 +155,7 @@ export default function Footer() {
         }}
       >
         <span className="font-mono text-[11px] tracking-[0.18em] text-white/35 uppercase mb-6 block">
-          Ready to ship?
+          Ready to source?
         </span>
         <h2 className="text-4xl md:text-6xl lg:text-7xl unica-text mb-8 font-medium tracking-tighter leading-[1.02]">
           <span className="text-slate-100">Better </span>
@@ -236,7 +236,7 @@ export default function Footer() {
           </p>
 
           <SplitReveal
-            text="Ready to move your freight?"
+            text="Ready to source your next shipment?"
             active={brandInView}
             className="text-white/55 text-[13px] leading-relaxed"
           />
@@ -247,10 +247,6 @@ export default function Footer() {
           >
             +91 9431267872
           </a>
-          <p className="text-[11px] text-white/30 -mt-2">
-            (Anand)
-          </p>
-
           <a
             href="mailto:enquiry@tridentintjp.in"
             className="text-white/40 text-[13px] no-underline hover:text-white/60 transition-colors"

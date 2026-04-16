@@ -20,14 +20,14 @@ export default function BrandStatement() {
         className="max-w-7xl mx-auto text-center"
       >
         <h2 className="text-4xl md:text-6xl lg:text-7xl unica-text mb-6 font-medium tracking-tighter leading-[0.9]">
-          <span className="text-slate-900">Built by </span>
-          <AnimatedWord delay={500} inView={inView}>industry</AnimatedWord>{" "}
-          <AnimatedWord delay={500} inView={inView}>leaders</AnimatedWord><br/>
-          <span className="text-slate-900"> who want a new</span>
+          <span className="text-slate-900">Trusted by </span>
+          <AnimatedWord delay={500} inView={inView}>seafood</AnimatedWord>{" "}
+          <AnimatedWord delay={500} inView={inView}>buyers</AnimatedWord><br/>
+          <span className="text-slate-900"> who demand a new</span>
           <br/>
-          <AnimatedWord delay={800} inView={inView}>industry</AnimatedWord>{" "}
-          <AnimatedWord delay={1100} inView={inView}>standard</AnimatedWord>
-          <span className="text-slate-900"> in shipping.</span>
+          <AnimatedWord delay={800} inView={inView}>standard</AnimatedWord>{" "}
+          <AnimatedWord delay={1100} inView={inView}>in</AnimatedWord>{" "}
+          <AnimatedWord delay={1300} inView={inView}>sourcing.</AnimatedWord>
         </h2>
       </motion.div>
     </section>

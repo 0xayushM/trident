@@ -8,16 +8,16 @@ import SlideButton from './ui/SlideButton';
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const OPTIONS = [
-  { id: 'meeting',    num: '01', label: 'Schedule a 30-minute meeting with a freight expert' },
-  { id: 'quote',      num: '02', label: 'Get a custom shipping quote' },
+  { id: 'meeting',    num: '01', label: 'Schedule a 30-minute call with a sourcing specialist' },
+  { id: 'quote',      num: '02', label: 'Get a custom shrimp sourcing quote' },
   { id: 'compliance', num: '03', label: 'Arrange a compliance consultation' },
   { id: 'sourcing',   num: '04', label: 'Set up a supplier sourcing session' },
   { id: 'other',      num: '05', label: 'Something else' },
 ];
 
 const SERVICE_LABELS: Record<string, string> = {
-  meeting:    'Schedule a 30-minute meeting',
-  quote:      'Get a custom shipping quote',
+  meeting:    'Schedule a 30-minute call',
+  quote:      'Get a custom sourcing quote',
   compliance: 'Arrange compliance consultation',
   sourcing:   'Set up supplier sourcing session',
   other:      'Something else',
@@ -86,13 +86,13 @@ function Field({
 }) {
   const [focused, setFocused] = useState(false);
   return (
-    <div>
+    <div className="group flex flex-col gap-2.5">
       <label
         htmlFor={id}
-        className="block font-mono text-[9px] tracking-[0.2em] uppercase mb-2 transition-colors duration-200"
-        style={{ color: focused ? '#ef4444' : 'rgba(255,255,255,0.35)' }}
+        className="block font-mono text-[9px] tracking-[0.22em] uppercase transition-colors duration-200"
+        style={{ color: focused ? '#ef4444' : 'rgba(255,255,255,0.32)' }}
       >
-        {label}{required && <span className="text-red-500 ml-1">*</span>}
+        {label}{required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
       <input
         id={id}
@@ -104,8 +104,12 @@ function Field({
         onChange={e => onChange(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="w-full bg-transparent unica-text text-white text-sm border-b pb-2.5 outline-none placeholder-white/20 transition-colors duration-200"
-        style={{ borderBottomColor: focused ? '#ef4444' : 'rgba(255,255,255,0.12)' }}
+        className="h-14 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 text-base text-white outline-none transition-all duration-200 placeholder:text-white/15 hover:border-white/15 focus:border-red-500/55 focus:bg-white/[0.045] focus:shadow-[0_0_0_4px_rgba(239,68,68,0.08)] autofill-dark"
+        style={{
+          caretColor: '#ffffff',
+          fontFamily: 'Haas Unica, sans-serif',
+          boxShadow: focused ? '0 0 0 1px rgba(239,68,68,0.12) inset' : '0 1px 0 rgba(255,255,255,0.03) inset',
+        }}
       />
     </div>
   );
@@ -279,11 +283,11 @@ export default function Contact() {
               <p className="font-mono text-[9px] text-white/25 tracking-[0.2em] uppercase mb-2">
                 Or reach us directly
               </p>
-              <a href="mailto:sourcing@tridentexim.com"
+              <a href="mailto:enquiry@tridentintjp.in"
                  className="unica-text text-white/50 text-sm hover:text-red-400 transition-colors duration-200">
-                enquiry@tridentintjp.com
+                enquiry@tridentintjp.in
               </a>
-              <a href="https://wa.me/919876543210"
+              <a href="https://wa.me/919431267872"
                  className="unica-text text-white/50 text-sm hover:text-red-400 transition-colors duration-200">
                 +91 94312 67872 (WhatsApp)
               </a>
@@ -429,8 +433,8 @@ export default function Contact() {
                       </svg>
                     </SlideButton>
 
-                    <p className="font-mono text-[9px] text-white/18 text-center tracking-[0.2em] uppercase mt-4">
-                      No spam · Response within 24 hours · Kolkata, India
+                    <p className="font-mono text-[9px] text-white/50 text-center tracking-[0.2em] uppercase mt-4">
+                      Response within 24 hours · Kolkata, India
                     </p>
                   </div>
 
@@ -454,12 +458,12 @@ function HelpSelect({ value, onChange }: { value: string; onChange: (v: string) 
   const [focused, setFocused] = useState(false);
 
   return (
-    <div>
+    <div className="group flex flex-col gap-2.5">
       <label
-        className="block font-mono text-[9px] tracking-[0.2em] uppercase mb-2 transition-colors duration-200"
-        style={{ color: focused ? '#ef4444' : 'rgba(255,255,255,0.35)' }}
+        className="block font-mono text-[9px] tracking-[0.22em] uppercase transition-colors duration-200"
+        style={{ color: focused ? '#ef4444' : 'rgba(255,255,255,0.32)' }}
       >
-        How Can We Help?<span className="text-red-500 ml-1">*</span>
+        How Can We Help?<span className="text-red-500 ml-0.5">*</span>
       </label>
       <div className="relative">
         <select
@@ -468,13 +472,17 @@ function HelpSelect({ value, onChange }: { value: string; onChange: (v: string) 
           onChange={e => onChange(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className="w-full bg-transparent unica-text text-sm border-b pb-2.5 outline-none appearance-none cursor-pointer transition-colors duration-200 pr-6"
+          className="h-14 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 pr-10 text-base outline-none appearance-none cursor-pointer transition-all duration-200 autofill-dark"
           style={{
-            borderBottomColor: focused ? '#ef4444' : 'rgba(255,255,255,0.12)',
-            color: value ? '#ffffff' : 'rgba(255,255,255,0.3)',
+            borderColor: focused ? 'rgba(239,68,68,0.55)' : 'rgba(255,255,255,0.10)',
+            backgroundColor: 'rgba(255,255,255,0.03)',
+            color: value ? '#ffffff' : 'rgba(255,255,255,0.15)',
+            WebkitTextFillColor: value ? '#ffffff' : 'rgba(255,255,255,0.15)',
+            fontFamily: 'Haas Unica, sans-serif',
+            boxShadow: focused ? '0 0 0 4px rgba(239,68,68,0.08)' : '0 1px 0 rgba(255,255,255,0.03) inset',
           }}
         >
-          <option value="" disabled style={{ background: '#0f172a', color: '#94a3b8' }}>
+          <option value="" disabled style={{ background: '#0f172a', color: 'rgba(255,255,255,0.15)' }}>
             Select an option
           </option>
           {OPTIONS.map(opt => (
@@ -485,7 +493,7 @@ function HelpSelect({ value, onChange }: { value: string; onChange: (v: string) 
         </select>
         {/* Custom arrow */}
         <span
-          className="absolute right-0 bottom-3 pointer-events-none transition-colors duration-200"
+          className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none transition-colors duration-200"
           style={{ color: focused ? '#ef4444' : 'rgba(255,255,255,0.3)' }}
         >
           <svg viewBox="0 0 16 16" width={14} height={14} fill="none"

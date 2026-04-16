@@ -35,7 +35,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      'What sets Trident apart is their obsessive attention to quality at the source. They are not just a freight forwarder — they are a genuine strategic partner embedded in our supply chain.',
+      'What sets Trident apart is their obsessive attention to quality at the source. They are not just a trade broker — they are a genuine strategic partner embedded in our supply chain.',
     name: 'Rajan Mehta',
     role: 'Chief Procurement Officer',
     company: 'Gulf Fresh Trading LLC',

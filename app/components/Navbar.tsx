@@ -9,6 +9,10 @@ export default function Navbar({ ready = true }: { ready?: boolean }) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const openQuotePopup = () => {
+    window.dispatchEvent(new Event('openQuotePopup'));
+  };
+
   return (
     <div
       className="fixed top-6 left-0 right-0 z-50 px-4 md:px-8 transition-all duration-1000 ease-out"
@@ -30,26 +34,45 @@ export default function Navbar({ ready = true }: { ready?: boolean }) {
               className="w-8 h-8 md:w-10 md:h-10"
               priority
             />
-            <h1 className="text-lg md:text-xl font-bold text-white unica-text">Trident</h1>
+            <h1 className="text-lg md:text-xl font-bold text-white unica-text" suppressHydrationWarning>Trident International</h1>
           </div>
 
-          {/* Right: Contact — white bg, dark slide fill */}
-          <SlideButton
-            onClick={scrollToContact}
-            from="left"
-            bg="#ffffff"
-            fillColor="#0f172a"
-            textColor="#0f172a"
-            textHover="#ffffff"
-            style={{
-              padding:      '10px 22px',
-              fontSize:     12,
-              borderRadius: 8,
-              letterSpacing:'0.12em',
-            }}
-          >
-            Contact
-          </SlideButton>
+          {/* Right: CTAs */}
+          <div className="flex items-center gap-3">
+            <SlideButton
+              onClick={openQuotePopup}
+              from="left"
+              bg="#ef4444"
+              fillColor="#b91c1c"
+              textColor="#ffffff"
+              textHover="#ffffff"
+              style={{
+                padding:      '10px 22px',
+                fontSize:     12,
+                borderRadius: 8,
+                letterSpacing:'0.12em',
+              }}
+            >
+              Free Quote
+            </SlideButton>
+
+            <SlideButton
+              onClick={scrollToContact}
+              from="left"
+              bg="#ffffff"
+              fillColor="#0f172a"
+              textColor="#0f172a"
+              textHover="#ffffff"
+              style={{
+                padding:      '10px 22px',
+                fontSize:     12,
+                borderRadius: 8,
+                letterSpacing:'0.12em',
+              }}
+            >
+              Contact
+            </SlideButton>
+          </div>
 
         </div>
       </nav>
