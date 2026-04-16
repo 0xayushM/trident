@@ -247,16 +247,47 @@ export default function Tos() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-[100vh] overflow-hidden bg-[#f4f4f2]"
+      className="relative w-full min-h-[100vh] overflow-hidden"
+      style={{ background: '#080808' }}
     >
+      {/* ── Coordinate grid (matches ProblemSection / Contact) ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+        }}
+      />
+
+      {/* ── Red radial glow — centred on the snake path ── */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: '80vw',
+          height: '80vw',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(239,68,68,0.09) 0%, transparent 65%)',
+          top: '25%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}
+      />
+
       {/* ── Sticky heading ── */}
-      <div className="sticky top-0 z-30 flex flex-col items-center pt-10 pb-8 md:pt-16 md:pb-12 pointer-events-none bg-[linear-gradient(to_bottom,#f4f4f2_72%,transparent_100%)]">
+      <div
+        className="sticky top-0 z-30 flex flex-col items-center pt-10 pb-8 md:pt-16 md:pb-12 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, #080808 65%, transparent 100%)' }}
+      >
         <span className="font-mono text-[11px] tracking-[0.16em] text-red-500 font-semibold uppercase mb-2">
           How It Works
         </span>
-        <h2 className="unica-text font-bold tracking-tight text-slate-900 text-3xl md:text-4xl lg:text-5xl xl:text-[52px]">
-          Trail of Shipment
+        <h2 className="unica-text font-bold tracking-tight text-white text-3xl md:text-4xl lg:text-5xl xl:text-[52px]">
+          From Handshake to Port
         </h2>
+        <p className="font-mono text-[11px] text-white/30 tracking-widest mt-2 max-w-xs text-center">
+          Six steps. Zero surprises.
+        </p>
       </div>
 
       {/* ── Full-width aspect-ratio canvas ── */}
@@ -275,7 +306,7 @@ export default function Tos() {
           <path
             d={trailD}
             fill="none"
-            stroke="rgba(0,0,0,0.08)"
+            stroke="rgba(255,255,255,0.06)"
             strokeWidth={42}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -286,7 +317,7 @@ export default function Tos() {
             ref={drawPathRef}
             d={trailD}
             fill="none"
-            stroke="#0f172a"
+            stroke="rgba(255,255,255,0.88)"
             strokeWidth={42}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -300,13 +331,13 @@ export default function Tos() {
                 <circle
                   cx={pt.x} cy={pt.y} r={30}
                   fill="none"
-                  stroke={reached ? '#ef4444' : 'rgba(0,0,0,0.12)'}
+                  stroke={reached ? '#ef4444' : 'rgba(255,255,255,0.15)'}
                   strokeWidth={2.5}
                   style={{ transition: 'stroke 0.4s' }}
                 />
                 <circle
                   cx={pt.x} cy={pt.y} r={17}
-                  fill={reached ? '#ef4444' : 'rgba(0,0,0,0.14)'}
+                  fill={reached ? '#ef4444' : 'rgba(255,255,255,0.10)'}
                   style={{ transition: 'fill 0.4s' }}
                 />
                 <text
@@ -314,7 +345,7 @@ export default function Tos() {
                   textAnchor="middle"
                   fontSize={11}
                   fontWeight={700}
-                  fill={reached ? '#fff' : 'rgba(0,0,0,0.3)'}
+                  fill={reached ? '#fff' : 'rgba(255,255,255,0.3)'}
                   fontFamily='"Haas Unica","Helvetica Neue",sans-serif'
                   style={{ transition: 'fill 0.4s' }}
                 >
@@ -371,14 +402,14 @@ export default function Tos() {
                   <SplitReveal
                     text={step.title}
                     active={reached}
-                    className="unica-text font-bold text-slate-900 leading-tight mb-0.5 text-xs md:text-xl lg:text-2xl"
+                    className="unica-text font-bold text-white leading-tight mb-0.5 text-xs md:text-xl lg:text-2xl"
                   />
 
                   {/* Description */}
                   <SplitReveal
                     text={step.description}
                     active={reached}
-                    className="text-slate-500 leading-snug text-[10px] md:text-sm lg:text-lg tracking-tighter leading-[0.8]"
+                    className="text-white/45 leading-snug text-[10px] md:text-sm lg:text-lg tracking-tighter"
                   />
                 </div>
               </div>
@@ -387,7 +418,34 @@ export default function Tos() {
         })}
       </div>
 
-      <div className="h-[6vh]" />
+      {/* ── CTA strip ── */}
+      <div className="flex flex-col items-center justify-center gap-5 py-16 md:py-20 px-6 text-center border-t border-white/8">
+        <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/30">
+          Ready to run this process for your next order?
+        </p>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <button
+            onClick={() => window.dispatchEvent(new Event('openQuotePopup'))}
+            className="inline-flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white text-[12px] font-mono tracking-[0.12em] uppercase px-8 py-4 rounded-lg transition-colors duration-200"
+            style={{ boxShadow: '0 8px 24px rgba(239,68,68,0.25)' }}
+          >
+            Start My Sourcing
+            <svg viewBox="0 0 20 20" width={14} height={14} fill="none"
+                 stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 10h12M11 5l5 5-5 5" />
+            </svg>
+          </button>
+          <a
+            href="#contact"
+            onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+            className="text-[12px] font-mono tracking-[0.12em] uppercase text-white/30 hover:text-white/60 transition-colors duration-200 underline underline-offset-4"
+          >
+            Or ask a question first
+          </a>
+        </div>
+      </div>
+
+      <div className="h-[4vh]" />
     </section>
   );
 }

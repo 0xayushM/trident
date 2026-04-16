@@ -33,11 +33,11 @@ function Field({
 }) {
   const [focused, setFocused] = useState(false);
   return (
-    <div>
+    <div className="group flex flex-col gap-2.5">
       <label
         htmlFor={id}
-        className="block font-mono text-[9px] tracking-[0.2em] uppercase mb-1.5 transition-colors duration-200"
-        style={{ color: focused ? '#ef4444' : 'rgba(255,255,255,0.35)' }}
+        className="block font-mono text-[9px] tracking-[0.22em] uppercase transition-colors duration-200"
+        style={{ color: focused ? '#ef4444' : 'rgba(255,255,255,0.32)' }}
       >
         {label}{required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
@@ -51,8 +51,12 @@ function Field({
         onChange={e => onChange(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="w-full bg-transparent unica-text text-white text-sm border-b pb-2 outline-none placeholder-white/20 transition-colors duration-200"
-        style={{ borderBottomColor: focused ? '#ef4444' : 'rgba(255,255,255,0.14)' }}
+        className="h-14 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 text-base text-white outline-none transition-all duration-200 placeholder:text-white/15 placeholder:opacity-100 hover:border-white/15 focus:border-red-500/55 focus:bg-white/[0.045] focus:shadow-[0_0_0_4px_rgba(239,68,68,0.08)] autofill-dark"
+        style={{
+          caretColor: '#ffffff',
+          fontFamily: 'Haas Unica, sans-serif',
+          boxShadow: focused ? '0 0 0 1px rgba(239,68,68,0.12) inset' : '0 1px 0 rgba(255,255,255,0.03) inset',
+        }}
       />
     </div>
   );
@@ -88,7 +92,9 @@ export default function QuotePopup() {
   // ── Listen for external trigger ──
   useEffect(() => {
     const handleOpen = () => {
-      console.log('[QuotePopup] Opened via external trigger');
+      setForm(EMPTY);
+      setSubmitted(false);
+      setError('');
       setVisible(true);
     };
     window.addEventListener('openQuotePopup', handleOpen);
@@ -193,7 +199,7 @@ export default function QuotePopup() {
               {/* Close */}
               <button
                 onClick={close}
-                className="absolute top-4 right-4 z-10 w-7 h-7 flex items-center justify-center text-white/30 hover:text-white/70 transition-colors duration-200"
+                className="absolute top-4 right-4 z-20 w-7 h-7 flex items-center justify-center text-white/30 hover:text-white/70 transition-colors duration-200"
                 aria-label="Close"
               >
                 <svg viewBox="0 0 16 16" width={14} height={14} fill="none"
@@ -268,21 +274,21 @@ export default function QuotePopup() {
                         </h2>
                       </div>
 
-                      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                      <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:gap-5">
 
                         {/* Row 1: Name + Email */}
-                        <div className="grid grid-cols-2 gap-4">
-                          <Field id="popup-name" label="Full Name" placeholder="John Doe"
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <Field id="popup-name" label="Full Name" placeholder=""
                                  required value={form.fullName} onChange={set('fullName')} />
-                          <Field id="popup-email" label="Email" type="email" placeholder="name@company.com"
+                          <Field id="popup-email" label="Email" type="email" placeholder=""
                                  required value={form.email} onChange={set('email')} />
                         </div>
 
                         {/* Row 2: Phone + Destination */}
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <Field id="popup-phone" label="Phone / WhatsApp" type="tel"
-                                 placeholder="+1 555 000 0000" value={form.phone} onChange={set('phone')} />
-                          <Field id="popup-dest" label="Destination Country" placeholder="USA"
+                                 placeholder="" value={form.phone} onChange={set('phone')} />
+                          <Field id="popup-dest" label="Destination Country" placeholder=""
                                  required value={form.destination} onChange={set('destination')} />
                         </div>
 
@@ -318,8 +324,8 @@ export default function QuotePopup() {
                               <path d="M4 10h12M11 5l5 5-5 5" />
                             </svg>
                           </SlideButton>
-                          <p className="font-mono text-[8px] text-white/15 text-center tracking-[0.18em] uppercase mt-3">
-                            No spam · Free of charge · Mumbai, India
+                          <p className="font-mono text-[8px] text-white/50 text-center tracking-[0.18em] uppercase mt-3">
+                            Free of charge · Kolkata, India
                           </p>
                         </div>
 

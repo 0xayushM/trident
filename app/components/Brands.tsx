@@ -362,6 +362,33 @@ export default function Brands({
           )}
         </div>
 
+        {/* CTA — Become part of the family */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-10 md:mt-14 pt-8 border-t border-slate-100"
+        >
+          <div className="text-center sm:text-left">
+            <p className="unica-text text-slate-800 font-semibold text-lg md:text-xl leading-snug">
+              Become part of the family.
+            </p>
+            <p className="text-slate-400 text-sm mt-1">
+              Buyers across Europe, Asia, and the Americas trust Trident to source for them.
+            </p>
+          </div>
+          <button
+            onClick={() => window.dispatchEvent(new Event('openQuotePopup'))}
+            className="shrink-0 inline-flex items-center gap-3 bg-slate-900 hover:bg-red-600 text-white text-[11px] font-mono tracking-[0.14em] uppercase px-8 py-4 rounded-lg transition-colors duration-200"
+          >
+            Start Sourcing With Us
+            <svg viewBox="0 0 20 20" width={13} height={13} fill="none"
+                 stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 10h12M11 5l5 5-5 5" />
+            </svg>
+          </button>
+        </motion.div>
+
       </div>
     </section>
   );

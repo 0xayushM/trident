@@ -9,7 +9,7 @@ const STATS = [
   {
     num:    500,
     suffix: '+',
-    label:  'Containers\nDelivered',
+    label:  'Shipments\nBrokered',
     fill:   100,   // progress bar fill %
     icon: (
       <svg viewBox="0 0 20 20" width={14} height={14} fill="none"

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { SplitReveal } from './animations';
+import SlideButton from './ui/SlideButton';
 
 const problems = [
   {
@@ -306,7 +307,7 @@ export default function ProblemSection() {
             className="absolute top-0 left-0 h-[1px] w-full bg-gradient-to-r from-red-500/40 via-red-500/60 to-transparent origin-left"
           />
           
-          <div ref={transitionRef}>
+          <div ref={transitionRef} className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <p className="text-xl md:text-2xl lg:text-3xl font-medium leading-snug max-w-2xl">
               <AnimatedWord delay={200} inView={transitionInView}>Trident</AnimatedWord>{' '}
               <span className="text-white/90">was built specifically to </span>
@@ -314,6 +315,21 @@ export default function ProblemSection() {
               <AnimatedWord delay={1200} inView={transitionInView}>all</AnimatedWord>{' '}
               <AnimatedWord delay={1500} inView={transitionInView}>three.</AnimatedWord>
             </p>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={transitionInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 1.8 }}
+              className="shrink-0"
+            >
+              <SlideButton
+                onClick={() => window.dispatchEvent(new Event('openQuotePopup'))}
+                variant="outline-white"
+                from="left"
+                style={{ padding: '14px 32px', fontSize: 12, letterSpacing: '0.12em' }}
+              >
+                Get a Free Quote
+              </SlideButton>
+            </motion.div>
           </div>
         </div>
       </div>
