@@ -64,18 +64,13 @@ export default function TrafficTracker() {
 
     console.log('[TrafficTracker] Sending payload:', payload);
 
-    // Fire-and-forget
-    fetch('/api/track', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload),
-    })
-      .then(res => {
-        console.log('[TrafficTracker] Response:', res.status, res.ok);
-        return res.json();
+    // Send to Dashboard API (fire-and-forget)
+    import('@/app/lib/postToDashboard')
+      .then(({ postToDashboard }) => {
+        return postToDashboard('traffic', payload);
       })
-      .then(data => console.log('[TrafficTracker] Response data:', data))
-      .catch(err => console.error('[TrafficTracker] Error:', err));
+      .then(() => console.log('[TrafficTracker] Successfully sent to dashboard'))
+      .catch(err => console.error('[TrafficTracker] Dashboard error:', err));
   }, []);
 
   return null; // no UI

@@ -125,15 +125,14 @@ export default function QuotePopup() {
     };
 
     try {
-      const res = await fetch('/api/quote', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ ...form, ...metadata }),
-      });
-      if (!res.ok) throw new Error('Failed');
+      // Send to Dashboard API
+      const { postToDashboard } = await import('@/app/lib/postToDashboard');
+      await postToDashboard('quote', { ...form, ...metadata });
+      
       setSubmitted(true);
       sessionStorage.setItem(SESSION_KEY, '1');
-    } catch {
+    } catch (error) {
+      console.error('[QuotePopup] Dashboard error:', error);
       setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);

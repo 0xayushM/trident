@@ -153,14 +153,13 @@ export default function Contact() {
     };
 
     try {
-      const res = await fetch('/api/contact', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ ...formData, ...metadata }),
-      });
-      if (!res.ok) throw new Error('Failed');
+      // Send to Dashboard API
+      const { postToDashboard } = await import('@/app/lib/postToDashboard');
+      await postToDashboard('contact', { ...formData, ...metadata });
+      
       setSubmitted(true);
-    } catch {
+    } catch (error) {
+      console.error('[Contact] Dashboard error:', error);
       setSubmitError('Something went wrong. Please try again or email us directly.');
     } finally {
       setLoading(false);
