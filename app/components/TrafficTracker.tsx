@@ -65,12 +65,17 @@ export default function TrafficTracker() {
     console.log('[TrafficTracker] Sending payload:', payload);
 
     // Send to Dashboard API (fire-and-forget)
+    console.log('[TrafficTracker] Attempting to send to dashboard...');
     import('@/app/lib/postToDashboard')
       .then(({ postToDashboard }) => {
+        console.log('[TrafficTracker] postToDashboard function imported');
         return postToDashboard('traffic', payload);
       })
       .then(() => console.log('[TrafficTracker] Successfully sent to dashboard'))
-      .catch(err => console.error('[TrafficTracker] Dashboard error:', err));
+      .catch(err => {
+        console.error('[TrafficTracker] Dashboard error:', err);
+        console.error('[TrafficTracker] Full error details:', err.stack);
+      });
   }, []);
 
   return null; // no UI

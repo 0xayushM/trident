@@ -13,6 +13,13 @@ export async function postToDashboard(formName: string, data: Record<string, any
   const endpoint = process.env.NEXT_PUBLIC_DASHBOARD_ENDPOINT;
   const apiKey = process.env.NEXT_PUBLIC_DASHBOARD_API_KEY;
 
+  console.log('[Dashboard] Environment check:', {
+    endpoint: endpoint ? 'SET' : 'MISSING',
+    apiKey: apiKey ? 'SET' : 'MISSING',
+    endpointValue: endpoint,
+    apiKeyValue: apiKey?.substring(0, 10) + '...'
+  });
+
   if (!endpoint || !apiKey) {
     console.error('[Dashboard] Missing API credentials');
     throw new Error('Dashboard API not configured');
